@@ -2,7 +2,8 @@ const path = require('path');
 const express = require("express");
 const dotenv  = require("dotenv").config();
 const mongoose = require("mongoose");
-const authRoutes = require('./app/routes/authenticationRoutes');
+const authenticationRoutes = require('./app/routes/authenticationRoutes');
+const driverRegistrationRoutes = require('./app/routes/driverRegistrationRoutes');
 
 const port = process.env.PORT || 5001;
 
@@ -26,7 +27,8 @@ db.once("open", function () {
 });
 
 //API Routes
-app.use('/api/authentication', authRoutes);
+app.use('/api/authentication', authenticationRoutes);
+app.use('/api/driverRegistration', driverRegistrationRoutes);
 
 //app.get("/signup", require("./routes/signup"));
 //console.log("server");

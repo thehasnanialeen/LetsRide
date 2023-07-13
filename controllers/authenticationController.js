@@ -55,4 +55,4 @@ const authenticationController = {
   },
 };
 
-module.exports = authController;
+module.exports = authenticationController;
