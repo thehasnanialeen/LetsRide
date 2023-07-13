@@ -2,6 +2,7 @@ const path = require('path');
 const express = require("express");
 const dotenv  = require("dotenv").config();
 const mongoose = require("mongoose");
+const authRoutes = require('./app/routes/authenticationRoutes');
 
 const port = process.env.PORT || 5001;
 
@@ -24,10 +25,12 @@ db.once("open", function () {
   console.log("Connected successfully");
 });
 
+//API Routes
+app.use('/api/authentication', authRoutes);
 
 //app.get("/signup", require("./routes/signup"));
-console.log("server");
-app.use("/api/addUser", require("./routes/addUser"));
+//console.log("server");
+//app.use("/api/addUser", require("./routes/addUser"));
 
 app.listen(port, () => {
     console.log(`running on port ${port}`);
