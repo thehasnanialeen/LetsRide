@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './logo.png'; // need to add this 
+//import logo from './logo.png'; // need to add this 
 import './App.css'; // need to check for the access 
 
 const Header = () => {
