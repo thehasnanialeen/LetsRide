@@ -7,12 +7,13 @@ const driverRegistrationController = {
       const newDriver = req.body;
 
       // Check if the driver already exists
-      const existingDriver = await Driver.findOne({ userID });
+      const existingDriver = await Driver.findOne({ userID: newDriver.userID });
+
       if (existingDriver) {
         return res.status(400).json({ message: 'Driver already registered' });
       }
 
-      await newDriver.save();
+      await Driver.create(newDriver);
 
       res.status(201).json({ message: 'Driver registered successfully' });
     } catch (error) {

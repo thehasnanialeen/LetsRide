@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   profilePhoto: { type: String, required: true },
   phoneNumber: { type: Number, required: true },
-  role: [],
+  role: [{type: String, enum: ['rider', 'driver', 'admin'], default: 'rider' }],
 });
 
 const User = mongoose.model('User', userSchema);

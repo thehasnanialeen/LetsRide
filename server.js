@@ -4,6 +4,7 @@ const dotenv  = require("dotenv").config();
 const mongoose = require("mongoose");
 const authenticationRoutes = require('./app/routes/authenticationRoutes');
 const driverRegistrationRoutes = require('./app/routes/driverRegistrationRoutes');
+const ratingRoutes = require('./app/routes/ratingRoutes');
 
 const port = process.env.PORT || 5001;
 
@@ -29,6 +30,7 @@ db.once("open", function () {
 //API Routes
 app.use('/api/authentication', authenticationRoutes);
 app.use('/api/driverRegistration', driverRegistrationRoutes);
+app.use('/api/rating', ratingRoutes);
 
 //app.get("/signup", require("./routes/signup"));
 //console.log("server");
