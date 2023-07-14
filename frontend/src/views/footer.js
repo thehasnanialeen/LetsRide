@@ -30,11 +30,6 @@ import {
 const Footer = () => {
   return (
     <Box>
-      <h1 style={{ color: "green", 
-                   textAlign: "center", 
-                   marginTop: "-50px" }}>
-        GeeksforGeeks: A Computer Science Portal for Geeks
-      </h1>
       <Container>
         <Row>
           <Column>
@@ -42,7 +37,7 @@ const Footer = () => {
             <FooterLink href="">Team</FooterLink>
             <FooterLink> Vision </FooterLink>
             <FooterLink> Mission </FooterLink>
-            <FooterLink> Contact: 1800-757-438 </FooterLink>
+            <FooterLink> Contact: 1 800-757-438 </FooterLink>
           </Column>
           <Column>
             <Heading>Corporate</Heading>
@@ -51,42 +46,10 @@ const Footer = () => {
             <FooterLink href="#">Partners</FooterLink>
           </Column>
           <Column>
-            <Heading>Contact Us</Heading>
-            <FooterLink href="#">Uttar Pradesh</FooterLink>
-            <FooterLink href="#">Ahemdabad</FooterLink>
-            <FooterLink href="#">Indore</FooterLink>
-            <FooterLink href="#">Mumbai</FooterLink>
-          </Column>
-          <Column>
-            <Heading>Social Media</Heading>
-            <FooterLink href="#">
-              <i className="fab fa-facebook-f">
-                <span style={{ marginLeft: "10px" }}>
-                  Facebook
-                </span>
-              </i>
-            </FooterLink>
-            <FooterLink href="#">
-              <i className="fab fa-instagram">
-                <span style={{ marginLeft: "10px" }}>
-                  Instagram
-                </span>
-              </i>
-            </FooterLink>
-            <FooterLink href="#">
-              <i className="fab fa-twitter">
-                <span style={{ marginLeft: "10px" }}>
-                  Twitter
-                </span>
-              </i>
-            </FooterLink>
-            <FooterLink href="#">
-              <i className="fab fa-youtube">
-                <span style={{ marginLeft: "10px" }}>
-                  Youtube
-                </span>
-              </i>
-            </FooterLink>
+            <Heading>Socials</Heading>
+            <FooterLink href="#">Facebook</FooterLink>
+            <FooterLink href="#">Instagram</FooterLink>
+            <FooterLink href="#">Twitter</FooterLink>
           </Column>
         </Row>
       </Container>
