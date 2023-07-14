@@ -1,15 +1,15 @@
 import styled from 'styled-components';
    
 export const Box = styled.div`
-  padding: 80px 60px;
-  background: black;
+  padding: 70px 50px;
+  background: green;
   position: absolute;
   bottom: 0;
-  width: 100%;
+  width: 90%;
   
    
   @media (max-width: 1000px) {
-    padding: 70px 30px;
+    padding: 60px 20px;
   }
 `;
    
