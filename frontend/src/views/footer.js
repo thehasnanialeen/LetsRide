@@ -21,12 +21,11 @@
 import React from "react";
 import {
   Box,
-  Container,
-  Row,
+  Container, Row,
   Column,
   FooterLink,
   Heading,
-} from "./FooterStyles";
+} from "./footerstyle";
   
 const Footer = () => {
   return (
@@ -40,16 +39,16 @@ const Footer = () => {
         <Row>
           <Column>
             <Heading>About Us</Heading>
-            <FooterLink href="#">Aim</FooterLink>
-            <FooterLink href="#">Vision</FooterLink>
-            <FooterLink href="#">Testimonials</FooterLink>
+            <FooterLink href="">Team</FooterLink>
+            <FooterLink> Vision </FooterLink>
+            <FooterLink> Mission </FooterLink>
+            <FooterLink> Contact: 1800-757-438 </FooterLink>
           </Column>
           <Column>
-            <Heading>Services</Heading>
-            <FooterLink href="#">Writing</FooterLink>
-            <FooterLink href="#">Internships</FooterLink>
-            <FooterLink href="#">Coding</FooterLink>
-            <FooterLink href="#">Teaching</FooterLink>
+            <Heading>Corporate</Heading>
+            <FooterLink href="#">Careers</FooterLink>
+            <FooterLink href="#">Reports</FooterLink>
+            <FooterLink href="#">Partners</FooterLink>
           </Column>
           <Column>
             <Heading>Contact Us</Heading>
