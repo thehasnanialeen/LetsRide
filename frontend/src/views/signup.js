@@ -1,110 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
+import '../App.css';
 
-function Home() {
+const Signup = () => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    dateOfBirth: '',
+    phoneNumber: '',
+  });
 
-  const { user, token } = isAuthenticated();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+    console.log(formData);
+  };
+
   return (
-      <div >
-          <Nav />
-          <div className="home_main">
-              <ScrollAnimation duration={2}
-                  animateIn="animate__fadeInUp">
-                  <div className="main_content">
-                      Animals can't speak ,<br />
-                      but you can !
-                  </div>
-
-                  <br />
-                  <div className="main_content_followup">Let's make a better world together.</div>
-                  <br />
-                  <br />
-                  {user === undefined ? <>
-                      <NavLink style={{ textDecoration: 'none' }} to="/auth/login"><span className="home_main_btn">Signin</span></NavLink>
-
-                  </> : <>
-                      <NavLink style={{ textDecoration: 'none' }} to="/places"><span className="home_main_btn">Contribute</span></NavLink>
-
-                  </>}
-
-              </ScrollAnimation>
-          </div>
-
-          <div className="section_i">
-              <ScrollAnimation duration={2}
-                  animateIn="animate__fadeInUp">
-                  <div className="section_i_heading">Wait..,</div>
-                  <div className="section_i_heading">But what actual problem is ?</div>
-              </ScrollAnimation>
-              <br />
-              <br />
-              <ScrollAnimation duration={2}
-                  animateIn="animate__fadeInUp">
-                  <div className="section_i_answer">There are many places where animals and birds are found earlier but because of increase in the waste and lack of cleanliness and increased use of plastic , animals are suffering from various diseases and are becoming extinct day by day. And sometimes  NGOs who work for animal welfare are unaware of such places in the city .</div>
-              </ScrollAnimation><br />
-              <br />
-              <br />
-              <br />
-              <ScrollAnimation duration={2}
-                  animateIn="animate__fadeInUp">                <div className="section_i_heading">How we tend to solve it?</div><br />
-              </ScrollAnimation>
-              <br />
-              <ScrollAnimation duration={2}
-                  animateIn="animate__fadeInUp">
-                  <div className="section_i_answer"> So the solution which we have proposed will be aiming to create a network of NGOs and citizens of the city to work together to identify those places and make the nearby NGOs aware about those places to make that place better again which is suitable for the living habitat of that area.</div>
-              </ScrollAnimation> </div>
-          <div>
-              <ScrollAnimation duration={2}
-                  animateIn="animate__fadeInUp">
-                  <div className="section_heading"> You can </div>
-              </ScrollAnimation>
-              <ScrollAnimation duration={2}
-                  animateIn="animate__fadeInUp">
-                  <div className="cardsContainer">
-                      <div className="card">
-                          <div className="card_heading">You can support NGO</div>
-                      </div>
-
-                      <div className="card">
-                          <div className="card_heading">You can directly contact NGO for help</div>
-                      </div>
-
-                      <div className="card">
-                          <div className="card_heading">You can yourself contribute to society</div>
-                      </div>
-
-                  </div>
-              </ScrollAnimation>
-              <div>
-                  <ScrollAnimation duration={2}
-                      animateIn="animate__fadeInUp">
-                      <div className="section_heading"> Contact </div>
-
-                      <br />
-                      <br />
-                      <br />
-                      <div className="contact_form">
-
-                          <input type="text" className="contact_field" placeholder="name" />
-                          <br />
-                          <br />
-                          <input type="email" className="contact_field" placeholder="email" />
-                          <br />
-                          <br />
-                          <textarea className="" className="contact_area" placeholder="Message" />
-                          <br />
-                          <br />
-                          <div className="auth_btn">Send</div>
-                      </div>
-                  </ScrollAnimation>
-              </div>
-          </div>
-          <br />
-          <br />
-          <Footer />
-          <Outlet />
-
+    <div className="signup-container">
+      <form className="signup-form" onSubmit={handleSubmit}>
+        <h2>Sign Up</h2>
+        <div className="form-field">
+          <label>First Name:</label>
+          <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} />
+        </div> 
+        <div className="form-field">
+          <label>Last Name:</label>
+          <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} />
+        </div>
+        <div className="form-field">
+          <label>Email:</label>
+          <input type="email" name="email" value={formData.email} onChange={handleChange} />
+        </div>
+        <div className="form-field">
+          <label>Password:</label>
+          <input type="password" name="password" value={formData.password} onChange={handleChange} />
+        </div>
+        <div className="form-field">
+          <label>Confirm Password:</label>
+          <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
+        </div>
+        <div className="form-field">
+          <label>Date of Birth:</label>
+          <input type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} />
+        </div>
+        <div className="form-field">
+          <label>Phone No:</label>
+          <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+      <div className="login-option">
+        Already have an account? <a href="#">Login</a>
       </div>
+    </div>
   );
-}
+};
 
-export default Home;
+export default Signup; 

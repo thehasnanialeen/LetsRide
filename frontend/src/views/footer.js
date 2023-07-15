@@ -6,8 +6,7 @@ import {
     faFacebook,
     faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-import './footer.css';
-import Photo from './images/logo.svg';
+import Photo from './LR.png';
 
 const Footer = () => {
     return (

@@ -9,7 +9,7 @@ const Header = () => {
         <img src="LR.png" alt="Logo" className="logo" />
       </div>
       <div className="company-name">Lets Ride</div>
-      <button className="signup-button">Sign Up</button>
+      <button className="signup-button" href >Sign Up</button>
     </header> 
   );
 };
