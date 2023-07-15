@@ -2,10 +2,10 @@
   text-align: center;
 }
 
-.App-logo {
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
+} */
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -410,4 +410,114 @@ footer .footer span a:hover {
 	.about .boxes .box {
 		max-width: 70%;
 	}
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+}
+
+.logo {
+  height: 40px;
+}
+
+.company-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.signup-button {
+  background-color: white;
+  color: green;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+.body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.first-section {
+  display: flex;
+  height: 50%;
+  background-color: green;
+  color: white;
+}
+
+.left-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonial-image {
+  width: 200px;
+  height: 200px;
+}
+
+.right-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.quote {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  display: flex;
+}
+
+.login-button,
+.signup-button {
+  background-color: white;
+  color: green;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.second-section {
+  display: flex;
+  height: 50%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 200px;
+  height: 200px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.vision-container,
+.mission-container {
+  text-align: center;
+}
+
+.vision-container h2,
+.mission-container h2 {
+  margin-bottom: 10px;
 }
