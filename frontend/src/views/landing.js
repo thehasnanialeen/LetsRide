@@ -1,14 +1,18 @@
 import React from 'react';
-import './Body.css'; // assuming you have a separate CSS file for styling
-import logo from './logo.png';
-import testimonialImage from './testimonial.png';
+//import './Body.css'; // assuming you have a separate CSS file for styling
+//import logo from './logo.png';
+//import testimonialImage from './testimonial.png';
+import Header from './header';
+import Footer from './footer';
 
 const Land = () => {
   return (
+    <div>
+      <Header></Header>
     <div className="body">
       <div className="first-section">
         <div className="left-side">
-          <img src={testimonialImage} alt="Testimonial" className="testimonial-image" />
+          <img src="google.ca/photos" alt="Testimonial" className="testimonial-image" />
         </div>
         <div className="right-side">
           <div className="quote">
@@ -21,7 +25,7 @@ const Land = () => {
         </div>
       </div>
       <div className="second-section">
-        <img src={logo} alt="Logo" className="logo" />
+        <img src="google.ca" alt="Logo" className="logo" />
         <div className="container">
           <div className="vision-container">
             <h2>Vision</h2>
@@ -33,6 +37,8 @@ const Land = () => {
           </div>
         </div>
       </div>
+    </div>
+    <Footer></Footer>
     </div>
   );
 };

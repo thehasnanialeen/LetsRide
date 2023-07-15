@@ -19,41 +19,35 @@
 // export default Footer;
 
 import React from "react";
-import {
-  Box,
-  Container, Row,
-  Column,
-  FooterLink,
-  Heading,
-} from "./footerstyle";
+import '../App.css';
   
 const Footer = () => {
   return (
-    <Box>
-      <Container>
-        <Row>
-          <Column>
-            <Heading>About Us</Heading>
-            <FooterLink href="">Team</FooterLink>
-            <FooterLink> Vision </FooterLink>
-            <FooterLink> Mission </FooterLink>
-            <FooterLink> Contact: 1 800-757-438 </FooterLink>
+    <body className="bodyfoot">
+      <Container className="containerfoot">
+        <Row className="rowfoot">
+          <Column className="colfoot">
+            <Heading className="headfoot"> About Us</Heading>
+            <FooterLink className="linkfoot" href="">Team</FooterLink>
+            <FooterLink className="linkfoot"> Vision </FooterLink>
+            <FooterLink className="linkfoot"> Mission </FooterLink>
+            <FooterLink className="linkfoot"> Contact: 1 800-757-438 </FooterLink>
           </Column>
           <Column>
-            <Heading>Corporate</Heading>
-            <FooterLink href="#">Careers</FooterLink>
-            <FooterLink href="#">Reports</FooterLink>
-            <FooterLink href="#">Partners</FooterLink>
+            <Heading className="headfoot">Corporate</Heading>
+            <FooterLink className="linkfoot"  href="#">Careers</FooterLink>
+            <FooterLink className="linkfoot" href="#">Reports</FooterLink>
+            <FooterLink className="linkfoot" href="#">Partners</FooterLink>
           </Column>
           <Column>
-            <Heading>Socials</Heading>
-            <FooterLink href="#">Facebook</FooterLink>
-            <FooterLink href="#">Instagram</FooterLink>
-            <FooterLink href="#">Twitter</FooterLink>
+            <Heading className="headfoot">Socials</Heading>
+            <FooterLink className="linkfoot" href="#">Facebook</FooterLink>
+            <FooterLink className="linkfoot" href="#">Instagram</FooterLink>
+            <FooterLink className="linkfoot" href="#">Twitter</FooterLink>
           </Column>
         </Row>
       </Container>
-    </Box>
+    </body>
   );
 };
 export default Footer;

@@ -1,16 +1,14 @@
 // import logo from './logo.svg';
 import './App.css';
 //import Signup from './views/signup.js';
-import Header from './views/header.js';
-import Footer from './views/footer.js';
 //import Footer from './views/footer.js';
+import Landing from './views/landing.js';  
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-      <Header></Header>
-        <Footer></Footer>
+    <div >
+      <header >
+      <Landing> </Landing>
         
       </header>
     </div>
