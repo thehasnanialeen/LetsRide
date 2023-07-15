@@ -4,7 +4,9 @@ import React from 'react';
 //import testimonialImage from './testimonial.png';
 import Header from './header';
 import Footer from './footer';
-import '../App.css';
+import Photo from '../images/driver1.png'; 
+import '../css/landing.css';
+
 
 const Land = () => {
   return (
@@ -13,11 +15,11 @@ const Land = () => {
     <div className="body">
       <div className="first-section">
         <div className="left-side">
-          <img src="LR.png" alt="Testimonial" className="testimonial-image" />
+          <img src={Photo} alt="Testimonial" className="testimonial-image" />
         </div>
         <div className="right-side">
           <div className="quote">
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          "I absolutely love using Let's Ride app! It's my go-to solution whenever I need to get around quickly and conveniently. The app's user-friendly interface makes booking a ride a breeze, and the drivers are always punctual and professional. With a wide range of vehicle options and transparent pricing, this app has truly transformed my commuting experience. Highly recommended!"
           </div>
           <div className="buttons">
             <button className="login-button">Login</button>
@@ -30,11 +32,11 @@ const Land = () => {
         <div className="container">
           <div className="vision-container">
             <h2>Vision</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p>Transforming transportation through seamless rides and unparalleled convenience. Creating a connected world where transportation is effortless and accessible for all.</p>
           </div>
           <div className="mission-container">
             <h2>Mission</h2>
-            <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p>We strive to redefine the way people commute by offering a seamless, economically efficient, and eco-friendly ride sharing experience.</p>
           </div>
         </div>
       </div>

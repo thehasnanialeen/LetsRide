@@ -6,7 +6,6 @@ import {
     faFacebook,
     faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-import Photo from './LR.png';
 import '../css/footer.css';
 import Photo from '../images/LR.png';
 
@@ -21,7 +20,7 @@ const Footer = () => {
           <div className="item2">
             <span className="copyright">
               <span className="text">©</span>{" "}
-              {new Date().getFullYear()} FarmForward. All Rights Reserved.
+              {new Date().getFullYear()} Let's Ride All Rights Reserved.
             </span>
           </div>
           <div className="social-icons">

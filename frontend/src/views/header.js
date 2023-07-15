@@ -1,6 +1,7 @@
 import React from 'react';
-//import logo from './logo.png'; // need to add this 
-import '../App.css'; // need to check for the access 
+//import logo from './logo.png'; // need to add this  
+import '../css/header.css';
+import Photo from '../images/LR.png';
 
 const Header = () => {
   return ( 
@@ -8,7 +9,7 @@ const Header = () => {
       <div className="logo-container"> 
         <img src="LR.png" alt="Logo" className="logo" />
       </div>
-      <div className="company-name">Lets Ride</div>
+      <div className="company-name">Let's Ride</div>
       <button className="signup-button" href >Sign Up</button>
     </header> 
   );
