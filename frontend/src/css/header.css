@@ -1,0 +1,29 @@
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: green;
+	color: white;
+	padding: 10px 20px;
+  }
+
+  
+.logo {
+	height: 40px;
+  }
+  
+  .company-name {
+	font-size: 20px;
+	font-weight: bold;
+  }
+  
+  .signup-button {
+	background-color: white;
+	color: green;
+	border: none;
+	padding: 10px 20px;
+	font-size: 16px;
+	cursor: pointer;
+  }
+  
