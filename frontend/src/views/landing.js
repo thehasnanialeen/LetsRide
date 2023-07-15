@@ -7,7 +7,7 @@ import Footer from './footer';
 
 const Land = () => {
   return (
-    <div>
+    <>
       <Header></Header>
     <div className="body">
       <div className="first-section">
@@ -39,7 +39,7 @@ const Land = () => {
       </div>
     </div>
     <Footer></Footer>
-    </div>
+    </>
   );
 };
 

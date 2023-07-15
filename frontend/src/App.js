@@ -1,17 +1,16 @@
-// import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 //import Signup from './views/signup.js';
-//import Footer from './views/footer.js';
 import Landing from './views/landing.js';  
 
 function App() {
   return (
-    <div >
-      <header >
-      <Landing> </Landing>
-        
-      </header>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={Landing} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
