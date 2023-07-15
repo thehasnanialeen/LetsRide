@@ -1,4 +1,4 @@
-const Rating = require('../models/Rating');
+const Rating = require('../models/ratingSchema');
 //const User = require('../models/User');
 
 const ratingController = {
@@ -47,4 +47,4 @@ const ratingController = {
 //   },
 };
 
-module.exports = driverRegistrationController;
+module.exports = ratingController;

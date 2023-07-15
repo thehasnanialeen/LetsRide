@@ -2,9 +2,9 @@ const path = require('path');
 const express = require("express");
 const dotenv  = require("dotenv").config();
 const mongoose = require("mongoose");
-const authenticationRoutes = require('./app/routes/authenticationRoutes');
-const driverRegistrationRoutes = require('./app/routes/driverRegistrationRoutes');
-const ratingRoutes = require('./app/routes/ratingRoutes');
+const authenticationRoutes = require('./routes/authenticationRoutes');
+const driverRegistrationRoutes = require('./routes/driverRegistrationRoutes');
+const ratingRoutes = require('./routes/ratingRoutes');
 
 const port = process.env.PORT || 5001;
 
@@ -22,9 +22,9 @@ mongoose.connect(
   );
 
 const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error: "));
+db.on("error", console.error.bind(console, "Database connection error: "));
 db.once("open", function () {
-  console.log("Connected successfully");
+  console.log("Connected successfully to the database");
 });
 
 //API Routes

@@ -1,4 +1,4 @@
-const Driver = require('../models/Driver');
+const Driver = require('../models/driverSchema');
 //const User = require('../models/User');
 
 const driverRegistrationController = {
