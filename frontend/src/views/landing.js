@@ -12,7 +12,7 @@ const Land = () => {
     <div className="body">
       <div className="first-section">
         <div className="left-side">
-          <img src="google.ca/photos" alt="Testimonial" className="testimonial-image" />
+          <img src="LR.png" alt="Testimonial" className="testimonial-image" />
         </div>
         <div className="right-side">
           <div className="quote">
@@ -25,7 +25,7 @@ const Land = () => {
         </div>
       </div>
       <div className="second-section">
-        <img src="google.ca" alt="Logo" className="logo" />
+        <img src="LR.png" alt="Logo" className="logo" />
         <div className="container">
           <div className="vision-container">
             <h2>Vision</h2>
