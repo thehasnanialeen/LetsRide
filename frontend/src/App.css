@@ -1,5 +1,4 @@
 
-
 /**************** Landing page body styling **************/ 
 .body {
   width: 100%;
@@ -84,59 +83,112 @@
 /*************** Styling for footer ********************************/
 /* import styled from 'styled-components'; */
    
-.bodyfoot {
-	padding: 70px 50px;
-	background: green;
-	position: absolute;
-	bottom: 0;
-	width: 90%;
-	padding: 60px 20px;
-	max-width: 1000px
-  };
-	 
-  .containerfoot {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	max-width: 1000px;
-	margin: 0 auto;
-  }; 
-	 
-  .colfoot {
-	display: flex;
-	flex-direction: column;
-	text-align: left;
-	margin-left: 60px;
-  }; 
-	 
-  .rowfoot {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, 
-						   minmax(185px, 1fr));
-	grid-gap: 20px;
-	 
-	@media (max-width: 1000px) {
-	  grid-template-columns: repeat(auto-fill, 
-							 minmax(200px, 1fr));
-	}
+.footer {
+    background-color: #f2f2f2;
+    padding: 20px;
+    text-align: center;
   }
-	 
-  .linkfoot{
-	color: #fff;
-	margin-bottom: 20px;
-	font-size: 18px;
-	text-decoration: none;
-	&:hover {
-		color: black;
-		transition: 200ms ease-in;
-	}
+  
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
   }
-	 
-  .headfoot{
-	font-size: 24px;
-	color: #fff;
-	margin-bottom: 40px;
-	font-weight: bold;
+  
+  .company-info {
+    flex-basis: 100%;
+    margin-top: 10px;
+  }
+  
+  .logo {
+    width: 160px;
+    height: 70px;
+    margin-left: 10px;
+  }
+  
+  .company-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333333;
+  }
+  
+  .item2 {
+    flex-basis: 100%;
+    margin-top: 10px;
+  }
+  
+  .social-icons {
+    flex-basis: 100%;
+    margin-top: 10px;
+  }
+  
+  
+  .icon-link {
+    color: #000000;
+    font-size: 24px;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+  }
+  
+  .icon-link:hover {
+    color: #ff0000;
+  }
+  
+  .text {
+    font-size: 14px;
+    color: #999999;
+    margin-right: 5px;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #bd2424;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header-left img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .company-name {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  .header-middle ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .header-middle li {
+    margin-right: 10px;
+  }
+  
+  .header-middle li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+  }
+  
+  .header-middle li a:hover {
+    color: #000;
+  }
+  
+  .header-right .username {
+    font-size: 16px;
+    font-weight: bold;
   }
   
 /*************** Header styling ***************************/
