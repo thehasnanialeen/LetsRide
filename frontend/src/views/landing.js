@@ -8,7 +8,7 @@ import '../App.css';
 
 const Land = () => {
   return (
-    <div>
+    <>
       <Header></Header>
     <div className="body">
       <div className="first-section">
@@ -40,7 +40,7 @@ const Land = () => {
       </div>
     </div>
     <Footer></Footer>
-    </div>
+    </>
   );
 };
 
