@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import '../App.css';
+import '../css/signup.css';
+import Header from './header';
+import Footer from './footer';
+import Photo from '../images/driver1.jpg'; 
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -24,6 +27,9 @@ const Signup = () => {
   };
 
   return (
+    <body>
+  
+    <Header> </Header>
     <div className="signup-container">
       <form className="signup-form" onSubmit={handleSubmit}>
         <h2>Sign Up</h2>
@@ -58,9 +64,14 @@ const Signup = () => {
         <button type="submit">Submit</button>
       </form>
       <div className="login-option">
-        Already have an account? <a href="#">Login</a>
+        Already have an account? <a href="/login" id='loginlink'>Login</a>
       </div>
     </div>
+    
+    <footer> 
+      <Footer> </Footer>
+    </footer>
+    </body>
   );
 };
 

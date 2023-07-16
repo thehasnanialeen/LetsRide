@@ -23,8 +23,8 @@ const Land = () => {
           "I absolutely love using Let's Ride app! It's my go-to solution whenever I need to get around quickly and conveniently. The app's user-friendly interface makes booking a ride a breeze, and the drivers are always punctual and professional. With a wide range of vehicle options and transparent pricing, this app has truly transformed my commuting experience. Highly recommended!"
           </div>
           <div className="buttons">
-            <button className="login-button">Login</button>
-            <button className="signup-button">Sign Up</button> 
+            <button className="login-button"> <a href="/login"> Login </a></button>
+            <button className="signup-button"> <a href="/signup"> SignUp </a> </button> 
           </div>
         </div>
       </div>
