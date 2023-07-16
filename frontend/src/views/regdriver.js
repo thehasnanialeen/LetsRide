@@ -5,7 +5,7 @@ import Footer from './footer';
 import React, { useState } from 'react';
 import carImage from '../images/drivermoney.png';
 
-const regdriver = () => {
+const Regdriver = () => {
   const [formData, setFormData] = useState({
     licensePhoto: '',
     licenseNumber: '',
@@ -51,8 +51,28 @@ const regdriver = () => {
             <div className="form-field">
               <label>License Expiration Date:</label>
               <input type="date" name="licenseExpiration" value={formData.licenseExpiration} onChange={handleChange} />
-            </div>
+            </div> 
             {/* Add other form fields */}
+            <div className="form-field">
+              <label>Car Registration Photo Attachment:</label>
+              <input type="file" name="carRegistrationPhoto" onChange={handleChange} />
+            </div>
+            <div className="form-field">
+              <label>Car Registration Expiration Date:</label>
+              <input type="date" name="carRegistrationExpiration" value={formData.carRegistrationExpiration} onChange={handleChange} />
+            </div>
+            <div className="form-field">
+              <label>Home Address: </label>
+              <input type="text" name="homeAddress" value={formData.homeAddress} onChange={handleChange}  placeholder='Street, City, Province, Postal'/>
+            </div>
+            <div className="form-field">
+              <label>Car Make:</label>
+              <input type="text" name="carMake" value={formData.carMake} onChange={handleChange}/>
+            </div>
+            <div className="form-field">
+              <label>Car Model:</label>
+              <input type="text" name="carModel" value={formData.carModel} onChange={handleChange}/>
+            </div>
             <div className="form-field">
               <label>Car Type:</label>
               <select name="carType" value={formData.carType} onChange={handleChange}>
@@ -69,7 +89,7 @@ const regdriver = () => {
               <textarea name="additionalFields" value={formData.additionalFields} onChange={handleChange}></textarea>
             </div>
             <div className="form-submit">
-              <button type="submit">Submit</button>
+              <button type="submit"> <a href='/regdrivercon' id='regdriverconlink'>Submit</a></button>
             </div>
           </form>
         </div>
@@ -83,4 +103,4 @@ const regdriver = () => {
   );
 };
 
-export default regdriver;
+export default Regdriver;

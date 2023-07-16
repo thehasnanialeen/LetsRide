@@ -20,15 +20,16 @@ const selectride = () => {
           <form>
             <div className="form-field">
               <label>Pick up location:</label>
-              <input type="text" name="pickupLocation" />
+              <input type="text" name="pickupLocation" placeholder='Street, City, Province, Postal code ' />
             </div>
             <div className="form-field">
               <label>Destination:</label>
-              <input type="text" name="destination" />
+              <input type="text" name="destination"  placeholder='Street, City, Province, Postal code '/>
             </div>
             <div className="form-field">
               <label>Number of Passengers:</label>
               <select name="passengerCount">
+              <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -41,6 +42,7 @@ const selectride = () => {
               <label>Car Type:</label>
               <select name="carType">
                 <option value="hatchback">Hatchback</option>
+                <option value="sedan">Sedan</option>
                 <option value="mini-suv">Mini SUV</option>
                 <option value="suv">SUV</option>
                 <option value="mini-truck">Mini Truck</option>
@@ -60,7 +62,7 @@ const selectride = () => {
             </div>
           </form>
           <div className="register-driver">
-            <button> <a href='/regdriver'></a>Register as a Driver</button>
+            <button> <a href='/regdriver' id='regasdriverlink'>Register as a Driver</a></button>
           </div>
         </div>
       </div>

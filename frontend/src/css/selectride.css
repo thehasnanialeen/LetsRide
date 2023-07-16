@@ -59,3 +59,8 @@
   text-align: center;
   margin-top: 15px;
 }
+
+#regasdriverlink{
+  color: white;
+  text-underline-offset: 0px;
+}
