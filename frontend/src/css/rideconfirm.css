@@ -1,0 +1,82 @@
+/* RideDetails.css */
+
+.ride-details-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    height: 100vh;
+    background-color: white;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .left-column,
+  .right-column {
+    flex: 1;
+    color: white;
+    padding: 20px;
+    background-color: rgb(182, 173, 173);
+    margin: 10px;
+    border-radius: 5px;
+    height: 40%;
+  }
+  
+  .car-image-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .car-image-container img {
+    width: 200px;
+  }
+  
+  .user-details h2 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .ride-info {
+    margin-top: 20px;
+  }
+  
+  .ride-info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .confirm-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .confirm-button button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  #rideconfirmlink{
+    color: white;
+  }
+
+  #rideconfirmhead{
+    justify-content: center;
+    font-weight: 400;
+    line-height: 1.4;
+    font-size: 1.875rem;
+    text-align: center;
+  }
+
+  #carname{
+    justify-content: right;
+    text-align: right;
+  }
+  .answer{
+    justify-content: right;
+    text-align: right;
+  }

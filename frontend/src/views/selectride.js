@@ -58,7 +58,7 @@ const selectride = () => {
               <input type="date" name="pickupDate" />
             </div>
             <div className="form-submit">
-              <button type="submit">Submit</button>
+              <button type="submit"> <a href='/rideconfirm' id='rideconfirmlink'> Submit</a></button>
             </div>
           </form>
           <div className="register-driver">
