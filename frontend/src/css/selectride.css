@@ -1,0 +1,61 @@
+/* RideForm.css */
+
+.ride-form-container {
+  display: flex;
+}
+
+.left-side {
+  flex: 1;
+}
+
+.right-side {
+  flex: 2;
+}
+
+.car-image {
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.form-container h2,
+.form-container h3 {
+  text-align: center;
+}
+
+.form-field {
+  margin-bottom: 15px;
+}
+
+.form-field label {
+  display: block;
+  font-weight: bold;
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-submit button {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.register-driver {
+  text-align: center;
+  margin-top: 15px;
+}

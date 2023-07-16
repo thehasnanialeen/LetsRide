@@ -1,0 +1,61 @@
+/* DriverRegistration.css */
+
+.page-container {
+    display: flex;
+  }
+  
+  .left-side {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .right-side {
+    flex: 1;
+  }
+  
+  .car-image {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f2f2f2;
+  }
+  
+  .form-field {
+    margin-bottom: 15px;
+  }
+  
+  .form-field label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  .form-field input,
+  .form-field textarea,
+  .form-field select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .form-field textarea {
+    resize: vertical;
+  }
+  
+  .form-submit button {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  /* Additional styles as needed */
+  
