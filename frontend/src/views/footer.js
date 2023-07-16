@@ -14,7 +14,7 @@ const Footer = () => {
       <footer className="footer">
         <div className="footer-container">
           <div className="company-info">
-            <img src={Photo} alt="Company Logo" className="logo" />
+            <img src={Photo} alt="Company Logo" className="footlogo" />
             {/* <h3 className="company-name">FastForward</h3> */}
           </div>
           <div className="item2">

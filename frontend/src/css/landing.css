@@ -14,10 +14,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: 20px;
   }
   
   .testimonial-image {
-    width: 200px;
+    width: 350px;
     height: 200px;
   }
   
@@ -30,8 +31,10 @@
   }
   
   .quote {
-    font-size: 20px;
+    font-size: 30px;
     margin-bottom: 20px;
+    font: message-box;
+    padding-top: 40px;
   }
   
   .buttons {
@@ -40,9 +43,10 @@
   
   .login-button,
   .signup-button {
-    background-color: white;
-    color: green;
-    border: none;
+    background-color: #26cd26;
+    color: white;
+    border: black;
+    border-width: 1ch;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -57,9 +61,9 @@
     justify-content: center;
   }
   
-  .logo {
-    width: 200px;
+  .landlogo {
     height: 200px;
+    width: 200px;
   }
   
   .container {
@@ -71,10 +75,14 @@
   .vision-container,
   .mission-container {
     text-align: center;
+    background-color: yellowgreen;
+    border-radius: 50px;
+    border: solid 35px white;
   }
   
   .vision-container h2,
   .mission-container h2 {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    margin-top: 0;
   }
   
