@@ -1,6 +1,5 @@
 
 import React from 'react';
-import './RideForm.css'; // assuming you have a separate CSS file for styling
 import carImage from '../images/tesla.jpg';
 import Header from './header';
 import Footer from './footer';
