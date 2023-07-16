@@ -7,10 +7,17 @@ import Header from './views/header.js';
 
 function App() {
   return (
-    <div >
-      <Landing> </Landing>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={OnboardingScreen} />
+        <Route path="/finance" component={Finance} />
+        <Route exact path="/contact" component={Contact} />
+        <Route exact path="/home" component={Home} />
+        <Route exact path="/tutorials" component={TutorialScreen} />
+        <Route exact path="/equipment" component={EquipmentPage} />
+      </Switch>
     
+    </BrowserRouter>
   );
 }
 

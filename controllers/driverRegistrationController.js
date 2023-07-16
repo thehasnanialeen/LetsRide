@@ -26,7 +26,7 @@ const driverRegistrationController = {
 
       const driverList = await Driver.find({ approvalStatus : {$eq : "waiting"} });
 
-      res.status(200).json({ driverList: driverList });
+      res.status(200).json({ driverList });
     } catch (error) {
       res.status(500).json({ message: 'Error getting drivers list' });
     }
@@ -35,16 +35,18 @@ const driverRegistrationController = {
   setApprovalStatus: async (req, res) => {
     try {
 
-        const driver = await Driver.findOne({ userID });
+        const driver = await Driver.findById(req.body.driverID);
 
         if (!driver) {
             return res.status(400).json({ message: 'Could not find Driver' });
         }
         
-        user.approvalStatus = req.body.approvalStatus;
+        driver.approvalStatus = req.body.approvalStatus; 
+        driver.adminFeedback.push(req.body.adminFeedback);
+
         driver.save();
 
-      res.status(200).json({ dmessage: 'Changed driver status' });
+      res.status(200).json({ message: 'Changed driver status' });
     } catch (error) {
       res.status(500).json({ message: 'Error changing driver status' });
     }

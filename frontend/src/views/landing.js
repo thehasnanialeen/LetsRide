@@ -4,7 +4,7 @@ import React from 'react';
 //import testimonialImage from './testimonial.png';
 import Header from './header';
 import Footer from './footer';
-import Photo from '../images/driver1.png'; 
+import Photo from '../images/driver1.jpg'; 
 import '../css/landing.css';
 
 

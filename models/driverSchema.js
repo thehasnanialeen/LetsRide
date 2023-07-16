@@ -29,7 +29,7 @@ const driverSchema = new mongoose.Schema({
     postalCode: {type: String},
   },
   approvalStatus: {type: String, enum: ['approved', 'waiting', 'rejected'], default: 'waiting' },
-  adminFeedback: {type: String},
+  adminFeedback: [{type: String}],
 });
 
 const Driver = mongoose.model('Driver', driverSchema);
