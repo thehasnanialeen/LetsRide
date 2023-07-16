@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import '../css/login.css'; // assuming you have a separate CSS file for styling
+import Header from './header';
+import Footer from './footer';
+import Photo from '../images/driver1.jpg'; 
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -19,6 +22,8 @@ const Login = () => {
   };
 
   return (
+    <body>
+   <Header> </Header>
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
@@ -31,9 +36,11 @@ const Login = () => {
         <button type="submit">Submit</button>
       </form>
       <div className="signup-option">
-        Don't have an account? <a href="#">Sign Up</a>
+        Don't have an account? <a href="/signup" id='signuplink'>Sign Up</a>
       </div>
     </div>
+    <footer> <Footer> </Footer></footer>
+    </body>
   );
 };
 
