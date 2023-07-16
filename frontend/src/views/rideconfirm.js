@@ -65,7 +65,8 @@ const Rideconfirm = () => {
                         </div>
                     </div>    
                         <div className="confirm-button">
-            <button> <a href='/'></a>Confirm</button>
+            <button> <a href='/conmessage' className='adbuttonlink'> Confirm </a> </button>
+            <button> <a href='/selectride' className='adbuttonlink'> Ignore </a>  </button> 
             </div>
         </div>
             </div>

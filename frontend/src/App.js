@@ -8,6 +8,7 @@ import selectride from './views/selectride';
 import regdriver from './views/regdriver';
 import regdrivercon from './views/regdrivercon';
 import Rideconfirm from './views/rideconfirm';
+import conmessage from './views/conmessage';
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ function App() {
         <Route exact path="/regdriver" component={regdriver} />
         <Route exact path="/regdrivercon" component={regdrivercon} />
         <Route exact path="/rideconfirm" component={Rideconfirm} />
+        <Route exact path="/conmessage" component={conmessage} />
          {/* <Route exact path="/provideride" component={provideride} />  */}
 
       </Switch>

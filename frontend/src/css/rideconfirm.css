@@ -58,6 +58,7 @@
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    margin-right: 50px;
   }
   
   #rideconfirmlink{
@@ -79,4 +80,7 @@
   .answer{
     justify-content: right;
     text-align: right;
+  }
+  .adbuttonlink{
+    color: white;
   }
