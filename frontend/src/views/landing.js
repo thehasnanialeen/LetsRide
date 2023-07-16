@@ -6,6 +6,7 @@ import Header from './header';
 import Footer from './footer';
 import Photo from '../images/driver1.jpg'; 
 import '../css/landing.css';
+import Pic from '../images/LR.png';
 
 
 const Land = () => {
@@ -23,12 +24,12 @@ const Land = () => {
           </div>
           <div className="buttons">
             <button className="login-button">Login</button>
-            <button className="signup-button">Sign Up</button>
+            <button className="signup-button">Sign Up</button> 
           </div>
         </div>
       </div>
       <div className="second-section">
-        <img src="LR.png" alt="Logo" className="logo" />
+        <img src={Pic} alt="Logo" className="landlogo" />
         <div className="container">
           <div className="vision-container">
             <h2>Vision</h2>
