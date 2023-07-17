@@ -11,9 +11,9 @@ const conmessage = () => {
     <div className="page-container">
       <div className="left-side">
         <div className="driver-registration">
-          <h2>Yay! Ride booked </h2>
+          <h2>Wohoo! Ride Posted </h2>
           <p>
-            Your Ride has been confirmed and should arrive at the time shown before. Have a pleasent Ride! 
+            Your Ride has been posted and should recieve attention as soon as users need a ride. We are hopeful you will Have a pleasent Ride! 
           </p>
         </div>
       </div>

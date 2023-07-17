@@ -15,12 +15,12 @@ const selectride = () => {
       </div>
       <div className="right-side">
         <div className="form-container">
-          <h2>Looking for a Ride? - Fill in below</h2>
+          <h2>Looking for a person to share ride with? - Fill in below</h2>
           <h3>Your Ride Information</h3>
           <form>
             <div className="form-field">
-              <label>Pick up location:</label>
-              <input type="text" name="pickupLocation" placeholder='Street, City, Province, Postal code ' />
+              <label>Start location:</label>
+              <input type="text" name="startLocation" placeholder='Street, City, Province, Postal code ' />
             </div>
             <div className="form-field">
               <label>Destination:</label>
@@ -39,30 +39,19 @@ const selectride = () => {
               </select>
             </div>
             <div className="form-field">
-              <label>Car Type:</label>
-              <select name="carType">
-                <option value="hatchback">Hatchback</option>
-                <option value="sedan">Sedan</option>
-                <option value="mini-suv">Mini SUV</option>
-                <option value="suv">SUV</option>
-                <option value="mini-truck">Mini Truck</option>
-                <option value="others">Others</option>
-              </select>
-            </div>
-            <div className="form-field">
-              <label>Pick up time:</label>
+              <label>Start time:</label>
               <input type="time" name="pickupTime" />
             </div>
             <div className="form-field">
-              <label>Pick up date:</label>
+              <label>Start date:</label>
               <input type="date" name="pickupDate" />
             </div>
             <div className="form-submit">
-              <button type="submit"> <a href='/rideconfirm' id='rideconfirmlink'> Submit</a></button>
+              <button type="submit"> <a href='/conmessage' id='rideconfirmlink'> Submit </a></button>
             </div>
           </form>
           <div className="register-driver">
-            <button> <a href='/regdriver' id='regasdriverlink'>Register as a Driver</a></button>
+            <button> <a href='/regdriver' id='regasdriverlink'>Register as a Driver </a></button>
           </div>
         </div>
       </div>
