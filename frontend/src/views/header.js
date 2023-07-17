@@ -10,7 +10,7 @@ const Header = () => {
         <img src={Photo} alt="Logo" className="headlogo" />
       </div>
       <div className="company-name">Let's Ride</div>
-      <button className="signup-button" href >Sign Up</button>
+      <button className="signup-button" > <a href="/signup"> SignUp </a></button>
     </header> 
   );
 };
