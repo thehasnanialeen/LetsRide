@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const ratingSchema = new mongoose.Schema({
-  ride: { type: mongoose.Schema.Types.ObjectId, ref: 'Ride', required: true },
-  reviewByID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  reviewForID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  rideId: { type: mongoose.Schema.Types.ObjectId, ref: 'Ride', required: true },
+  reviewById: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  reviewForId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   ratingValue: { type: Number, required: true },
   reviewByRole: { type: String },
   reviewForRole: { type: String },

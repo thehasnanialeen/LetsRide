@@ -1,5 +1,7 @@
+const mongoose = require('mongoose');
+//const ObjectId = mongoose.Types.ObjectId;
 const Rating = require('../models/ratingSchema');
-//const User = require('../models/User');
+//const User = require('../models/userSchema');
 
 const ratingController = {
   post: async (req, res) => {
@@ -17,14 +19,18 @@ const ratingController = {
   getAvgRating: async (req, res) => {
     try {
 
+      //console.log(req.body.userId);
+
       const avgRating = await Rating.aggregate([
-        { $match : { reviewForID: req.body.userID }},
-        { $group : { avgRating : {$avg: 'ratingValue'} }}
+        { $match: { reviewForId: mongoose.Types.ObjectId('64b3340512477934819cf6d0') }},
+        { $group: { 
+          _id: '$reviewForId',
+          avgUserRating : {$avg: '$ratingValue'}}}
       ]);
 
       res.status(200).json({ message: 'Average Rating retrived successfully', avgRating });
     } catch (error) {
-      res.status(500).json({ message: 'Error getting average rating' });
+      res.status(500).json({ message: 'Error getting average rating', error });
     }
   },
 

@@ -6,7 +6,7 @@ const riderSchema = new mongoose.Schema({
   dropLocation: { type: String },
   pickupTime: { type: Date },
   distance: { type: Number, required: true },
-  numberOfPassengers: { type: Number },
+  numberOfPassengers: { type: Number, max: 5 },
   rideCost: { type: Number },
   rideStatus: { type: String, enum: ['booked', 'requetsed', 'completed'], default: 'requetsed' },
 });

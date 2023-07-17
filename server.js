@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const authenticationRoutes = require('./routes/authenticationRoutes');
 const driverRegistrationRoutes = require('./routes/driverRegistrationRoutes');
 const ratingRoutes = require('./routes/ratingRoutes');
+const rideDetailsRoutes = require('./routes/rideDetailsRoutes');
 
 const port = process.env.PORT || 5001;
 
@@ -31,10 +32,7 @@ db.once("open", function () {
 app.use('/api/authentication', authenticationRoutes);
 app.use('/api/driverRegistration', driverRegistrationRoutes);
 app.use('/api/rating', ratingRoutes);
-
-//app.get("/signup", require("./routes/signup"));
-//console.log("server");
-//app.use("/api/addUser", require("./routes/addUser"));
+app.use('/api/rideDetails', rideDetailsRoutes);
 
 app.listen(port, () => {
     console.log(`running on port ${port}`);

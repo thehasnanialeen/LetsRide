@@ -2,12 +2,17 @@ const mongoose = require('mongoose');
 
 const rideSchema = new mongoose.Schema({
   driverID: { type: mongoose.Schema.Types.ObjectId, ref: 'Driver', required: true },
-  riderIDs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }],
-  totalNoOfPassengers: {type: Number},
-  startTime: { type: Date },
+  riderIDs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  pickupLocation: { type: String, required: true },
+  dropLocation: { type: String, required: true },
+  startTime: { type: Date, required: true },
   endTime: { type: Date },
-  totalFare: { type: Number, required: true },
-  timestamp: { type: Date, default: Date.now }
+  distance: { type: Number },
+  duration: { type: Number },
+  numberOfPassengers: { type: Number, max: 5 },
+  cost: { type: Number },
+  rideStatus: { type: String, enum: ['booked', 'posted', 'cancelled'], default: 'posted' },
+  postTime: { type: Date, default: Date.now, immutable: true }
 });
 
 const Ride = mongoose.model('Ride', rideSchema);
