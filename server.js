@@ -3,10 +3,13 @@ const express = require("express");
 const dotenv  = require("dotenv").config();
 const mongoose = require("mongoose");
 const session = require('express-session');
+
+//Uber Routes
 const passport = require('./controllers/passportConfiguration');
 const authRoutes = require('./routes/uberAuthRoutes');
+const uberApiRoutes = require('./routes/uberApiRoutes');
 
-//Getting Routes
+//App Routes
 const authenticationRoutes = require('./routes/authenticationRoutes');
 const driverRegistrationRoutes = require('./routes/driverRegistrationRoutes');
 const ratingRoutes = require('./routes/ratingRoutes');
@@ -44,6 +47,7 @@ app.use('/api/authentication', authenticationRoutes);
 app.use('/api/driverRegistration', driverRegistrationRoutes);
 app.use('/api/rating', ratingRoutes);
 app.use('/api/rideDetails', rideDetailsRoutes);
+app.use('/api/uber', uberApiRoutes);
 
 app.listen(port, () => {
     console.log(`running on port ${port}`);
