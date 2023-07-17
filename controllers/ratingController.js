@@ -21,14 +21,25 @@ const ratingController = {
 
       //console.log(req.body.userId);
 
+      //const avgRating = await Rating.find({ reviewForId: mongoose.Types.ObjectId('64b3340512477934819cf6d0') });
+
       const avgRating = await Rating.aggregate([
-        { $match: { reviewForId: mongoose.Types.ObjectId('64b3340512477934819cf6d0') }},
+        // { $match: { reviewForId: mongoose.Types.ObjectId('64b3340512477934819cf6d0') }},
         { $group: { 
           _id: '$reviewForId',
           avgUserRating : {$avg: '$ratingValue'}}}
       ]);
 
-      res.status(200).json({ message: 'Average Rating retrived successfully', avgRating });
+      let avgUserRating = 'User does not have any ratings';
+
+      avgRating.forEach(rating => {
+        if(rating._id == req.body.userId)
+        {
+          avgUserRating = rating.avgUserRating;
+        }
+      });
+
+      res.status(200).json({ message: 'Average Rating retrived successfully', avgUserRating });
     } catch (error) {
       res.status(500).json({ message: 'Error getting average rating', error });
     }
