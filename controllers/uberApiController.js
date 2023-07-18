@@ -4,6 +4,7 @@ const uberApiController = {
     priceEstimates: async (req, res) => {
         try {
             const { accessToken } = req.user;
+            console.log(accessToken);
             const response = await axios.get('https://api.uber.com/v1.2/estimates/price', {
               headers: {
                 Authorization: `Bearer ${accessToken}`
@@ -17,7 +18,7 @@ const uberApiController = {
             });
             res.json(response.data.prices);
           } catch (error) {
-            res.status(500).json({ error: 'Error fetching Uber price estimates' });
+            res.status(500).json({ message: 'Error fetching Uber price estimates', error });
           }
     },
 };

@@ -3,6 +3,6 @@ const uberApiController = require('../controllers/uberApiController');
 
 const router = express.Router();
 
-router.get('/price-estimates', uberApiController.priceEstimates);
+router.get('/priceEstimates', uberApiController.priceEstimates);
 
 module.exports = router;
