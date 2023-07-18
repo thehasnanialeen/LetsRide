@@ -9,7 +9,8 @@ import regdriver from './views/regdriver';
 import regdrivercon from './views/regdrivercon';
 import listofrides from './views/listofrides';
 import conmessage from './views/conmessage';
-import reviews from './views/reviews';
+import ratings from './views/ratings';
+import AdminHome from './views/adminhome';
 function App() {
   return (
     <BrowserRouter>
@@ -22,8 +23,9 @@ function App() {
         <Route exact path="/regdrivercon" component={regdrivercon} />
         <Route exact path="/listofrides" component={listofrides} />
         <Route exact path="/conmessage" component={conmessage} />
-        <Route exact path="/reviews" component={reviews} />
+        <Route exact path="/ratings" component={ratings} />
          {/* <Route exact path="/provideride" component={provideride} />  */}
+         <Route exact path="/adminhome" component={AdminHome} />
 
       </Switch>
     </BrowserRouter>

@@ -7,9 +7,16 @@ const Header = () => {
   return ( 
     <header className="header">
       <div className="logo-container"> 
-        <img src={Photo} alt="Logo" className="headlogo" />
+      <a href='/'> 
+        <img src={Photo} alt="Logo" className="headlogo"/>
+      </a>
+        
       </div>
-      <div className="company-name">Let's Ride</div>
+        <div className="company-name">
+          <a href='/'>
+          Let's Ride
+          </a>
+        </div>
       <button className="signup-button" > <a href="/signup"> SignUp </a></button>
     </header> 
   );
