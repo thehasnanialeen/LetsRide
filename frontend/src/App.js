@@ -11,6 +11,8 @@ import Listofrides from './views/listofrides';
 import conmessage from './views/conmessage';
 import ratings from './views/ratings';
 import AdminHome from './views/adminhome';
+import Unregister from './views/unregister';
+import Approval from './views/approval';
 function App() {
   return (
     <BrowserRouter>
@@ -26,6 +28,8 @@ function App() {
         <Route exact path="/ratings" component={ratings} />
          {/* <Route exact path="/provideride" component={provideride} />  */}
          <Route exact path="/adminhome" component={AdminHome} />
+         <Route exact path="/unregister" component={Unregister} />
+         <Route exact path="/approval" component={Approval} />
 
       </Switch>
     </BrowserRouter>

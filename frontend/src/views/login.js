@@ -82,6 +82,9 @@ const Login = () => {
       <div className="signup-option">
         Are you someone looking for a ride? <a href="/listofrides" id='signuplink'> Login Here </a>
       </div>
+      <div className="signup-option">
+        Are you the big shot admin? <a href="/adminhome" id='signuplink'> Login Here </a>
+      </div>
     </div>
     <footer> <Footer> </Footer></footer>
     </>

@@ -1,0 +1,59 @@
+/* driverregistrationrequests.css */
+.driver-registration-requests {
+    padding: 20px;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  .driver-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  input {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+  }
+  
+  button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  button.decline {
+    background-color: red;
+  }
+  
+  button:hover {
+    background-color: darkgreen;
+  }
+  
+  button.decline:hover {
+    background-color: darkred;
+  }
+  
+  button:active {
+    background-color: green;
+  }
+  
+  button.decline:active {
+    background-color: red;
+  }
+  
+  .go-back-button {
+    margin-top: 20px;
+  }
+  
