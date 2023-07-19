@@ -18,7 +18,8 @@ const authenticationController = {
       newUser.password = hashedPassword;
       
       // Save the user to the database
-      await User.create(newUser);
+      let user = await User.create(newUser);
+      console.log(user);
      
       res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {

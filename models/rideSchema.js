@@ -8,7 +8,7 @@ const rideSchema = new mongoose.Schema({
   startTime: { type: Date, required: true },
   endTime: { type: Date },
   distance: { type: Number },
-  duration: { type: Number },
+  duration: { type: String },
   numberOfPassengers: { type: Number, max: 5 },
   cost: { type: Number },
   rideStatus: { type: String, enum: ['booked', 'posted', 'cancelled'], default: 'posted' },

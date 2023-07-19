@@ -2,6 +2,7 @@ const path = require('path');
 const express = require("express");
 const dotenv  = require("dotenv").config();
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 //App Routes
 const authenticationRoutes = require('./routes/authenticationRoutes');
@@ -14,6 +15,9 @@ const port = process.env.PORT || 5001;
 
 const app = express();
 
+app.use(cors({
+  origin: 'http://localhost:3000'
+}))
 //app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.use(express.json());
 

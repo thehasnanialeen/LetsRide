@@ -26,6 +26,7 @@ const rideDetailsController = {
   getRideDetails: async (req, res) => {
     try {
         const ride = await Ride.findById(req.query._id);
+        console.log(ride);
 
         if (!ride) {
             return res.status(400).json({ message: 'Could not find ride' });
