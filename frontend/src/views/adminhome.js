@@ -10,7 +10,7 @@ const Adminhome = () => {
 
   const handleApprovalsClick = () => {
     // Redirect to the Driver registration approvals page (replace '/approvals' with the actual path)
-    history.push('/approvals');
+    history.push('/approval');
   };
 
   const handleUnregisterClick = () => {
