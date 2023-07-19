@@ -3,6 +3,6 @@ const rideDistancePriceController = require('../controllers/rideDistancePriceCon
 
 const router = express.Router();
 
-router.get('/', rideDistancePriceController);
+router.post('/', rideDistancePriceController);
 
 module.exports = router;

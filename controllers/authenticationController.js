@@ -10,7 +10,7 @@ const authenticationController = {
       const existingUser = await User.findOne({ email: newUser.email });
 
       if (existingUser) {
-        return res.status(400).json({ message: 'User already exists' });
+        return res.status(200).json({ message: 'User already exists' });
       }
       
       // Hash the password
@@ -18,7 +18,8 @@ const authenticationController = {
       newUser.password = hashedPassword;
       
       // Save the user to the database
-      await User.create(newUser);
+      let user = await User.create(newUser);
+      console.log(user);
      
       res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
@@ -32,16 +33,19 @@ const authenticationController = {
 
       // Check if the user exists
       const user = await User.findOne({ email });
+      //console.log(user);
 
       if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+        return res.status(201).json({ message: 'User not found' });
       }
 
       // Compare passwords
       const isPasswordCorrect = await bcrypt.compare(password, user.password);
       if (!isPasswordCorrect) {
-        return res.status(401).json({ message: 'Invalid password' });
+        return res.status(201).json({ message: 'Invalid password' });
       }
+
+      req.session.user = user;
 
       res.status(200).json({ message: 'Login successful', user });
     } catch (error) {

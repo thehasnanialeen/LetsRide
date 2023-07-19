@@ -3,9 +3,16 @@ import '../css/selectride.css'; // assuming you have a separate CSS file for sty
 import Header from './header';
 import Footer from './footer';
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 import carImage from '../images/drivermoney.png';
 
 const Regdriver = () => {
+  const [message, setMessage] = useState({
+    message: '',
+    className: '',
+  })
+
   const [formData, setFormData] = useState({
     licensePhoto: '',
     licenseNumber: '',
@@ -25,10 +32,29 @@ const Regdriver = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     // Handle form submission logic here
-    console.log(formData);
+    try{
+      await axios.post('/api/driverRegistration/register', formData)
+      .then((res) => {
+        if(res.status == 201)
+        {
+          setMessage({message: res.message, className: 'success'})
+          setTimeout(() => {
+            <Redirect to="/regdrivercon" />
+            //redirect.push('/login');
+          }, 2000);
+        }
+        else{
+          setMessage({message: res.message, className: 'error'})
+        }
+      })
+    } catch(error) {
+      setMessage({message: error, className: 'error'})
+    }
+    //console.log(formData);
   };
 
   return (
@@ -39,6 +65,7 @@ const Regdriver = () => {
       <div className="left-side">
         <div className="form-container">
           <h2>Driver Registration</h2>
+          <p className={message.className}>{message.message}</p>
           <form onSubmit={handleSubmit}>
             <div className="form-field">
               <label>License Photo Attachment:</label>
@@ -89,7 +116,8 @@ const Regdriver = () => {
               <textarea name="additionalFields" value={formData.additionalFields} onChange={handleChange}></textarea>
             </div>
             <div className="form-submit">
-              <button type="submit"> <a href='/regdrivercon' id='regdriverconlink'>Submit</a></button>
+              {/* <button type="submit"> <a href='/regdrivercon' id='regdriverconlink'>Submit</a></button> */}
+              <button type="submit" id='regdriverconlink'>Submit</button>
             </div>
           </form>
         </div>
