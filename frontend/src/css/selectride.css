@@ -64,3 +64,15 @@
   color: white;
   text-underline-offset: 0px;
 }
+
+.success{
+  text-align: center;
+  color: green;
+  font-weight: bold;
+}
+
+.error{
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}

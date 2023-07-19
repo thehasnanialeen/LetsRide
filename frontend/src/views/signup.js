@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import '../css/signup.css';
 import Header from './header';
 import Footer from './footer';
 import Photo from '../images/driver1.jpg'; 
 
 const Signup = () => {
+  const [message, setMessage] = useState({
+    message = '',
+    className = '',
+  })
+  
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -20,10 +26,28 @@ const Signup = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log(formData);
+    try{
+      await axios.post('/api/authentication/signup', formData)
+      .then((res) => {
+        if(res.status == 201)
+        {
+          setMessage({message: res.message, className: 'success'})
+          setTimeout(() => {
+            <Redirect to="/login" />
+            //redirect.push('/login');
+          }, 2000);
+        }
+        else{
+          setMessage({message: res.message, className: 'error'})
+        }
+      })
+    } catch(error) {
+      setMessage({message: error, className: 'error'})
+    }
+    //console.log(formData);
   };
 
   return (
@@ -33,6 +57,7 @@ const Signup = () => {
     <div className="signup-container">
       <form className="signup-form" onSubmit={handleSubmit}>
         <h2>Sign Up</h2>
+        <p className={message.className}>{message.message}</p>
         <div className="form-field">
           <label>First Name:</label>
           <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} />

@@ -1,0 +1,35 @@
+/* adminhome.css */
+.admin-home {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+  }
+  
+  .buttons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .green-button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    margin-right: 20px;
+  }
+  
+  .system-admin {
+    font: bolder;
+    font-size: xx-large;
+    font-display: column;
+  }
+  .heading{
+    display: block;
+  }
