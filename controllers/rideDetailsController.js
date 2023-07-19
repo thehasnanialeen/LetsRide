@@ -10,7 +10,8 @@ const rideDetailsController = {
 
       res.status(201).json({ message: 'Ride posted successfully' });
     } catch (error) {
-      res.status(500).json({ message: 'Error posting Ride' });
+      console.log(error);
+      res.status(500).json({ message: 'Error posting Ride', error });
     }
   },
 

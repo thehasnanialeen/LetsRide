@@ -46,6 +46,7 @@ const authenticationController = {
       }
 
       req.session.user = user;
+      console.log({message: 'login user session', user: req.session.user});
 
       res.status(200).json({ message: 'Login successful', user });
     } catch (error) {

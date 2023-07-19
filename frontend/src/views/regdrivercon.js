@@ -6,7 +6,7 @@ import '../css/regdrivercon.css';
 
 const regdrivercon = () => {
   return (
-    <body>
+    <>
         <Header></Header>
     <div className="page-container">
       <div className="left-side">
@@ -22,7 +22,7 @@ const regdrivercon = () => {
       </div>
     </div>
     <Footer></Footer>
-    </body>
+    </>
   );
 };
 
