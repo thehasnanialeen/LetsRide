@@ -1,4 +1,5 @@
 const Ride = require('../models/rideSchema');
+const mongoose = require('mongoose');
 
 const rideDetailsController = {
   post: async (req, res) => {
@@ -61,13 +62,15 @@ const rideDetailsController = {
 
   updateRider: async (req, res) => {
     try {
+        console.log("reached");
         const ride = await Ride.findById(req.body._id);
+        console.log(ride);
 
         if (!ride) {
             return res.status(400).json({ message: 'Could not find ride' });
         }
 
-        ride.riderIDs.push(req.body.riderIds);
+        //ride.riderIDs.push(mongoose.Types.ObjectId(req.body.riderIds));
         ride.rideStatus = req.body.rideStatus;
         ride.numberOfPassengers = req.body.numberOfPassengers;
 
@@ -75,7 +78,7 @@ const rideDetailsController = {
 
       res.status(200).json({ message: 'Updated Ride Details Successfully' });
     } catch (error) {
-      res.status(500).json({ message: 'Error updating ride details' });
+      res.status(500).json({ message: 'Error updating ride details', error });
     }
   },
 

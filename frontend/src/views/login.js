@@ -5,44 +5,55 @@ import '../css/login.css'; // assuming you have a separate CSS file for styling
 import Header from './header';
 import Footer from './footer';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 //import Photo from '../images/driver1.jpg'; 
 
 const Login = () => {
   const [message, setMessage] = useState({
-    message = '',
-    className = '',
+    message: '',
+    className: '',
   })
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+
   const redirect = useHistory(); // function to redirect on submit 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
 // function to redirect to the selectride file 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    //console.log("reached");
     // Handle form submission logic here
     try{
-      await axios.post('/api/authentication/login', formData)
+      await axios.post('/api/authentication/login', {
+        email: formData.email,
+        password: formData.password
+      })
       .then((res) => {
         if(res.status == 200)
         {
-          setMessage({message: res.message, className: 'success'})
+          setMessage({message: res.data.message, className: 'success'})
           setTimeout(() => {
-            <Redirect to="/selectride" />
-            //redirect.push('/selectride');
-          }, 2000);
+            //history.pushState('/selectride');
+            redirect.push('/selectride');
+          }, 1000);
         }
         else{
-          setMessage({message: res.message, className: 'error'})
+          console.log(res.data);
+          setMessage({message: res.data.message, className: 'error'})
         }
       })
     } catch(error) {
-      setMessage({message: error, className: 'error'})
+      //console.log(error);
+      setMessage({message: 'Something went wrong. Try again!', className: 'error'})
     }
 
     //console.log(formData); 
@@ -50,7 +61,7 @@ const Login = () => {
   };
 
   return (
-    <body>
+    <>
    <Header> </Header>
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
@@ -62,7 +73,8 @@ const Login = () => {
         <div className="form-field">
           <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} />
         </div>
-        <button type="submit"> <a href='/selectride' id='selectridelink'> Submit </a></button>
+        {/* <button type="submit"> <a href='/selectride' id='selectridelink'> Submit </a></button> */}
+        <button type="submit"> Submit </button>
       </form>
       <div className="signup-option">
         Don't have an account? <a href="/signup" id='signuplink'>Sign Up</a>
@@ -72,7 +84,7 @@ const Login = () => {
       </div>
     </div>
     <footer> <Footer> </Footer></footer>
-    </body>
+    </>
   );
 };
 

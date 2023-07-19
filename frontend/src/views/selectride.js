@@ -1,15 +1,16 @@
 
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 import carImage from '../images/tesla.jpg';
 import Header from './header';
 import Footer from './footer';
 import '../css/selectride.css';
 
-const selectride = () => {
+const Selectride = () => {
   const [message, setMessage] = useState({
-    message = '',
-    className = '',
+    message: '',
+    className: '',
   })
   const [formData, setFormData] = useState({
     startLocation: '',
@@ -106,4 +107,4 @@ const selectride = () => {
   );
 };
 
-export default selectride;
+export default Selectride;

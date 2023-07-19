@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import '../css/signup.css';
 import Header from './header';
 import Footer from './footer';
-import Photo from '../images/driver1.jpg'; 
+//import Photo from '../images/driver1.jpg'; 
 
 const Signup = () => {
+  const redirect = useHistory(); 
+
   const [message, setMessage] = useState({
-    message = '',
-    className = '',
+    message: '',
+    className: '',
   })
   
   const [formData, setFormData] = useState({
@@ -19,6 +23,7 @@ const Signup = () => {
     confirmPassword: '',
     dateOfBirth: '',
     phoneNumber: '',
+    role: 'rider',
   });
 
   const handleChange = (e) => {
@@ -30,22 +35,31 @@ const Signup = () => {
     e.preventDefault();
     // Handle form submission logic here
     try{
-      await axios.post('/api/authentication/signup', formData)
+      await axios.post('/api/authentication/signup', {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        DOB: formData.dateOfBirth,
+        email: formData.email,
+        password: formData.password,
+        profilePhoto: 'path',
+        phoneNumber: formData.phoneNumber,
+        role: formData.role,
+      })
       .then((res) => {
         if(res.status == 201)
         {
-          setMessage({message: res.message, className: 'success'})
+          setMessage({message: res.data.message, className: 'success'})
           setTimeout(() => {
-            <Redirect to="/login" />
+            redirect.push('/login');
             //redirect.push('/login');
           }, 2000);
         }
         else{
-          setMessage({message: res.message, className: 'error'})
+          setMessage({message: res.data.message, className: 'error'})
         }
       })
     } catch(error) {
-      setMessage({message: error, className: 'error'})
+        setMessage({message: 'Something went wrong. Try again!', className: 'error'})
     }
     //console.log(formData);
   };

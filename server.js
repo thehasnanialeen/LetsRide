@@ -17,8 +17,11 @@ const port = process.env.PORT || 5001;
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:3000'
-}))
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST'], // Add the allowed HTTP methods here
+  allowedHeaders: ['Content-Type', 'Authorization'], // Add the allowed headers here
+  optionsSuccessStatus: 200 // Explicitly set the status code for preflight success
+}));
 //app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.use(express.json());
 app.use(

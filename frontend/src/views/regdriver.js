@@ -3,12 +3,14 @@ import '../css/selectride.css'; // assuming you have a separate CSS file for sty
 import Header from './header';
 import Footer from './footer';
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import axios from 'axios';
 import carImage from '../images/drivermoney.png';
 
 const Regdriver = () => {
   const [message, setMessage] = useState({
-    message = '',
-    className = '',
+    message: '',
+    className: '',
   })
 
   const [formData, setFormData] = useState({
@@ -30,7 +32,7 @@ const Regdriver = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Handle form submission logic here
