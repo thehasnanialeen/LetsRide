@@ -94,26 +94,85 @@ const Approval = () => {
       <h2>Driver Registration Requests</h2>
       <p className={message.className}>{message.message}</p>
       {drivers.map((driver, index) => (
-        <div key={driver._id} className="driver-row">
+        <div key={driver._id} className="driver-row"> 
           <div>
             <span>{driver.userDetails.firstName}</span> <span>{driver.userDetails.lastName}</span>
+            <span> {driver.user} </span>
+            </div>
+            {/* Additional details table */}
+            <table className="additional-details">
+              <tbody>
+                <tr>
+                  <td>License Photo:</td>
+                  <td>{driver.license.photo}</td>
+                </tr>
+                <tr>
+                  <td>License Number:</td>
+                  <td>{driver.license.number}</td>
+                </tr>
+                <tr>
+                  <td>License Expiration:</td>
+                  <td>{driver.license.expiryDate}</td>
+                </tr>
+                <tr>
+                  <td>License Plate Number:</td>
+                  <td>{driver.licensePlateNumber}</td> 
+                </tr>
+                <tr>
+                  <td>Car Registration Photo:</td>
+                  <td>{driver.carRegistration.photo}</td>
+                </tr>
+                <tr>
+                  <td>Car Registration Expiration:</td>
+                  <td>{driver.carRegistration.expiryDate}</td>
+                </tr>
+                <tr>
+                  <td>Home Address:</td>
+                  <td>{driver.address.postalCode}</td>
+                </tr>
+                <tr>
+                  <td>Car Make:</td>
+                  <td>{driver.car.make}</td>
+                </tr>
+                <tr>
+                  <td>Car Model:</td>
+                  <td>{driver.car.model}</td>
+                </tr>
+                <tr>
+                  <td>Car Type:</td>
+                  <td>{driver.car.type}</td>
+                </tr>
+                <tr>
+                  <td>Year:</td>
+                  <td>{driver.car.year}</td>
+                </tr>
+                <tr>
+                  <td>VIN:</td>
+                  <td>{driver.car.VIN}</td>
+                </tr>
+                <tr>
+                  <td>Additional Fields:</td>
+                  <td>{driver.additionalFields}</td>
+                </tr>
+              </tbody>
+            </table>
+            {/* End of additional details table */}
+            <input
+              type="text"
+              placeholder="Notes (if any)"
+              value={notes[driver.id] || ''}
+              onChange={(e) => handleNotesChange(driver._id, e.target.value)}
+            />
+            <button onClick={() => handleStatus(driver._id, 'approved')}>Approve</button>
+            <button onClick={() => handleStatus(driver._id, 'rejected')}>Decline</button>
           </div>
-          <input
-            type="text"
-            placeholder="Notes (if any)"
-            value={notes[driver.id] || ''}
-            onChange={(e) => handleNotesChange(driver._id, e.target.value)}
-          />
-          <button onClick={() => handleStatus(driver._id, 'approved')}>Approve</button>
-          <button onClick={() => handleStatus(driver._id, 'rejected')}>Decline</button>
-        </div>
-      ))}
-      <button className="go-back-button" onClick={handleGoBack}>
-        Go Back
-      </button>
-    </div>
-    <Footer> </Footer>
-</> 
+        ))}
+        <button className="go-back-button" onClick={handleGoBack}>
+          Go Back
+        </button>
+      </div>
+      <Footer />
+    </>
   );
 };
 

@@ -1,70 +1,98 @@
 /* driverregistrationrequests.css */
 .driver-registration-requests {
-    padding: 20px;
-  }
-  
-  h2 {
-    margin-bottom: 20px;
-  }
-  
-  .driver-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  input {
-    padding: 8px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 300px;
-  }
-  
-  button {
-    background-color: green;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-  
-  button.decline {
-    background-color: red;
-  }
-  
-  button:hover {
-    background-color: darkgreen;
-  }
-  
-  button.decline:hover {
-    background-color: darkred;
-  }
-  
-  button:active {
-    background-color: green;
-  }
-  
-  button.decline:active {
-    background-color: red;
-  }
-  
-  .go-back-button {
-    margin-top: 20px;
-  }
-  
-  .success{
-    text-align: center;
-    color: green;
-    font-weight: bold;
-  }
-  
-  .error{
-    text-align: center;
-    color: red;
-    font-weight: bold;
-  }
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.driver-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.driver-details {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.driver-details span {
+  margin-right: 10px;
+}
+
+.additional-details-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.additional-details-table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.additional-details-table th {
+  padding: 8px;
+  border: 1px solid #ccc;
+  background-color: yellowgreen;
+  color: white;
+  text-align: left;
+}
+
+input {
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+}
+
+button {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+button.decline {
+  background-color: red;
+}
+
+button:hover {
+  background-color: darkgreen;
+}
+
+button.decline:hover {
+  background-color: darkred;
+}
+
+button:active {
+  background-color: green;
+}
+
+button.decline:active {
+  background-color: red;
+}
+
+.go-back-button {
+  margin-top: 20px;
+}
+
+.success {
+  text-align: center;
+  color: green;
+  font-weight: bold;
+}
+
+.error {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
