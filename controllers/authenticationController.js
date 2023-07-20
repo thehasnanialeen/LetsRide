@@ -53,6 +53,22 @@ const authenticationController = {
       res.status(500).json({ message: 'Error logging in' });
     }
   },
+
+  getUserDetails: async (req, res) => {
+    try {
+      // Check if the user exists
+      const user = await User.findById(req.body._id);
+      //console.log(user);
+
+      if (!user) {
+        return res.status(201).json({ message: 'User not found' });
+      }
+
+      res.status(200).json({ message: 'Got User Details', user });
+    } catch (error) {
+      res.status(500).json({ message: 'Error getting User Details' });
+    }
+  },
 };
 
 module.exports = authenticationController;

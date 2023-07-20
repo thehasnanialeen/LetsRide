@@ -1,64 +1,84 @@
 // DriverRegistrationRequests.js
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import '../css/approval.css'; 
 import Header from './header';
 import Footer from './footer';
 
 const Approval = () => {
+  const redirect = useHistory(); 
+
+  const [message, setMessage] = useState({
+      message: '',
+      className: '',
+      })
   const [drivers, setDrivers] = useState([]);
   const [notes, setNotes] = useState({});
 
   useEffect(() => {
-    // Fetch the list of drivers' details from the backend
-    // Replace 'your-backend-api-endpoint' with the actual API endpoint for fetching driver details
-    fetch('your-backend-api-endpoint')
-      .then((response) => response.json())
-      .then((data) => setDrivers(data))
-      .catch((error) => console.error('Error fetching drivers:', error));
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+      try{
+        await axios.get('/api/driverRegistration/getApprovalList')
+        .then((res) => {
+          if(res.status == 200)
+          {
+            //console.log(res.data.rides);
+            const driversList = res.data.driverList;
+
+            if(driversList == 0)
+            {
+              setMessage({message: 'No drivers for approval', className: 'error'})
+            }
+            console.log(driversList);
+              setDrivers(driversList);
+            //<Redirect to="/conmessage" />
+          }
+          else{
+            //console.log(res.message);
+            setMessage({message: res.data.message, className: 'error'})
+          }
+        })
+      } catch(error) {
+        //console.log(error);
+        setMessage({message: 'Something went wrong. Try again!', className: 'error'})
+      }
+  };
 
   const handleNotesChange = (driverId, note) => {
     setNotes((prevNotes) => ({ ...prevNotes, [driverId]: note }));
   };
 
-  const handleApprove = (driverId) => {
+  const handleStatus = async (driverId, status) => {
     const note = notes[driverId];
 
-    // Perform the driver approval API call to the backend
-    // Replace 'your-backend-approve-api-endpoint' with the actual API endpoint for approving drivers
-    fetch(`your-backend-approve-api-endpoint/${driverId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ status: 'approved', note }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the backend, e.g., show a success message or update the drivers list
-        console.log(data);
+    try{
+      await axios.post('/api/driverRegistration/setApprovalStatus', {
+        driverID: driverId,
+        approvalStatus: status,
+        adminFeedback: note,
       })
-      .catch((error) => console.error('Error approving driver:', error));
-  };
-
-  const handleDecline = (driverId) => {
-    const note = notes[driverId];
-
-    // Perform the driver decline API call to the backend
-    // Replace 'your-backend-decline-api-endpoint' with the actual API endpoint for declining drivers
-    fetch(`your-backend-decline-api-endpoint/${driverId}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ status: 'declined', note }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the backend, e.g., show a success message or update the drivers list
-        console.log(data);
+      .then((res) => {
+        if(res.status == 200)
+        {
+          setMessage({message: res.data.message, className: 'success'})
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        }
+        else{
+          //console.log(res.message);
+          setMessage({message: res.data.message, className: 'error'})
+        }
       })
-      .catch((error) => console.error('Error declining driver:', error));
+    } catch(error) {
+      //console.log(error);
+      setMessage({message: 'Something went wrong. Try again!', className: 'error'})
+    }
+   
   };
 
   const handleGoBack = () => {
@@ -67,24 +87,25 @@ const Approval = () => {
   };
 
   return ( 
-<body>
+<>
 <Header> </Header>
 
     <div className="driver-registration-requests">
       <h2>Driver Registration Requests</h2>
-      {drivers.map((driver) => (
-        <div key={driver.id} className="driver-row">
+      <p className={message.className}>{message.message}</p>
+      {drivers.map((driver, index) => (
+        <div key={driver._id} className="driver-row">
           <div>
-            <span>{driver.firstName}</span> <span>{driver.lastName}</span>
+            <span>{driver.userDetails.firstName}</span> <span>{driver.userDetails.lastName}</span>
           </div>
           <input
             type="text"
             placeholder="Notes (if any)"
             value={notes[driver.id] || ''}
-            onChange={(e) => handleNotesChange(driver.id, e.target.value)}
+            onChange={(e) => handleNotesChange(driver._id, e.target.value)}
           />
-          <button onClick={() => handleApprove(driver.id)}>Approve</button>
-          <button onClick={() => handleDecline(driver.id)}>Decline</button>
+          <button onClick={() => handleStatus(driver._id, 'approved')}>Approve</button>
+          <button onClick={() => handleStatus(driver._id, 'rejected')}>Decline</button>
         </div>
       ))}
       <button className="go-back-button" onClick={handleGoBack}>
@@ -92,7 +113,7 @@ const Approval = () => {
       </button>
     </div>
     <Footer> </Footer>
-</body> 
+</> 
   );
 };
 
