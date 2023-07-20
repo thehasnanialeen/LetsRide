@@ -1,82 +1,92 @@
+/* signup.css */
+/********* Sign up styles ***********/ 
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: white;
+  color: black;
+}
 
-  /********* Sign up styles ***********/ 
-  .signup-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: white;
-    color: black;
-  }
-  
-  .signup-form {
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    padding: 20px;
-    background-color: white;
-    border: solid yellowgreen 2px;
-    border-radius: 10px;
-  }
-  
-  .signup-form h2 {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .form-field {
-    margin-bottom: 15px;
-  }
-  
-  .form-field label {
-    display: block;
-    font-weight: bold;
-  }
-  
-  .form-field input {
-    width: 93%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .form-field input[type="date"] {
-    appearance: none;
-    padding: 10px;
-  }
-  
-  button {
-    background-color: green;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .login-option {
-    margin-top: 20px;
-  }
-  
-  .login-option a {
-    color: white;
-    text-decoration: underline;
-  }
-  
-  #loginlink {
-    color: black;
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding: 20px;
+  background-color: white;
+  border: solid yellowgreen 2px;
+  border-radius: 10px;
+}
 
-  }
+.signup-form h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
 
-  .success{
-    text-align: center;
-    color: green;
-    font-weight: bold;
-  }
+.form-field {
+  margin-bottom: 15px;
+}
 
-  .error{
-    text-align: center;
-    color: red;
-    font-weight: bold;
-  }
+.form-field label {
+  display: block;
+  font-weight: bold;
+}
+
+.form-field input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-field input[type="date"] {
+  appearance: none;
+  padding: 10px;
+}
+
+/* Style the radio buttons side by side */
+.radio-options {
+  display: flex;
+  gap: 10px;
+}
+
+.radio-options label {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.login-option {
+  margin-top: 20px;
+}
+
+.login-option a {
+  color: white;
+  text-decoration: underline;
+}
+
+#loginlink {
+  color: black;
+}
+
+.success {
+  text-align: center;
+  color: green;
+  font-weight: bold;
+}
+
+.error {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}

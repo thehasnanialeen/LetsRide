@@ -33,6 +33,30 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (
+      formData.firstName.trim() === '' ||
+      formData.lastName.trim() === '' ||
+      formData.email.trim() === '' ||
+      formData.password.trim() === '' ||
+      formData.confirmPassword.trim() === '' ||
+      formData.dateOfBirth.trim() === '' ||
+      formData.phoneNumber.trim() === ''
+    ) {
+      setMessage({ message: 'All fields are required.', className: 'error' });
+      return;
+    }
+
+    if (!isValidEmail(formData.email)) {
+      setMessage({ message: 'Invalid email format.', className: 'error' });
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      setMessage({ message: 'Passwords do not match.', className: 'error' });
+      return;
+    }
+
     // Handle form submission logic here
     try{
       await axios.post('/api/authentication/signup', {
@@ -62,6 +86,11 @@ const Signup = () => {
         setMessage({message: 'Something went wrong. Try again!', className: 'error'})
     }
     //console.log(formData);
+  };
+  const isValidEmail = (email) => {
+    // Regular expression for email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
   };
 
   return (
@@ -100,6 +129,32 @@ const Signup = () => {
           <label>Phone No:</label>
           <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
         </div>
+        <div className="form-field">
+            <label>Role:</label>
+            <div className="radio-options">
+              <label>
+                <input
+                  type="radio"
+                  name="role"
+                  value="rider"
+                  checked={formData.role === 'rider'}
+                  onChange={handleChange}
+                />
+                Rider
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="role"
+                  value="driver"
+                  checked={formData.role === 'driver'}
+                  onChange={handleChange}
+                />
+                Driver
+              </label>
+            </div>
+          </div>
+
         <button type="submit">Submit</button>
       </form>
       <div className="login-option">
