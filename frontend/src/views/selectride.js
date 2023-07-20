@@ -1,6 +1,7 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import carImage from '../images/tesla.jpg';
 import Header from './header';
@@ -8,6 +9,9 @@ import Footer from './footer';
 import '../css/selectride.css';
 
 const Selectride = () => {
+  const redirect = useHistory();
+
+  const [user, setUser] = useState(null);
   const [message, setMessage] = useState({
     message: '',
     className: '',
@@ -20,6 +24,22 @@ const Selectride = () => {
     pickupDate: '',
   });
 
+  const fetchData = async () => {
+    try{
+      await axios.get('/api/userSession')
+      .then((res) => {
+        //console.log(res.data.user);
+        setUser(res.data.user);
+      })
+    } catch(error) {
+      setMessage({message: 'Something went wrong. Try again!', className: 'error'})
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -27,30 +47,39 @@ const Selectride = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+    const date = new Date(formData.pickupDate + " " + formData.pickupTime)
+    //console.log(date);
+    //Handle form submission logic here
     try{
-      await axios.post('/api/rideDetails/post', formData)
+      await axios.post('/api/rideDetails/post', {
+        driverUserID: user._id,
+        pickupLocation: formData.startLocation,
+        dropLocation: formData.destination,
+        startTime: date,
+        numberOfPassengers: formData.passengerCount,
+      })
       .then((res) => {
         if(res.status == 201)
         {
-          setMessage({message: res.message, className: 'success'})
+          setMessage({message: res.data.message, className: 'success'});
           setTimeout(() => {
-            <Redirect to="/selectride" />
-            //redirect.push('/login');
-          }, 2000);
+            window.location.reload();
+            //redirect.push('/selectride');
+          }, 1000);
         }
         else{
-          setMessage({message: res.message, className: 'error'})
+          setMessage({message: res.data.message, className: 'error'});
         }
       })
     } catch(error) {
-      setMessage({message: error, className: 'error'})
+      //console.log(error);
+      setMessage({message: 'Something went wrong. Try again!', className: 'error'});
     }
     //console.log(formData);
   };
 
   return (
-    <body>
+    <>
     <Header> </Header>
     <div className="ride-form-container">
       <div className="left-side">
@@ -103,7 +132,7 @@ const Selectride = () => {
     <footer>
         <Footer> </Footer>
     </footer>
-    </body>
+    </>
   );
 };
 

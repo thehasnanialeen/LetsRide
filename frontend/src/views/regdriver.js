@@ -2,17 +2,21 @@
 import '../css/selectride.css'; // assuming you have a separate CSS file for styling
 import Header from './header';
 import Footer from './footer';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import carImage from '../images/drivermoney.png';
 
 const Regdriver = () => {
+  const redirect = useHistory(); 
+
   const [message, setMessage] = useState({
     message: '',
     className: '',
   })
 
+  const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
     licensePhoto: '',
     licenseNumber: '',
@@ -24,8 +28,26 @@ const Regdriver = () => {
     carMake: '',
     carModel: '',
     carType: 'hatchback',
+    year: '',
+    VIN: '',
     additionalFields: '',
   });
+
+  const fetchData = async () => {
+    try{
+      await axios.get('/api/userSession')
+      .then((res) => {
+        //console.log(res.data.user);
+        setUser(res.data.user);
+      })
+    } catch(error) {
+      setMessage({message: 'Something went wrong. Try again!', className: 'error'})
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,29 +59,49 @@ const Regdriver = () => {
 
     // Handle form submission logic here
     try{
-      await axios.post('/api/driverRegistration/register', formData)
+      await axios.post('/api/driverRegistration/register', {
+        userID: user._id,
+        license: {
+          number: formData.licenseNumber,
+          expiryDate: formData.licenseExpiration,
+          photo: 'path',
+        },
+        carRegistration:{
+          expiryDate : formData.carRegistrationExpiration,
+          photo: 'path',
+        },
+        car: {
+          make: formData.carMake,
+          model: formData.carModel,
+          year: formData.year,
+          type: formData.carType,
+          VIN: formData.VIN,
+          licensePlate: formData.licensePlateNumber,
+        },
+        address: {
+          streetName:  formData.homeAddress,
+        },
+      })
       .then((res) => {
         if(res.status == 201)
         {
-          setMessage({message: res.message, className: 'success'})
+          setMessage({message: res.data.message, className: 'success'});
           setTimeout(() => {
-            <Redirect to="/regdrivercon" />
-            //redirect.push('/login');
-          }, 2000);
+            redirect.push('/regdrivercon');
+          }, 1000);
         }
         else{
-          setMessage({message: res.message, className: 'error'})
+          setMessage({message: res.data.message, className: 'error'});
         }
       })
     } catch(error) {
-      setMessage({message: error, className: 'error'})
+      setMessage({message: 'Something went wrong. Try again!', className: 'error'});
     }
     //console.log(formData);
   };
 
   return (
-    <body>
-
+    <>
    <Header> </Header>
     <div className="page-container">
       <div className="left-side">
@@ -97,6 +139,14 @@ const Regdriver = () => {
               <input type="text" name="carMake" value={formData.carMake} onChange={handleChange}/>
             </div>
             <div className="form-field">
+              <label>Year:</label>
+              <input type="text" name="year" value={formData.year} onChange={handleChange}/>
+            </div>
+            <div className="form-field">
+              <label>VIN:</label>
+              <input type="text" name="VIN" value={formData.VIN} onChange={handleChange}/>
+            </div>
+            <div className="form-field">
               <label>Car Model:</label>
               <input type="text" name="carModel" value={formData.carModel} onChange={handleChange}/>
             </div>
@@ -127,7 +177,7 @@ const Regdriver = () => {
       </div>
     </div>
     <Footer> </Footer>
-    </body>
+    </>
   );
 };
 

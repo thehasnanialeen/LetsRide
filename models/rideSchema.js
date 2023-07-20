@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const rideSchema = new mongoose.Schema({
-  driverID: { type: mongoose.Schema.Types.ObjectId, ref: 'Driver', required: true },
-  riderIDs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  driverUserID: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  riderUserID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   pickupLocation: { type: String, required: true },
   dropLocation: { type: String, required: true },
   startTime: { type: Date, required: true },

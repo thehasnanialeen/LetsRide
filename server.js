@@ -55,7 +55,8 @@ app.use('/api/rideDistancePrice', rideDistancePriceRoutes);
 
 app.get('/api/userSession', (req, res) => {
   const user = req.session.user; // Retrieve the user's details from the session
-  res.json(user);
+  //console.log({message: 'session', user});
+  res.json({message: 'session', user});
 });
 
 app.listen(port, () => {
