@@ -26,7 +26,7 @@ app.use(cors({
 app.use(express.json());
 app.use(
   session({
-    secret: 'WeAreRegisteredInCs476', // Replace with your secret key for session encryption
+    secret: process.env.SECRET_KEY, // Replace with your secret key for session encryption
     resave: false,
     saveUninitialized: true,
   })
