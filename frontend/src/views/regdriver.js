@@ -17,6 +17,10 @@ const Regdriver = () => {
   })
 
   const [user, setUser] = useState(null);
+  const [photo, setPhoto] = useStage({
+    licensePhoto: null,
+    carRegistrationPhoto: null,
+  })
   const [formData, setFormData] = useState({
     licensePhoto: '',
     licenseNumber: '',
@@ -54,7 +58,51 @@ const Regdriver = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleFileChange = (e) => {
+    setPhoto({ ...photo, [e.target.name]: e.target.files[0] });
+  };
+
+  const uploadPhotos = async () => {
+    try{
+      const formData = new FormData();
+      formData.append('file', photo.licensePhoto);
+      formData.append('fileName', user._id+"License");
+
+      await axios.post('/api/uploadFile', formData)
+      .then((res) => {
+        if(res.status == 200){
+          setFormData({ ...formData, [licensePhoto]: res.data.filePath });
+
+          try{
+            const formData = new FormData();
+            formData.append('file', photo.carRegistrationPhoto);
+            formData.append('fileName', user._id+"CarRegistration");
+      
+            await axios.post('/api/uploadFile', formData)
+            .then((res) => {
+              if(res.status == 200){
+                setFormData({ ...formData, [carRegistrationPhoto]: res.data.filePath });
+      
+                handleSubmit();
+              }
+              else{
+                setMessage({message: res.data.message, className: 'error'});
+              }
+            })
+          } catch(error) {
+              setMessage({message: 'Something went wrong while uploading Car Registration Photo. Try again!', className: 'error'});
+            }
+        }
+        else{
+          setMessage({message: res.data.message, className: 'error'});
+        }
+      })
+    } catch(error) {
+        setMessage({message: 'Something went wrong while uploading License Photo. Try again!', className: 'error'});
+      }
+  };
+
+  const handleSubmit = async () => {
     e.preventDefault();
 
     // Handle form submission logic here
@@ -64,11 +112,11 @@ const Regdriver = () => {
         license: {
           number: formData.licenseNumber,
           expiryDate: formData.licenseExpiration,
-          photo: 'path',
+          photo: formData.licensePhoto,
         },
         carRegistration:{
           expiryDate : formData.carRegistrationExpiration,
-          photo: 'path',
+          photo: formData.carRegistrationPhoto,
         },
         car: {
           make: formData.carMake,
@@ -108,10 +156,10 @@ const Regdriver = () => {
         <div className="form-container">
           <h2>Driver Registration</h2>
           <p className={message.className}>{message.message}</p>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={uploadPhotos}>
             <div className="form-field">
               <label>License Photo Attachment:</label>
-              <input type="file" name="licensePhoto" onChange={handleChange} />
+              <input type="file" name="licensePhoto" onChange={handleFileChange} />
             </div>
             <div className="form-field">
               <label>License Number:</label>
@@ -124,7 +172,7 @@ const Regdriver = () => {
             {/* Add other form fields */}
             <div className="form-field">
               <label>Car Registration Photo Attachment:</label>
-              <input type="file" name="carRegistrationPhoto" onChange={handleChange} />
+              <input type="file" name="carRegistrationPhoto" onChange={handleFileChange} />
             </div>
             <div className="form-field">
               <label>Car Registration Expiration Date:</label>

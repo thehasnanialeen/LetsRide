@@ -11,6 +11,8 @@ const driverRegistrationRoutes = require('./routes/driverRegistrationRoutes');
 const ratingRoutes = require('./routes/ratingRoutes');
 const rideDetailsRoutes = require('./routes/rideDetailsRoutes');
 const rideDistancePriceRoutes = require('./routes/rideDistancePriceRoutes');
+const sendEmailRoutes = require('./routes/sendEmailRoutes');
+const uploadFileRoutes = require('./routes/uploadFileRoutes');
 
 const port = process.env.PORT || 5001;
 
@@ -52,6 +54,8 @@ app.use('/api/driverRegistration', driverRegistrationRoutes);
 app.use('/api/rating', ratingRoutes);
 app.use('/api/rideDetails', rideDetailsRoutes);
 app.use('/api/rideDistancePrice', rideDistancePriceRoutes);
+app.use('/api/sendEmail', sendEmailRoutes);
+app.use('/api/uploadFile', uploadFileRoutes);
 
 app.get('/api/userSession', (req, res) => {
   const user = req.session.user; // Retrieve the user's details from the session
