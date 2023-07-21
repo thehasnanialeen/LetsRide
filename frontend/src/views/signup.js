@@ -56,6 +56,18 @@ const Signup = () => {
       setMessage({ message: 'Passwords do not match.', className: 'error' });
       return;
     }
+     if (!isValidPassword(formData.password)) {
+      setMessage({ message: 'Password must be at least 10 characters long and contain at least one number.', className: 'error' });
+      return;
+    }
+    if (!isValidDateOfBirth(formData.dateOfBirth)) {
+      setMessage({ message: 'You must be at least 16 years old to sign up.', className: 'error' });
+      return;
+    }
+    if (!isValidPhoneNumber(formData.phoneNumber)) {
+      setMessage({ message: 'Invalid phone number. Please enter a 10-digit number.', className: 'error' });
+      return;
+    }
 
     // Handle form submission logic here
     try{
@@ -71,7 +83,7 @@ const Signup = () => {
       })
       .then((res) => {
         if(res.status == 201)
-        {
+        { 
           setMessage({message: res.data.message, className: 'success'})
           setTimeout(() => {
             redirect.push('/login');
@@ -92,6 +104,25 @@ const Signup = () => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email);
   };
+
+  const isValidPassword = (password) => {
+    // Regular expression for password validation: at least 10 characters and at least one number
+    const passwordPattern = /^(?=.*\d).{10,}$/;
+    return passwordPattern.test(password);
+  };
+
+  const isValidDateOfBirth = (dateOfBirth) => {
+    const sixteenYearsAgo = new Date();
+    sixteenYearsAgo.setFullYear(sixteenYearsAgo.getFullYear() - 16);
+    return new Date(dateOfBirth) <= sixteenYearsAgo;
+  };
+
+  const isValidPhoneNumber = (phoneNumber) => {
+    // Regular expression for phone number validation: 10 digits
+    const phoneNumberPattern = /^\d{10}$/;
+    return phoneNumberPattern.test(phoneNumber);
+  };
+
 
   return (
     <body>
