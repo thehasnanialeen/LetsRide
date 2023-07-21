@@ -8,7 +8,7 @@ const riderSchema = new mongoose.Schema({
   distance: { type: Number, required: true },
   numberOfPassengers: { type: Number, max: 5 },
   rideCost: { type: Number },
-  rideStatus: { type: String, enum: ['booked', 'requetsed', 'completed'], default: 'requetsed' },
+  rideStatus: { type: String, enum: ['booked', 'requested', 'completed'], default: 'requested' },
 });
 
 const Rider = mongoose.model('Rider', riderSchema);
