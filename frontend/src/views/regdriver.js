@@ -11,31 +11,29 @@ import carImage from '../images/drivermoney.png';
 const Regdriver = () => {
   const redirect = useHistory(); 
 
-  const [message, setMessage] = useState({
-    message: '',
-    className: '',
-  })
+  const [message, setMessage] = useState([]);
 
   const [user, setUser] = useState({
-      _id: "64b3340512477934819cf6d0",
-      firstName: 'Aleen',
-       lastName: 'Hasnani',
-       DOB: "2001-08-09T00:00:00.000Z",
-       email: 'ahj126@uregina.ca',
-       password: '$2b$10$BDsDFCloN.fMI/QAjaWSquQ58OIe0AmFHLbqj.1c6DCW2DbLp4MfW',
-       profilePhoto: 'path',
-       phoneNumber: 3069998989,
-       role: 'admin'});
+      // _id: "64b3340512477934819cf6d0",
+      // firstName: 'Aleen',
+      //  lastName: 'Hasnani',
+      //  DOB: "2001-08-09T00:00:00.000Z",
+      //  email: 'ahj126@uregina.ca',
+      //  password: '$2b$10$BDsDFCloN.fMI/QAjaWSquQ58OIe0AmFHLbqj.1c6DCW2DbLp4MfW',
+      //  profilePhoto: 'path',
+      //  phoneNumber: 3069998989,
+      //  role: 'admin'
+      });
   const [photo, setPhoto] = useState({
     licensePhoto: null,
     carRegistrationPhoto: null,
   })
   const [formData, setFormData] = useState({
-    licensePhoto: '',
+    licensePhoto: null,
     licenseNumber: '',
     licenseExpiration: '',
     licensePlateNumber: '',
-    carRegistrationPhoto: '',
+    carRegistrationPhoto: null,
     carRegistrationExpiration: '',
     homeAddress: '',
     carMake: '',
@@ -69,72 +67,10 @@ const Regdriver = () => {
 
   const handleFileChange = (e) => {
     setPhoto({ ...photo, [e.target.name]: e.target.files[0] });
+    setFormData({ ...formData, [e.target.name]: e.target.files[0] });
   };
 
-  const uploadPhotos = async (e) => {
-    e.preventDefault();
-    try{
-      const photos = [];
-
-      //photos[0] = new File([photo.licensePhoto], "-License")//, { type: photo.licensePhoto.type });
-      //photos[1] = new File([photo.carRegistrationPhoto], "-CarRegistration", { type: photo.carRegistrationPhoto.type });
-
-      console.log(photo);
-      //console.log(photos);
-
-      const formData = new FormData();
-      formData.append('files', photo.licensePhoto, "-License."+photo.licensePhoto.name.substring(photo.licensePhoto.name.lastIndexOf('.') + 1));
-      formData.append('files', photo.carRegistrationPhoto, "-CarRegistration."+photo.carRegistrationPhoto.name.substring(photo.carRegistrationPhoto.name.lastIndexOf('.') + 1));
-
-      //console.log(formData);
-
-      await axios.post('http://localhost:5000/api/uploadFile', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then((res) => {
-        if(res.status == 200){
-          //setFormData({ ...formData, ["licensePhoto"]: res.data.filePath });
-          //handleSubmit();
-
-          console.log(res.data.filePaths);
-
-          setMessage({message: 'File uploaded successfully!', className: 'success'});
-          // try{
-          //   const formData = new FormData();
-          //   formData.append('file', photo.carRegistrationPhoto);
-          //   formData.append('fileName', user._id+"CarRegistration");
-      
-          //   await axios.post('/api/uploadFile', formData)
-          //   .then((res) => {
-          //     if(res.status == 200){
-          //       setFormData({ ...formData, [carRegistrationPhoto]: res.data.filePath });
-      
-          //       handleSubmit();
-          //     }
-          //     else{
-          //       setMessage({message: res.data.message, className: 'error'});
-          //     }
-          //   })
-          // } catch(error) {
-          //     setMessage({message: 'Something went wrong while uploading Car Registration Photo. Try again!', className: 'error'});
-          //   }
-        }
-        else{
-          setMessage({message: res.data.message, className: 'error'});
-        }
-      })
-    } catch(error) {
-        console.log(error);
-        setMessage({message: 'Something went wrong while uploading License Photo. Try again!', className: 'error'});
-      }
-  };
-
-  const handleSubmit = async () => {
-    //e.preventDefault();
-
-    // Handle form submission logic here
+  const uploadFormData = async () => {
     try{
       await axios.post('/api/driverRegistration/register', {
         userID: user._id,
@@ -162,19 +98,103 @@ const Regdriver = () => {
       .then((res) => {
         if(res.status == 201)
         {
-          setMessage({message: res.data.message, className: 'success'});
-          setTimeout(() => {
-            redirect.push('/regdrivercon');
-          }, 1000);
+          redirect.push('/regdrivercon');
         }
         else{
-          setMessage({message: res.data.message, className: 'error'});
+          setMessage(message.push(res.data.message));
         }
       })
     } catch(error) {
-      setMessage({message: 'Something went wrong. Try again!', className: 'error'});
+      setMessage(message.push('Something went wrong. Try again!'));
     }
-    //console.log(formData);
+  };
+
+  const uploadPhotos = async () => {
+    try{
+
+      const formData = new FormData();
+      formData.append('files', photo.licensePhoto, user._id+"-License."+photo.licensePhoto.name.substring(photo.licensePhoto.name.lastIndexOf('.') + 1));
+      formData.append('files', photo.carRegistrationPhoto, user._id+"-CarRegistration."+photo.carRegistrationPhoto.name.substring(photo.carRegistrationPhoto.name.lastIndexOf('.') + 1));
+
+      await axios.post('http://localhost:5000/api/uploadFile', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((res) => {
+        if(res.status == 200){
+          //setFormData({ ...formData, ["licensePhoto"]: res.data.filePath });
+          //uploadFormData();
+          console.log(res.data.filePaths);
+
+          setMessage(message.push('File uploaded successfully!'));
+        }
+        else{
+          setMessage(message.push(res.data.message));
+        }
+      })
+    } catch(error) {
+        //console.log(error);
+        setMessage(message.push('Something went wrong while uploading License Photo. Try again!'));
+      }
+  };
+
+  const handleSubmit = async () => {
+    e.preventDefault();
+
+    setMessage([]);
+    const valid = true;
+    const today = new Date();
+
+    if (
+      formData.licenseNumber.trim() === '' ||
+      formData.licenseExpiration.trim() === '' ||
+      formData.licensePlateNumber.trim() === '' ||
+      formData.carRegistrationExpiration.trim() === '' ||
+      formData.homeAddress.trim() === '' ||
+      formData.carMake.trim() === '' ||
+      formData.carModel.trim() === '' ||
+      formData.carType.trim() === '' ||
+      formData.year.trim() === '' ||
+      formData.VIN.trim() === ''
+    ) {
+      valid = false;
+      setMessage(message.push('All fields are required'));
+    }
+    else{
+      if(formData.licensePhoto == null)
+      {
+        valid = false;
+        setMessage(message.push('License Photo not uploaded'));
+      }
+      if(formData.carRegistrationPhoto == null)
+      {
+        valid = false;
+        setMessage(message.push('Car Registration Photo not uploaded'));
+      }
+      if(formData.licenseExpiration <= today)
+      {
+        valid = false;
+        setMessage(message.push('Expired License is not accepted'));
+      }
+      if(formData.carRegistrationExpiration <= today)
+      {
+        valid = false;
+        setMessage(message.push('Expired Car Registration is not accepted'));
+      }
+      if(formData.year > today.getFullYear())
+      {
+        valid = false;
+        setMessage(message.push('Invalid Car Year'));
+      }
+    }
+
+    if(valid == true)
+    {
+      uploadPhotos();
+    }
+
+    return;
   };
 
   return (
@@ -184,11 +204,13 @@ const Regdriver = () => {
       <div className="left-side">
         <div className="form-container">
           <h2>Driver Registration</h2>
-          <p className={message.className}>{message.message}</p>
-          <form onSubmit={uploadPhotos}>
+          {message.map((error, index) => (
+            <p className="error">{error}</p>
+          ))}
+          <form onSubmit={handleSubmit}>
             <div className="form-field">
               <label>License Photo Attachment:</label>
-              <input type="file" name="licensePhoto" onChange={handleFileChange} />
+              <input type="file" name="licensePhoto" onChange={handleFileChange} accept="image/*"/>
             </div>
             <div className="form-field">
               <label>License Number:</label>
@@ -201,7 +223,7 @@ const Regdriver = () => {
             {/* Add other form fields */}
             <div className="form-field">
               <label>Car Registration Photo Attachment:</label>
-              <input type="file" name="carRegistrationPhoto" onChange={handleFileChange} />
+              <input type="file" name="carRegistrationPhoto" onChange={handleFileChange} accept="image/*"/>
             </div>
             <div className="form-field">
               <label>Car Registration Expiration Date:</label>
@@ -238,10 +260,10 @@ const Regdriver = () => {
                 <option value="others">Others</option>
               </select>
             </div>
-            <div className="form-field">
+            {/* <div className="form-field">
               <label>Additional Fields:</label>
               <textarea name="additionalFields" value={formData.additionalFields} onChange={handleChange}></textarea>
-            </div>
+            </div> */}
             <div className="form-submit">
               {/* <button type="submit"> <a href='/regdrivercon' id='regdriverconlink'>Submit</a></button> */}
               <button type="submit" id='regdriverconlink'>Submit</button>
