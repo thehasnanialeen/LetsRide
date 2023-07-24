@@ -7,8 +7,8 @@ const sendEmailController = async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-      user: 'alialaddin2018@gmail.com',
-      pass: 'Aladdin@2018',
+      user: '',
+      pass: '',
     },
   });
 
