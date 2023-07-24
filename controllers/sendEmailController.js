@@ -7,14 +7,14 @@ const sendEmailController = async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-      user: 'your-email@gmail.com',
-      pass: 'your-email-password',
+      user: 'alialaddin2018@gmail.com',
+      pass: 'Aladdin@2018',
     },
   });
 
   // Email content
   const mailOptions = {
-    from: 'your-email@gmail.com',
+    from: 'alialaddin2018@gmail.com',
     to: email,
     subject,
     text,
@@ -32,4 +32,4 @@ const sendEmailController = async (req, res) => {
   });
 };
 
-module.exports = rideDistancePriceController;
+module.exports = sendEmailController;

@@ -16,8 +16,17 @@ const Regdriver = () => {
     className: '',
   })
 
-  const [user, setUser] = useState(null);
-  const [photo, setPhoto] = useStage({
+  const [user, setUser] = useState({
+      _id: "64b3340512477934819cf6d0",
+      firstName: 'Aleen',
+       lastName: 'Hasnani',
+       DOB: "2001-08-09T00:00:00.000Z",
+       email: 'ahj126@uregina.ca',
+       password: '$2b$10$BDsDFCloN.fMI/QAjaWSquQ58OIe0AmFHLbqj.1c6DCW2DbLp4MfW',
+       profilePhoto: 'path',
+       phoneNumber: 3069998989,
+       role: 'admin'});
+  const [photo, setPhoto] = useState({
     licensePhoto: null,
     carRegistrationPhoto: null,
   })
@@ -50,7 +59,7 @@ const Regdriver = () => {
   }
 
   useEffect(() => {
-    fetchData();
+    //fetchData();
   }, []);
 
   const handleChange = (e) => {
@@ -62,48 +71,68 @@ const Regdriver = () => {
     setPhoto({ ...photo, [e.target.name]: e.target.files[0] });
   };
 
-  const uploadPhotos = async () => {
+  const uploadPhotos = async (e) => {
+    e.preventDefault();
     try{
-      const formData = new FormData();
-      formData.append('file', photo.licensePhoto);
-      formData.append('fileName', user._id+"License");
+      const photos = [];
 
-      await axios.post('/api/uploadFile', formData)
+      //photos[0] = new File([photo.licensePhoto], "-License")//, { type: photo.licensePhoto.type });
+      //photos[1] = new File([photo.carRegistrationPhoto], "-CarRegistration", { type: photo.carRegistrationPhoto.type });
+
+      console.log(photo);
+      //console.log(photos);
+
+      const formData = new FormData();
+      formData.append('files', photo.licensePhoto, "-License."+photo.licensePhoto.name.substring(photo.licensePhoto.name.lastIndexOf('.') + 1));
+      formData.append('files', photo.carRegistrationPhoto, "-CarRegistration."+photo.carRegistrationPhoto.name.substring(photo.carRegistrationPhoto.name.lastIndexOf('.') + 1));
+
+      //console.log(formData);
+
+      await axios.post('http://localhost:5000/api/uploadFile', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
       .then((res) => {
         if(res.status == 200){
-          setFormData({ ...formData, [licensePhoto]: res.data.filePath });
+          //setFormData({ ...formData, ["licensePhoto"]: res.data.filePath });
+          //handleSubmit();
 
-          try{
-            const formData = new FormData();
-            formData.append('file', photo.carRegistrationPhoto);
-            formData.append('fileName', user._id+"CarRegistration");
+          console.log(res.data.filePaths);
+
+          setMessage({message: 'File uploaded successfully!', className: 'success'});
+          // try{
+          //   const formData = new FormData();
+          //   formData.append('file', photo.carRegistrationPhoto);
+          //   formData.append('fileName', user._id+"CarRegistration");
       
-            await axios.post('/api/uploadFile', formData)
-            .then((res) => {
-              if(res.status == 200){
-                setFormData({ ...formData, [carRegistrationPhoto]: res.data.filePath });
+          //   await axios.post('/api/uploadFile', formData)
+          //   .then((res) => {
+          //     if(res.status == 200){
+          //       setFormData({ ...formData, [carRegistrationPhoto]: res.data.filePath });
       
-                handleSubmit();
-              }
-              else{
-                setMessage({message: res.data.message, className: 'error'});
-              }
-            })
-          } catch(error) {
-              setMessage({message: 'Something went wrong while uploading Car Registration Photo. Try again!', className: 'error'});
-            }
+          //       handleSubmit();
+          //     }
+          //     else{
+          //       setMessage({message: res.data.message, className: 'error'});
+          //     }
+          //   })
+          // } catch(error) {
+          //     setMessage({message: 'Something went wrong while uploading Car Registration Photo. Try again!', className: 'error'});
+          //   }
         }
         else{
           setMessage({message: res.data.message, className: 'error'});
         }
       })
     } catch(error) {
+        console.log(error);
         setMessage({message: 'Something went wrong while uploading License Photo. Try again!', className: 'error'});
       }
   };
 
   const handleSubmit = async () => {
-    e.preventDefault();
+    //e.preventDefault();
 
     // Handle form submission logic here
     try{

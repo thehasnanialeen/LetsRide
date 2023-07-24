@@ -7,28 +7,34 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/'); // Uploaded files will be saved in the 'uploads' folder
   },
   filename: (req, file, cb) => {
-    cb(null, req.body.fileName); 
+    console.log({req, file});
+    cb(null, file.originalname); 
   },
 });
 
 const upload = multer({ storage });
 
 const uploadFileController = (req, res) => {
-  upload.single('file')(req, res, (err) => {
-    if (err) {
-      return res.status(400).json({ message: 'Error uploading file' });
-    }
+  try{
+    //console.log({message: "reached", req: req.query});
+    upload.array('files', 2)(req, res, (err) => {
+      console.log(req);
+      if (err) {
+        return res.status(400).json({ message: 'Error uploading file' });
+      }
 
-    if (!req.file) {
-      return res.status(201).json({ message: 'No file uploaded' });
-    }
+      //console.log({message: 'stage 1', file : req.file});
+      if (!req.files) {
+        return res.status(201).json({ message: 'No file uploaded' });
+      }
 
-    const filePath = req.file.path; // File path on the server
+      const filePaths = req.files.map((file) => file.path); // File path on the server
 
-    res.status(200).json({ message: 'File uploaded successfully', filePath });
-  });
+      res.status(200).json({ message: 'File uploaded successfully', filePaths });
+    })
+  } catch (error) {
+    console.log({message: 'stage 4', error});
+  }
 };
 
-module.exports = {
-  uploadFile,
-};
+module.exports = uploadFileController;;
