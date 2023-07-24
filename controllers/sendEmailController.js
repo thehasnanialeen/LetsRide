@@ -1,20 +1,21 @@
 const nodemailer = require('nodemailer');
+const dotenv  = require("dotenv").config();
 
 const sendEmailController = async (req, res) => {
     const { email, subject, text } = req.body;
 
   // Create a transporter for sending emails (Update with your email service details)
   const transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    service: 'Outlook',
     auth: {
-      user: '',
-      pass: '',
+      user: process.env.appEmail,
+      pass: process.env.appEmailPassword,
     },
   });
 
   // Email content
   const mailOptions = {
-    from: 'alialaddin2018@gmail.com',
+    from: 'letsride.help@outlook.com',
     to: email,
     subject,
     text,
