@@ -20,6 +20,9 @@ const app = express();
 
 const publicPath = path.join(__dirname, 'frontend', 'build');
 app.use(express.static(publicPath));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -32,13 +35,13 @@ app.use(cors({
   credentials: true,
   optionsSuccessStatus: 200 // Explicitly set the status code for preflight success
 }));
-//app.use(express.static(path.resolve(__dirname, '../client/build')));
-app.use(express.json());
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET, // Replace with your secret key for session encryption
     resave: false,
     saveUninitialized: true,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 } //oneDay max
   })
 );
 

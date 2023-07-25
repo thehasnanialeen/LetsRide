@@ -18,18 +18,23 @@ const Listofrides = () => {
       message: '',
       className: '',
       })
-      
-  const [user, setUser] = useState(null);
-  let [rideDetail, setRideDetail] =  useState([]);
 
+  let [rideDetail, setRideDetail] =  useState([]);
+  
+  const [user, setUser] = useState(null);
   const fetchData = async () => {
     try{
         await axios.get('/api/userSession')
         .then((res) => {
           
-          setUser(res.data.user);
-
-          console.log(res);
+          console.log(res.data);
+          if(!res.data.user)
+          {
+            redirect.push('/');
+          }
+          else{
+            setUser(res.data.user);
+          }
         })
       } catch(error) {
         setMessage({message: 'Something went wrong. Try again!', className: 'error'})
@@ -40,10 +45,8 @@ const Listofrides = () => {
         .then((res) => {
           if(res.status == 200)
           {
-            console.log(res);
             //console.log(res.data.rides);
             setRideDetail(rideDetail = res.data.rides);
-            console.log(res);
 
             if(rideDetail.length == 0)
             {

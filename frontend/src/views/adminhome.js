@@ -1,4 +1,5 @@
 import '../css/adminhome.css'; 
+import React, { useState, useEffect } from 'react';
 import Header from './header';
 import Footer from './footer';
 // AdminHome.js
@@ -7,6 +8,8 @@ import { useHistory } from 'react-router-dom'; // Import useHistory for navigati
 
 const Adminhome = () => {
   const history = useHistory();
+
+  const [user, setUser] = useState(null);
 
   const handleApprovalsClick = () => {
     // Redirect to the Driver registration approvals page (replace '/approvals' with the actual path)
@@ -17,6 +20,28 @@ const Adminhome = () => {
     // Redirect to the Unregister drivers page (replace '/unregister' with the actual path)
     history.push('/unregister');
   };
+
+  const fetchData = async () => {
+    try{
+      await axios.get('/api/userSession')
+      .then((res) => {
+        //console.log(res.data.user);
+        if(!res.data.user)
+          {
+            redirect.push('/');
+          }
+          else{
+            setUser(res.data.user);
+          }
+      })
+    } catch(error) {
+      setMessage([...message, 'Something went wrong. Try again!'])
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <body>

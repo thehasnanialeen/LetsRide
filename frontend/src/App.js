@@ -13,6 +13,7 @@ import ratings from './views/ratings';
 import AdminHome from './views/adminhome';
 import Unregister from './views/unregister';
 import Approval from './views/approval';
+import DriverRegistrationRejected from './views/driverRegistrationRejected'
 function App() {
   return (
     <BrowserRouter>
@@ -30,6 +31,7 @@ function App() {
          <Route exact path="/adminhome" component={AdminHome} />
          <Route exact path="/unregister" component={Unregister} />
          <Route exact path="/approval" component={Approval} />
+         <Route exact path="/driverRegistrationRejected" component={DriverRegistrationRejected} />
 
       </Switch>
     </BrowserRouter>

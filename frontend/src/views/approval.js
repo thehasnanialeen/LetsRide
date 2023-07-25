@@ -16,11 +16,30 @@ const Approval = () => {
   const [drivers, setDrivers] = useState([]);
   const [notes, setNotes] = useState({});
 
+  const fetchData = async () => {
+    try{
+      await axios.get('/api/userSession')
+      .then((res) => {
+        //console.log(res.data.user);
+        if(!res.data.user)
+          {
+            redirect.push('/');
+          }
+          else{
+            setUser(res.data.user);
+          }
+      })
+    } catch(error) {
+      setMessage([...message, 'Something went wrong. Try again!'])
+    }
+  }
+
   useEffect(() => {
     fetchData();
+    fetchDriversList();
   }, []);
 
-  const fetchData = async () => {
+  const fetchDriversList = async () => {
       try{
         await axios.get('/api/driverRegistration/getApprovalList')
         .then((res) => {

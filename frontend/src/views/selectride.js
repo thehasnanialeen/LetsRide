@@ -24,12 +24,54 @@ const Selectride = () => {
     pickupDate: '',
   });
 
+  const fetchDriverData = async () => {
+    try{
+      await axios.get(`/api/driverRegistration/getDriverDetails?userId=${user._id}`)
+      .then((res) => {
+        //console.log(res.data.user);
+        if(res.status == 201)
+        {
+          const driver = res.data.driver;
+          if(driver.approvalStatus === 'waiting')
+          {
+            redirect.push('/regdrivercon');
+          }
+          else if(driver.approvalStatus === 'rejected')
+          {
+            redirect.push('/driverRegistrationRejected');
+          }
+        }
+        else if(res.status == 200)
+        {
+          redirect.push('/regdriver');
+        }
+        else
+        {
+          setMessage({message: res.data.message, className: 'error'});
+        }
+      })
+    } catch(error) {
+      setMessage({message: 'Something went wrong. Try again!', className: 'error'})
+    }
+  }
+
   const fetchData = async () => {
     try{
       await axios.get('/api/userSession')
       .then((res) => {
         //console.log(res.data.user);
-        setUser(res.data.user);
+        if(!res.data.user)
+          {
+            redirect.push('/');
+          }
+          else{
+            setUser(res.data.user);
+            if(user.role === 'rider')
+            {
+              redirect.push('/login');
+            }
+            fetchDriverData();
+          }
       })
     } catch(error) {
       setMessage({message: 'Something went wrong. Try again!', className: 'error'})

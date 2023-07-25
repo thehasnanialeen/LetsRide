@@ -21,6 +21,21 @@ const driverRegistrationController = {
     }
   },
 
+  getDriverDetails: async (req, res) => {
+    try {
+      // Check if the driver already exists
+      const driver = await Driver.findOne({ userID: req.query.userId });
+
+      if (!driver) {
+        return res.status(200).json({ message: 'Driver does not exist' });
+      }
+
+      res.status(201).json({ message: 'Got Driver detials successfully!', driver });
+    } catch (error) {
+      res.status(500).json({ message: 'Error Getting Driver Details. Logout and Sign in again.' });
+    }
+  },
+
   getApprovalList: async (req, res) => {
     try {
 

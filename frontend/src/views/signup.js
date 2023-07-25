@@ -86,8 +86,13 @@ const Signup = () => {
         { 
           setMessage({message: res.data.message, className: 'success'})
           setTimeout(() => {
-            redirect.push('/login');
-            //redirect.push('/login');
+            if(formData.role === 'driver')
+            {
+              redirect.push('/regdriver');
+            }
+            else{
+              redirect.push('/login');
+            }
           }, 2000);
         }
         else{
