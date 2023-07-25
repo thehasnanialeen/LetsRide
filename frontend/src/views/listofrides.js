@@ -14,26 +14,22 @@ import '../css/listofrides.css';
 const Listofrides = () => {
   const redirect = useHistory(); 
 
-    const [messagedd, setMessage] = useState({
+    const [message, setMessage] = useState({
       message: '',
       className: '',
       })
   // Replace with linking the data
   const [user, setUser] = useState(null);
-  const [rideDetail, setRideDetail] =  useState([]);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  let [rideDetail, setRideDetail] =  useState([]);
 
   const fetchData = async () => {
     try{
         await axios.get('/api/userSession')
         .then((res) => {
           
-          setUser(res.data);
+          setUser(res.data.user);
 
-          //console.log(user);
+          console.log(res);
         })
       } catch(error) {
         setMessage({message: 'Something went wrong. Try again!', className: 'error'})
@@ -44,8 +40,10 @@ const Listofrides = () => {
         .then((res) => {
           if(res.status == 200)
           {
+            console.log(res);
             //console.log(res.data.rides);
-            setRideDetail(res.data.rides);
+            setRideDetail(rideDetail = res.data.rides);
+            console.log(res);
 
             if(rideDetail.length == 0)
             {
@@ -63,6 +61,10 @@ const Listofrides = () => {
         setMessage({message: 'Something went wrong. Try again!', className: 'error'})
       }
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleConfirmation = async (e) => {
     // const ride = {
@@ -105,8 +107,8 @@ const Listofrides = () => {
             <p id='rideconfirmhead'>
                 Ride Selection
             </p>
-            <p className={messagedd.className}>{messagedd.message}</p>  
-           {rideDetail.map((rideDetails, index) => ( 
+            <p className={message.className}>{message.message}</p>  
+           {rideDetail.length > 0 ? rideDetail.map((rideDetails, index) => ( 
             <div className="ride-details-container" key={rideDetails._id}>
                 <div className="left-column">
                     <h2>Ride Details</h2>
@@ -150,7 +152,7 @@ const Listofrides = () => {
                 </div>
             </div>
             ) // close on line 33 ride => ( 
-            ) // RideDetails.map(    below one is for start of line 33. 
+            ) : <></>
            }
         </div>    
 

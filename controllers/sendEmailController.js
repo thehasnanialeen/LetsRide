@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const dotenv  = require("dotenv").config();
+require('dotenv').config();
 
 const sendEmailController = async (req, res) => {
     const { email, subject, text } = req.body;
@@ -8,8 +8,8 @@ const sendEmailController = async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'Outlook',
     auth: {
-      user: process.env.appEmail,
-      pass: process.env.appEmailPassword,
+      user: process.env.APP_EMAIL,
+      pass: process.env.APP_EMAIL_PASSWORD,
     },
   });
 

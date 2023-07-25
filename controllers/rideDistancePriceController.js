@@ -1,7 +1,8 @@
 const axios = require('axios');
+require("dotenv").config();
 
 const rideDistancePriceController = async (req, res) => {
-    await axios.post('https://www.mapquestapi.com/directions/v2/route?key=3YMqVrChiwCSOjmf8gy7eSqoCXdD1fjR', {
+    await axios.post(`https://www.mapquestapi.com/directions/v2/route?key=${process.env.MAPQUEST_API_Key}`, {
       "locations": [
         req.body.pickupLocation,
         req.body.dropLocation,

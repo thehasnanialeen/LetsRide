@@ -14,15 +14,15 @@ const Regdriver = () => {
   let [message, setMessage] = useState([]);
 
   const [user, setUser] = useState({
-      _id: "64b6c170006846ffc1bcfed9",
-      firstName: 'Aleen',
-       lastName: 'Hasnani',
-       DOB: "2001-08-09T00:00:00.000Z",
-       email: 'ahj126@uregina.ca',
-       password: '$2b$10$BDsDFCloN.fMI/QAjaWSquQ58OIe0AmFHLbqj.1c6DCW2DbLp4MfW',
-       profilePhoto: 'path',
-       phoneNumber: 3069998989,
-       role: 'admin'
+      // _id: "64b6c170006846ffc1bcfed9",
+      // firstName: 'Aleen',
+      //  lastName: 'Hasnani',
+      //  DOB: "2001-08-09T00:00:00.000Z",
+      //  email: 'ahj126@uregina.ca',
+      //  password: '$2b$10$BDsDFCloN.fMI/QAjaWSquQ58OIe0AmFHLbqj.1c6DCW2DbLp4MfW',
+      //  profilePhoto: 'path',
+      //  phoneNumber: 3069998989,
+      //  role: 'admin'
       });
   const [photo, setPhoto] = useState({
     licensePhoto: null,
@@ -57,7 +57,7 @@ const Regdriver = () => {
   }
 
   useEffect(() => {
-    //fetchData();
+    fetchData();
   }, []);
 
   const handleChange = (e) => {
@@ -116,7 +116,7 @@ const Regdriver = () => {
       formData.append('files', photo.licensePhoto, user._id+"-License."+photo.licensePhoto.name.substring(photo.licensePhoto.name.lastIndexOf('.') + 1));
       formData.append('files', photo.carRegistrationPhoto, user._id+"-CarRegistration."+photo.carRegistrationPhoto.name.substring(photo.carRegistrationPhoto.name.lastIndexOf('.') + 1));
 
-      await axios.post('http://localhost:5000/api/uploadFile', formData, {
+      await axios.post('/api/uploadFile', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

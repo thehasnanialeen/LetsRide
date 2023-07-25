@@ -19,7 +19,7 @@ const authenticationController = {
       
       // Save the user to the database
       let user = await User.create(newUser);
-      console.log(user);
+      //console.log(user);
      
       res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {

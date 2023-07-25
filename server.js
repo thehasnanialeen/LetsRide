@@ -18,24 +18,36 @@ const port = process.env.PORT || 5001;
 
 const app = express();
 
+const publicPath = path.join(__dirname, 'frontend', 'build');
+app.use(express.static(publicPath));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
+
 app.use(cors({
-  origin: 'http://localhost:3000',
-  methods: ['GET', 'POST'], // Add the allowed HTTP methods here
-  allowedHeaders: ['Content-Type', 'Authorization'], // Add the allowed headers here
+  origin: (origin, callback) => {
+    if(origin === process.env.URL || !origin){
+      callback(null, true)
+    } else{
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true,
   optionsSuccessStatus: 200 // Explicitly set the status code for preflight success
 }));
 //app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.use(express.json());
 app.use(
   session({
-    secret: 'WeAreRegisteredInCs476', // Replace with your secret key for session encryption
+    secret: process.env.SESSION_SECRET, // Replace with your secret key for session encryption
     resave: false,
     saveUninitialized: true,
   })
 );
 
 mongoose.connect(
-    "mongodb+srv://aleenhasnani:DUqqgA7LoCgp1Jgp@letsride.dt7jgdg.mongodb.net/LetsRideDatabase?retryWrites=true&w=majority", 
+    process.env.DB_URL + "retryWrites=true&w=majority", 
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
