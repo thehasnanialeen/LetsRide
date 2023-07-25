@@ -3,7 +3,7 @@ import '../css/selectride.css'; // assuming you have a separate CSS file for sty
 import Header from './header';
 import Footer from './footer';
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+//import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import carImage from '../images/drivermoney.png';
@@ -11,29 +11,29 @@ import carImage from '../images/drivermoney.png';
 const Regdriver = () => {
   const redirect = useHistory(); 
 
-  const [message, setMessage] = useState([]);
+  let [message, setMessage] = useState([]);
 
   const [user, setUser] = useState({
-      // _id: "64b3340512477934819cf6d0",
-      // firstName: 'Aleen',
-      //  lastName: 'Hasnani',
-      //  DOB: "2001-08-09T00:00:00.000Z",
-      //  email: 'ahj126@uregina.ca',
-      //  password: '$2b$10$BDsDFCloN.fMI/QAjaWSquQ58OIe0AmFHLbqj.1c6DCW2DbLp4MfW',
-      //  profilePhoto: 'path',
-      //  phoneNumber: 3069998989,
-      //  role: 'admin'
+      _id: "64b6c170006846ffc1bcfed9",
+      firstName: 'Aleen',
+       lastName: 'Hasnani',
+       DOB: "2001-08-09T00:00:00.000Z",
+       email: 'ahj126@uregina.ca',
+       password: '$2b$10$BDsDFCloN.fMI/QAjaWSquQ58OIe0AmFHLbqj.1c6DCW2DbLp4MfW',
+       profilePhoto: 'path',
+       phoneNumber: 3069998989,
+       role: 'admin'
       });
   const [photo, setPhoto] = useState({
     licensePhoto: null,
     carRegistrationPhoto: null,
   })
   const [formData, setFormData] = useState({
-    licensePhoto: null,
+    licensePhoto: '',
     licenseNumber: '',
     licenseExpiration: '',
     licensePlateNumber: '',
-    carRegistrationPhoto: null,
+    carRegistrationPhoto: '',
     carRegistrationExpiration: '',
     homeAddress: '',
     carMake: '',
@@ -52,7 +52,7 @@ const Regdriver = () => {
         setUser(res.data.user);
       })
     } catch(error) {
-      setMessage({message: 'Something went wrong. Try again!', className: 'error'})
+      setMessage([...message, 'Something went wrong. Try again!'])
     }
   }
 
@@ -67,7 +67,7 @@ const Regdriver = () => {
 
   const handleFileChange = (e) => {
     setPhoto({ ...photo, [e.target.name]: e.target.files[0] });
-    setFormData({ ...formData, [e.target.name]: e.target.files[0] });
+    //setFormData({ ...formData, [e.target.name]: e.target.files[0] });
   };
 
   const uploadFormData = async () => {
@@ -101,11 +101,11 @@ const Regdriver = () => {
           redirect.push('/regdrivercon');
         }
         else{
-          setMessage(message.push(res.data.message));
+          setMessage([...message, res.data.message]);
         }
       })
     } catch(error) {
-      setMessage(message.push('Something went wrong. Try again!'));
+      setMessage([...message, 'Something went wrong. Try again!']);
     }
   };
 
@@ -123,27 +123,32 @@ const Regdriver = () => {
       })
       .then((res) => {
         if(res.status == 200){
-          //setFormData({ ...formData, ["licensePhoto"]: res.data.filePath });
-          //uploadFormData();
-          console.log(res.data.filePaths);
-
-          setMessage(message.push('File uploaded successfully!'));
+          setFormData({ ...formData, "licensePhoto": res.data.filePaths[0] });
+          setFormData({ ...formData, "carRegistrationPhoto": res.data.filePaths[1] });
+          
+          if(formData.licensePhoto !== '' && formData.carRegistrationPhoto !== '')
+          {
+            uploadFormData();
+          }
+          //console.log(res.data.filePaths);
+          //setMessage([...message, 'File uploaded successfully!']);
         }
         else{
-          setMessage(message.push(res.data.message));
+          setMessage([...message, res.data.message]);
         }
       })
     } catch(error) {
         //console.log(error);
-        setMessage(message.push('Something went wrong while uploading License Photo. Try again!'));
+        setMessage([...message, 'Something went wrong while uploading License Photo. Try again!']);
       }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setMessage([]);
-    const valid = true;
+    let arr = [];
+    setMessage(message = []);
+    let valid = true;
     const today = new Date();
 
     if (
@@ -159,37 +164,49 @@ const Regdriver = () => {
       formData.VIN.trim() === ''
     ) {
       valid = false;
-      setMessage(message.push('All fields are required'));
+      //setMessage([...message, 'All fields are required']);
+      arr.push('All fields are required');
     }
     else{
-      if(formData.licensePhoto == null)
+      if(photo.licensePhoto == null)
       {
         valid = false;
-        setMessage(message.push('License Photo not uploaded'));
+        //setMessage([...message, 'License Photo not uploaded']);
+        arr.push('License Photo not uploaded');
       }
-      if(formData.carRegistrationPhoto == null)
+      if(photo.carRegistrationPhoto == null)
       {
         valid = false;
-        setMessage(message.push('Car Registration Photo not uploaded'));
+        //setMessage([...message, 'Car Registration Photo not uploaded']);
+        arr.push('Car Registration Photo not uploaded');
       }
-      if(formData.licenseExpiration <= today)
+      if(formData.licenseExpiration <= today.toLocaleDateString('en-CA'))
       {
         valid = false;
-        setMessage(message.push('Expired License is not accepted'));
+        //setMessage([...message, 'Expired License is not accepted']);
+        arr.push('Expired License is not accepted');
       }
-      if(formData.carRegistrationExpiration <= today)
+      if(formData.carRegistrationExpiration <= today.toLocaleDateString('en-CA'))
       {
         valid = false;
-        setMessage(message.push('Expired Car Registration is not accepted'));
+        //setMessage([...message, 'Expired Car Registration is not accepted']);
+        arr.push('Expired Car Registration is not accepted');
       }
       if(formData.year > today.getFullYear())
       {
         valid = false;
-        setMessage(message.push('Invalid Car Year'));
+        //setMessage([...message, 'Invalid Car Year']);
+        arr.push('Invalid Car Year');
       }
     }
 
-    if(valid == true)
+    if(arr.length != 0)
+    {
+      setMessage(message = arr);
+    }
+    //console.log(message);
+
+    if(valid === true)
     {
       uploadPhotos();
     }
@@ -205,7 +222,7 @@ const Regdriver = () => {
         <div className="form-container">
           <h2>Driver Registration</h2>
           {message.map((error, index) => (
-            <p className="error">{error}</p>
+            <p className="error" key={index}>{error}</p>
           ))}
           <form onSubmit={handleSubmit}>
             <div className="form-field">
@@ -228,6 +245,10 @@ const Regdriver = () => {
             <div className="form-field">
               <label>Car Registration Expiration Date:</label>
               <input type="date" name="carRegistrationExpiration" value={formData.carRegistrationExpiration} onChange={handleChange} />
+            </div>
+            <div className="form-field">
+              <label>Car License Plate Number:</label>
+              <input type="text" name="licensePlateNumber" value={formData.licensePlateNumber} onChange={handleChange} />
             </div>
             <div className="form-field">
               <label>Home Address: </label>
