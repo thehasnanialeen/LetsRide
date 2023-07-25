@@ -21,10 +21,6 @@ const app = express();
 const publicPath = path.join(__dirname, 'frontend', 'build');
 app.use(express.static(publicPath));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(publicPath, 'index.html'));
-});
-
 app.use(cors({
   origin: (origin, callback) => {
     if(origin === process.env.URL || !origin){
@@ -73,6 +69,10 @@ app.get('/api/userSession', (req, res) => {
   const user = req.session.user; // Retrieve the user's details from the session
   //console.log({message: 'session', user});
   res.json({message: 'session', user});
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
 });
 
 app.listen(port, () => {

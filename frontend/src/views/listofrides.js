@@ -18,7 +18,7 @@ const Listofrides = () => {
       message: '',
       className: '',
       })
-  // Replace with linking the data
+      
   const [user, setUser] = useState(null);
   let [rideDetail, setRideDetail] =  useState([]);
 
