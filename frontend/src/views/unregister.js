@@ -8,6 +8,7 @@ const Unregister = () => {
   const [drivers, setDrivers] = useState([]);
   const [unregisterReasons, setUnregisterReasons] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     // Fetch the list of registered drivers from the backend
@@ -53,7 +54,8 @@ const Unregister = () => {
   );
 
   return (
-    <body>
+    <>
+    {user === null ? '' : <>
         <Header> </Header>
     <div className="unregister-drivers">
       <h2>Unregister Drivers</h2>
@@ -84,8 +86,9 @@ const Unregister = () => {
         Go Back
       </button>
     </div>
-        <Footer> </Footer>
-    </body>
+      <Footer> </Footer>
+        </>}
+    </>
   );
 };
 export default Unregister;

@@ -105,6 +105,7 @@ const Listofrides = () => {
 
   return (
 <>
+{user === null ? '' : <>
         <Header> </Header>      
         <div> 
             <p id='rideconfirmhead'>
@@ -160,6 +161,7 @@ const Listofrides = () => {
         </div>    
 
     <Footer></Footer> // footer 
+    </>}
 </>   // body close 
   ); // return function 
 }; // rideconfirm function 

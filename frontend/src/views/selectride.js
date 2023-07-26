@@ -122,6 +122,7 @@ const Selectride = () => {
 
   return (
     <>
+    {user === null ? '' : <>
     <Header> </Header>
     <div className="ride-form-container">
       <div className="left-side">
@@ -174,6 +175,7 @@ const Selectride = () => {
     <footer>
         <Footer> </Footer>
     </footer>
+    </>}
     </>
   );
 };

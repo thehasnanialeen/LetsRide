@@ -13,7 +13,7 @@ const Regdriver = () => {
 
   let [message, setMessage] = useState([]);
 
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [photo, setPhoto] = useState({
     licensePhoto: null,
     carRegistrationPhoto: null,
@@ -38,20 +38,22 @@ const Regdriver = () => {
     try{
       await axios.get('/api/userSession')
       .then((res) => {
-        //console.log(res.data.user);
+        console.log(user);
         if(!res.data.user)
           {
             redirect.push('/');
           }
           else{
             setUser(res.data.user);
-            if(user.role === 'rider')
+            console.log(user);
+            if(res.data.user.role === 'rider')
             {
               redirect.push('/login');
             }
           }
       })
     } catch(error) {
+      console.log(error);
       setMessage([...message, 'Something went wrong. Try again!'])
     }
   }
@@ -105,6 +107,7 @@ const Regdriver = () => {
         }
       })
     } catch(error) {
+      console.log(error);
       setMessage([...message, 'Something went wrong. Try again!']);
     }
   };
@@ -215,7 +218,8 @@ const Regdriver = () => {
   };
 
   return (
-    <>
+  <>
+  {user === null ? '' : <>
    <Header> </Header>
     <div className="page-container">
       <div className="left-side">
@@ -296,7 +300,8 @@ const Regdriver = () => {
         <img src={carImage} alt="Car" className="car-image" />
       </div>
     </div>
-    <Footer> </Footer>
+    <Footer> </Footer> 
+    </>}
     </>
   );
 };

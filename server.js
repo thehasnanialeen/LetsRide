@@ -4,6 +4,7 @@ const dotenv  = require("dotenv").config();
 const mongoose = require("mongoose");
 const session = require('express-session');
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 //App Routes
 const authenticationRoutes = require('./routes/authenticationRoutes');
@@ -19,10 +20,11 @@ const port = process.env.PORT || 5001;
 const app = express();
 
 const publicPath = path.join(__dirname, 'frontend', 'build');
+
 app.use(express.static(publicPath));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+// app.use(express.urlencoded({ extended: true }));
+// app.use(cookieParser());
 
 app.use(cors({
   origin: (origin, callback) => {

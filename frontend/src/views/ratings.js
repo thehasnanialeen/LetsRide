@@ -2,12 +2,13 @@
 //import carPhoto1 from '../images/tesla2.jpg'; // Replace with actual car photos
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import carPicture from '../images/tesla.jpg'; // Replace with actual car photos
 import '../css/ratings.css'; // Import the combined CSS file
 import Header from './header';
 import Footer from './footer';
 
-import React, { useState } from 'react';
+//import React, { useState } from 'react';
 
 const DriverCard = ({ driverName, carPicture }) => {
   return (
@@ -41,6 +42,7 @@ const Ratings = () => {
 
   const [user, setUser] = useState(null);
   const [rating, setRating] = useState(0);
+  let [message, setMessage] = useState([]);
 
   const handleRate = (value) => {
     setRating(value);
@@ -72,7 +74,8 @@ const Ratings = () => {
   }, []);
 
   return (
-    <body>
+    <>
+    {user === null ? '' : <>
       <Header> </Header>
     <div className="rating-page">
       <div className="left-side"> 
@@ -88,7 +91,8 @@ const Ratings = () => {
       </div>
     </div> 
     <Footer></Footer>
-    </body>
+    </>}
+    </>
   );
 };
 

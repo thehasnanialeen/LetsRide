@@ -2,3 +2,7 @@
 /* need to check for the auto adjusted height of signup form */ 
 /* Let's ride does not change in header */
 /* Might have to edit the logo in footer */  
+
+body{
+    margin: 0px;
+}

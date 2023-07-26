@@ -10,14 +10,19 @@
 
   
 .headlogo {
-	height: 50px;
-	width: 75px;
+	height: 70px;
+	width: 100px;
   }
   
   .company-name {
-	font-size: 35px;
-	font-weight: bolder; 
-	color: white;
+	font-size: 30px !important;
+	font-weight: bolder !important; 
+	color: white !important;
+  }
+
+  .company-name a{
+	color: white !important;
+	text-decoration: none !important;
   }
   
   .signup-button {
