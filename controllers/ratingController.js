@@ -1,14 +1,17 @@
 const mongoose = require('mongoose');
-//const ObjectId = mongoose.Types.ObjectId;
 const Rating = require('../models/ratingSchema');
-//const User = require('../models/userSchema');
 
 const ratingController = {
   post: async (req, res) => {
     try {
+      const newRating = req.body;
 
-      //const newRating = req.body;
-      await Rating.create(req.body);
+      const existingRating = await Rating.findOne({ rideId: newRating.rideId });
+      if (existingRating) {
+        return res.status(200).json({ message: `You have already rated this ride ${existingRating.ratingValue} stars` });
+      }
+
+      await Rating.create(newRating);
 
       res.status(201).json({ message: 'Rating posted successfully' });
     } catch (error) {
@@ -19,12 +22,7 @@ const ratingController = {
   getAvgRating: async (req, res) => {
     try {
 
-      //console.log(req.body.userId);
-
-      //const avgRating = await Rating.find({ reviewForId: mongoose.Types.ObjectId('64b3340512477934819cf6d0') });
-
       const avgRating = await Rating.aggregate([
-        // { $match: { reviewForId: mongoose.Types.ObjectId('64b3340512477934819cf6d0') }},
         { $group: { 
           _id: '$reviewForId',
           avgUserRating : {$avg: '$ratingValue'}}}

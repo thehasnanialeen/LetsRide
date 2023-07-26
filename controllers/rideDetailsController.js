@@ -10,7 +10,7 @@ const rideDetailsController = {
 
       res.status(201).json({ message: 'Ride posted successfully' });
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       res.status(500).json({ message: 'Error posting Ride', error });
     }
   },
@@ -18,7 +18,32 @@ const rideDetailsController = {
   getRidesList: async (req, res) => {
     try {
         const rides = await Ride.find({rideStatus: "posted"});
+        //console.log(rides);
+        res.status(200).json({ rides });
+    } catch (error) {
+      res.status(500).json({ message: 'Error getting rides' });
+    }
+  },
 
+  getRidesListByUser: async (req, res) => {
+    try {
+        const rides = await Ride.aggregate([
+          {
+            $match: { rideStatus: "completed", riderUserID: req.query.id }
+          },
+          {
+            $lookup: {
+              from: 'users',
+              localField: 'driverUserID',
+              foreignField: '_id',
+              as: 'driverDetails'
+            }
+          },
+          {
+            $unwind: '$driverDetails'
+          }
+        ]);
+        
         res.status(200).json({ rides });
     } catch (error) {
       res.status(500).json({ message: 'Error getting rides' });

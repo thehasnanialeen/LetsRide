@@ -8,12 +8,14 @@ import Selectride from './views/selectride';
 import regdriver from './views/regdriver';
 import regdrivercon from './views/regdrivercon';
 import Listofrides from './views/listofrides';
-import conmessage from './views/conmessage';
+import Conmessage from './views/conmessage';
 import ratings from './views/ratings';
 import AdminHome from './views/adminhome';
 import Unregister from './views/unregister';
 import Approval from './views/approval';
-import DriverRegistrationRejected from './views/driverRegistrationRejected'
+import DriverRegistrationRejected from './views/driverRegistrationRejected';
+import RecentRidesList from './views/recentRidesList';
+
 function App() {
   return (
     <BrowserRouter>
@@ -25,14 +27,13 @@ function App() {
         <Route exact path="/regdriver" component={regdriver} />
         <Route exact path="/regdrivercon" component={regdrivercon} />
         <Route exact path="/listofrides" component={Listofrides} />
-        <Route exact path="/conmessage" component={conmessage} />
+        <Route exact path="/conmessage" component={Conmessage} />
         <Route exact path="/ratings" component={ratings} />
-         {/* <Route exact path="/provideride" component={provideride} />  */}
          <Route exact path="/adminhome" component={AdminHome} />
          <Route exact path="/unregister" component={Unregister} />
          <Route exact path="/approval" component={Approval} />
          <Route exact path="/driverRegistrationRejected" component={DriverRegistrationRejected} />
-
+         <Route exact path="/recentRidesList" component={RecentRidesList} />
       </Switch>
     </BrowserRouter>
   );

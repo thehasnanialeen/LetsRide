@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-//import backgroundImage from './background-image.jpg'; // Replace with the path to your background image
 import Header from './header';
 import Footer from './footer';
 import Photo from '../images/elantra.jpg'; 
@@ -70,26 +69,17 @@ const Listofrides = () => {
   }, []);
 
   const handleConfirmation = async (e) => {
-    // const ride = {
-    //     //riderIds: user._id,
-    //     rideStatus: 'booked',
-    //     //numberOfPassengers: rideDetail[e.target.index].numOfPassengers + 1,
-    // }
-    //console.log(rideDetail[e.target.id]);
 
     try{
       await axios.post('/api/rideDetails/updateRider', {
         _id: rideDetail[e.target.id]._id,
-        riderIds: '5412sghh451',
+        riderIds: user._id,
         rideStatus: 'booked',
         numberOfPassengers: rideDetail[e.target.id].numberOfPassengers + 1,
       })
       .then((res) => {
         if(res.status == 200)
         {
-          //console.log(res.data.rides);
-          //setRideDetail(res.data.rides);
-          //<Redirect to="/conmessage" />
           redirect.push('/conmessage')
         }
         else{
@@ -103,8 +93,13 @@ const Listofrides = () => {
     }
   }
 
+  const removeRide = (e) => {
+    rideDetail.splice(e.target.id, 1);
+  }
+
   return (
 <>
+{user === null ? '' : <>
         <Header> </Header>      
         <div> 
             <p id='rideconfirmhead'>
@@ -144,13 +139,13 @@ const Listofrides = () => {
                             <p>Drop Off Time:  <span className='answer'> {rideDetails.endTime} </span></p>
                         </div>
                         <div className="info-item">
-                            <p>Price: {rideDetails.cost}</p>
+                            <p>Price: ${(rideDetails.cost / 2) + 50}</p>
                         </div>
                     </div>    
                     <div className="confirm-button">
                         {/* <button > <a href='/conmessage' className='adbuttonlink'> Confirm </a> </button> */}
                         <button className='adbuttonlink' id={index} onClick={handleConfirmation}>  Confirm  </button>
-                        <button> <a href='#' className='adbuttonlink'> Ignore </a>  </button> 
+                        <button className='adbuttonlink' id={index} onClick={removeRide}> Ignore  </button> 
                     </div>
                 </div>
             </div>
@@ -159,7 +154,8 @@ const Listofrides = () => {
            }
         </div>    
 
-    <Footer></Footer> // footer 
+    <Footer></Footer>
+    </>}
 </>   // body close 
   ); // return function 
 }; // rideconfirm function 

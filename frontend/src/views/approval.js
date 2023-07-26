@@ -13,6 +13,7 @@ const Approval = () => {
       message: '',
       className: '',
       })
+  const [user, setUser] = useState(null);
   const [drivers, setDrivers] = useState([]);
   const [notes, setNotes] = useState({});
 
@@ -53,7 +54,7 @@ const Approval = () => {
               setMessage({message: 'No drivers for approval', className: 'error'})
             }
             console.log(driversList);
-              setDrivers(driversList);
+            setDrivers(driversList);
             //<Redirect to="/conmessage" />
           }
           else{
@@ -107,6 +108,7 @@ const Approval = () => {
 
   return ( 
 <>
+{user === null ? '' : <>
 <Header> </Header>
 
     <div className="driver-registration-requests">
@@ -191,6 +193,7 @@ const Approval = () => {
         </button>
       </div>
       <Footer />
+      </>}
     </>
   );
 };

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/signup.css';
 import Header from './header';
 import Footer from './footer';
@@ -166,7 +167,7 @@ const Signup = () => {
           <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
         </div>
         <div className="form-field">
-            <label>Role:</label>
+            <label className='role-label'>Role:</label>
             <div className="radio-options">
               <label>
                 <input
