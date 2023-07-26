@@ -24,7 +24,39 @@ const Login = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === 'email') {
+      if (!isValidEmail(value)) {
+        setMessage({ message: 'Please enter a valid email address.', className: 'error' });
+      } else {
+        setMessage({ message: '', className: '' });
+      }
+    }
+
+    // Validate password
+    if (name === 'password') {
+      if (!isValidPassword(value)) {
+        setMessage({
+          message: 'Password must be at least 10 characters long and contain at least 1 number.',
+          className: 'error',
+        });
+      } else {
+        setMessage({ message: '', className: '' });
+      }
+    }
     setFormData({ ...formData, [name]: value });
+  };
+
+  const isValidEmail = (email) => {
+    // Simple email validation using regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isValidPassword = (password) => {
+    // Password validation: at least 10 characters long and contains at least 1 number
+    const passwordRegex = /^(?=.*\d).{10,}$/;
+    return passwordRegex.test(password);
   };
 
 // function to redirect to the selectride file 
