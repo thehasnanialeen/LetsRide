@@ -13,7 +13,9 @@ import ratings from './views/ratings';
 import AdminHome from './views/adminhome';
 import Unregister from './views/unregister';
 import Approval from './views/approval';
-import DriverRegistrationRejected from './views/driverRegistrationRejected'
+import DriverRegistrationRejected from './views/driverRegistrationRejected';
+import RecentRidesList from './views/recentRidesList';
+
 function App() {
   return (
     <BrowserRouter>
@@ -27,12 +29,11 @@ function App() {
         <Route exact path="/listofrides" component={Listofrides} />
         <Route exact path="/conmessage" component={Conmessage} />
         <Route exact path="/ratings" component={ratings} />
-         {/* <Route exact path="/provideride" component={provideride} />  */}
          <Route exact path="/adminhome" component={AdminHome} />
          <Route exact path="/unregister" component={Unregister} />
          <Route exact path="/approval" component={Approval} />
          <Route exact path="/driverRegistrationRejected" component={DriverRegistrationRejected} />
-
+         <Route exact path="/recentRidesList" component={RecentRidesList} />
       </Switch>
     </BrowserRouter>
   );

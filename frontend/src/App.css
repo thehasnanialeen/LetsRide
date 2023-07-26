@@ -6,3 +6,9 @@
 body{
     margin: 0px;
 }
+
+button a{
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+}

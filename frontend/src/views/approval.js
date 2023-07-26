@@ -54,7 +54,7 @@ const Approval = () => {
               setMessage({message: 'No drivers for approval', className: 'error'})
             }
             console.log(driversList);
-              setDrivers(driversList);
+            setDrivers(driversList);
             //<Redirect to="/conmessage" />
           }
           else{
