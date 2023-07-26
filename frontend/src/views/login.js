@@ -42,8 +42,22 @@ const Login = () => {
         {
           setMessage({message: res.data.message, className: 'success'})
           setTimeout(() => {
-            //history.pushState('/selectride');
-            redirect.push('/selectride');
+            const user = res.data.user;
+            if(user.role === 'rider')
+            {
+              redirect.push('/listofrides');
+            }
+            else if(user.role === 'driver')
+            {
+              redirect.push('/selectride');
+            }
+            else if(user.role === 'admin')
+            {
+              redirect.push('/adminhome');
+            }
+            else{
+              setMessage({message: 'No user role. Create a new account', className: 'error'});
+            }
           }, 1000);
         }
         else{

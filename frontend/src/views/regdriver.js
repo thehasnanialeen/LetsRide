@@ -13,17 +13,7 @@ const Regdriver = () => {
 
   let [message, setMessage] = useState([]);
 
-  const [user, setUser] = useState({
-      // _id: "64b6c170006846ffc1bcfed9",
-      // firstName: 'Aleen',
-      //  lastName: 'Hasnani',
-      //  DOB: "2001-08-09T00:00:00.000Z",
-      //  email: 'ahj126@uregina.ca',
-      //  password: '$2b$10$BDsDFCloN.fMI/QAjaWSquQ58OIe0AmFHLbqj.1c6DCW2DbLp4MfW',
-      //  profilePhoto: 'path',
-      //  phoneNumber: 3069998989,
-      //  role: 'admin'
-      });
+  const [user, setUser] = useState({});
   const [photo, setPhoto] = useState({
     licensePhoto: null,
     carRegistrationPhoto: null,
@@ -49,7 +39,17 @@ const Regdriver = () => {
       await axios.get('/api/userSession')
       .then((res) => {
         //console.log(res.data.user);
-        setUser(res.data.user);
+        if(!res.data.user)
+          {
+            redirect.push('/');
+          }
+          else{
+            setUser(res.data.user);
+            if(user.role === 'rider')
+            {
+              redirect.push('/login');
+            }
+          }
       })
     } catch(error) {
       setMessage([...message, 'Something went wrong. Try again!'])

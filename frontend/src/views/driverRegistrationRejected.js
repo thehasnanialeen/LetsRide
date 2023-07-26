@@ -5,7 +5,7 @@ import Header from './header';
 import Footer from './footer';
 import '../css/regdrivercon.css';
 
-const regdrivercon = () => {
+const driverRegistrationRejected = () => {
   const redirect = useHistory(); 
   const [user, setUser] = useState(null);
 
@@ -39,7 +39,10 @@ const regdrivercon = () => {
         <div className="driver-registration">
           <h2>Driver Registration</h2>
           <p>
-            Your request is in progress and will be verified by the Admin. You will be updated via email within 5-6 business days.
+            Thank you for signing up as a driver. Unfortunetly, your request to become a driver was rejected. We've sent you an email at {user.email} with additional feedback. Please check your inbox and spam folder to see what you can do next.
+          </p>
+          <p>
+            If you haven't received the email then contact us at <a href="mailto:letsride.help@outlook.com">letsride.help@outlook.com.</a>, and we'll be glad to assist you further.
           </p>
         </div>
       </div>
@@ -52,4 +55,4 @@ const regdrivercon = () => {
   );
 };
 
-export default regdrivercon;
+export default driverRegistrationRejected;

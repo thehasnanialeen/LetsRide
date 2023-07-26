@@ -1,5 +1,7 @@
 // Reviews.js
 //import carPhoto1 from '../images/tesla2.jpg'; // Replace with actual car photos
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import carPicture from '../images/tesla.jpg'; // Replace with actual car photos
 import '../css/ratings.css'; // Import the combined CSS file
 import Header from './header';
@@ -35,6 +37,9 @@ const StarRating = ({ rating, onRate }) => {
 };
 
 const Ratings = () => {
+  const redirect = useHistory(); 
+
+  const [user, setUser] = useState(null);
   const [rating, setRating] = useState(0);
 
   const handleRate = (value) => {
@@ -43,6 +48,28 @@ const Ratings = () => {
 
   const driverName = 'John Doe'; // Replace with the driver's name
   //const carPicture = '../images/tesla.jpg'; // Replace with the path to the driver's car picture
+
+  const fetchData = async () => {
+    try{
+      await axios.get('/api/userSession')
+      .then((res) => {
+        //console.log(res.data.user);
+        if(!res.data.user)
+          {
+            redirect.push('/');
+          }
+          else{
+            setUser(res.data.user);
+          }
+      })
+    } catch(error) {
+      setMessage([...message, 'Something went wrong. Try again!'])
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <body>
