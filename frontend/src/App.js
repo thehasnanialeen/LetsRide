@@ -15,7 +15,8 @@ import Unregister from './views/unregister';
 import Approval from './views/approval';
 import DriverRegistrationRejected from './views/driverRegistrationRejected';
 import RecentRidesList from './views/recentRidesList';
-
+import riderconfirmation from './views/riderconfirmation';
+import Riderconfirmation from './views/riderconfirmation';
 function App() {
   return (
     <BrowserRouter>
@@ -34,6 +35,7 @@ function App() {
          <Route exact path="/approval" component={Approval} />
          <Route exact path="/driverRegistrationRejected" component={DriverRegistrationRejected} />
          <Route exact path="/recentRidesList" component={RecentRidesList} />
+         <Route exact path="/riderconfirmation" component={Riderconfirmation} />
       </Switch>
     </BrowserRouter>
   );
