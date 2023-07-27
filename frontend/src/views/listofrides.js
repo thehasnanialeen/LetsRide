@@ -47,7 +47,7 @@ const Listofrides = () => {
             //console.log(res.data.rides);
             setRideDetail(rideDetail = res.data.rides);
 
-            if(rideDetail.length == 0)
+            if(res.data.rides.length == 0)
             {
               setMessage({message: 'No rides available', className: 'error'})
             }
