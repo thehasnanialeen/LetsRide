@@ -54,7 +54,7 @@ const Ratings = () => {
     try{
       await axios.post('/api/rating/post', {
         rideId: ride_id,
-        reviewById: user_id,
+        reviewById: user._id,
         reviewForId: driver_id,
         ratingValue: value,
         reviewByRole: 'rider',
