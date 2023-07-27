@@ -1,0 +1,37 @@
+/* DriverRegistration.css */
+
+.page-container {
+    display: flex;
+  }
+  
+  .left-side {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .right-side {
+    flex: 1;
+  }
+  
+  .car-image {
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .driver-registration {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .driver-registration h2 {
+    text-align: center;
+  }
+  
+  .driver-registration p {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+  }
+  
+  /* Additional styles as needed */
+  

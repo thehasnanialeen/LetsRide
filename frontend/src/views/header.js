@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import '../css/header.css';
-import Photo from '../images/LR.png';
+import Photo from '../images/Logo.png';
 
 
 const Header = () => {
@@ -34,10 +34,9 @@ const Header = () => {
   }
 
   return ( 
-    <header className="header">
+    <div className="header">
       <div className="logo-container"> 
       <img src={Photo} alt="Logo" className="headlogo" onClick={() => redirectTo('/')}/>
-        
       </div>
         <div className="company-name">
           <a href='/'>
@@ -47,7 +46,7 @@ const Header = () => {
         {user === null ? '' : user.role === 'rider' ? <>
           <button className="signup-button" onClick={() => redirectTo('/recentRidesList')} > Rate a Ride </button>
         </> : ''}
-    </header> 
+    </div> 
   );
 };
 

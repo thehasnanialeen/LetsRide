@@ -77,7 +77,7 @@ const Listofrides = () => {
       .then((res) => {
         if(res.status == 200)
         {
-          redirect.push('/conmessage')
+          redirect.push('/riderconfirmation')
         }
         else{
           //console.log(res.message);
@@ -85,7 +85,7 @@ const Listofrides = () => {
         }
       })
     } catch(error) {
-      //console.log(error);
+      console.log(error);
       setMessage({message: 'Something went wrong. Try again!', className: 'error'})
     }
   }
