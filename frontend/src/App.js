@@ -29,6 +29,7 @@ function App() {
         <Route exact path="/regdrivercon" component={regdrivercon} />
         <Route exact path="/listofrides" component={Listofrides} />
         <Route exact path="/conmessage" component={Conmessage} />
+        <Route exact path="/drivermap" component={Drivermap} />
         <Route exact path="/ratings" component={ratings} />
          <Route exact path="/adminhome" component={AdminHome} />
          <Route exact path="/unregister" component={Unregister} />
@@ -36,7 +37,7 @@ function App() {
          <Route exact path="/driverRegistrationRejected" component={DriverRegistrationRejected} />
          <Route exact path="/recentRidesList" component={RecentRidesList} />
          <Route exact path="/riderconfirmation" component={Riderconfirmation} />
-         <Route exact path="/drivermap" component={Drivermap} />
+         
       </Switch>
     </BrowserRouter>
   );

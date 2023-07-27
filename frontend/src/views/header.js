@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import '../css/header.css';
-import Photo from '../images/LR.png';
+import Photo from '../images/Logo.png';
 
 
 const Header = () => {
