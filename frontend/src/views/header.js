@@ -36,10 +36,9 @@ const Header = () => {
   }
 
   return ( 
-    <header className="header">
+    <div className="header">
       <div className="logo-container"> 
       <img src={Photo} alt="Logo" className="headlogo" onClick={() => redirectTo('/')}/>
-        
       </div>
         <div className="company-name">
           <a href='/'>
@@ -49,7 +48,7 @@ const Header = () => {
         {user === null ? '' : user.role === 'rider' ? <>
           <button className="signup-button" onClick={() => redirectTo('/rating')} > Rate a Ride </button>
         </> : ''}
-    </header> 
+    </div> 
   );
 };
 
