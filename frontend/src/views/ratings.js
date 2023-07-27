@@ -40,6 +40,7 @@ const StarRating = ({ rating, onRate }) => {
 const Ratings = () => {
   const redirect = useHistory(); 
 
+  const driverName = "Aleen Hasnani";
   const { ride_id, driver_id } = useParams();
   const [user, setUser] = useState(null);
   const [rating, setRating] = useState(0);

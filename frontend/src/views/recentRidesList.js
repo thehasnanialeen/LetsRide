@@ -4,7 +4,7 @@ import axios from 'axios';
 import moment from 'moment';
 import Header from './header';
 import Footer from './footer';
-import './RideList.css';
+import '../css/recentRidesList.css';
 
 const RecentRidesList = () => {
     const redirect = useHistory(); 
