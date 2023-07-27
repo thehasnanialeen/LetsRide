@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import carImage from '../images/tesla.jpg';
 import Header from './header';
 import Footer from './footer';
 import '../css/selectride.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Selectride = () => {
   const redirect = useHistory();
@@ -25,6 +25,8 @@ const Selectride = () => {
     pickupTime: '',
     pickupDate: '',
   });
+
+  const [dataToSend, setDataToSend] = useState(null);
 
   const fetchDriverData = async (id) => {
     try{
@@ -94,37 +96,24 @@ const Selectride = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const date = new Date(formData.pickupDate + " " + formData.pickupTime)
-    //console.log(date);
-    //Handle form submission logic here
-    try{
-      await axios.post('/api/rideDetails/post', {
-        driverUserID: user._id,
-        pickupLocation: formData.startLocation,
-        dropLocation: formData.destination,
-        startTime: date,
-        numberOfPassengers: formData.passengerCount,
-      })
-      .then((res) => {
-        if(res.status == 201)
-        {
-          setMessage({message: res.data.message, className: 'success'});
-          setTimeout(() => {
-            window.location.reload();
-            //redirect.push('/selectride');
-          }, 1000);
-        }
-        else{
-          setMessage({message: res.data.message, className: 'error'});
-        }
-      })
-    } catch(error) {
-      //console.log(error);
-      setMessage({message: 'Something went wrong. Try again!', className: 'error'});
+
+    //form validation
+    
+    //if form passes validation
+    const data = {
+      pickupLocation: formData.startLocation,
+      dropLocation: formData.destination,
+      startTime: date,
+      numberOfPassengers: formData.passengerCount,
     }
-    //console.log(formData);
+    setDataToSend(data);
+    if(dataToSend !== null)
+    {
+      document.getElementById('goToMapPage').click();
+    }
   };
 
   return (
@@ -172,9 +161,12 @@ const Selectride = () => {
               <button type="submit" id='rideconfirmlink' onClick={handleSubmit}>  Submit </button>
             </div>
           </form>
-          <div className="register-driver">
+          <button className="d-none" id="goToMapPage">
+          <Link to={{ pathname: '/drivermap', state: { data: setDataToSend } }}>Go to Map Page</Link>
+          </button>
+          {/* <div className="register-driver">
             <button> <a href='/regdriver' id='regasdriverlink'>Register as a Driver </a></button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

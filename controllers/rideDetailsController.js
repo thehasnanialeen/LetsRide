@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const rideDetailsController = {
   post: async (req, res) => {
     try {
-      const newRide = req.body;
+      const newRide = req.body.rideDetail;
 
       await Ride.create(newRide);
 

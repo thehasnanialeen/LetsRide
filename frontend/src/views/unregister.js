@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import moment from 'moment';
 import '../css/unregister.css'; 
 import Header from './header';
 import Footer from './footer'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Unregister = () => {
   const redirect = useHistory(); 
@@ -13,7 +15,7 @@ const Unregister = () => {
     className: '',
     })
   const [drivers, setDrivers] = useState([]);
-  const [unregisterReasons, setUnregisterReasons] = useState({});
+  //const [unregisterReasons, setUnregisterReasons] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
   const [user, setUser] = useState(null);
 
@@ -75,28 +77,28 @@ const Unregister = () => {
     fetchData();
   }, []);
 
-  const handleReasonChange = (driverId, reason) => {
-    setUnregisterReasons((prevReasons) => ({ ...prevReasons, [driverId]: reason }));
-  };
+  // const handleReasonChange = (driverId, reason) => {
+  //   setUnregisterReasons((prevReasons) => ({ ...prevReasons, [driverId]: reason }));
+  // };
 
   const handleUnregister = (driverId) => {
-    const reason = unregisterReasons[driverId];
-
-    // Perform the unregistration API call to the backend
-    // Replace 'your-backend-unregister-api-endpoint' with the actual API endpoint for unregistering drivers
-    fetch(`your-backend-unregister-api-endpoint/${driverId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ reason }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the backend, e.g., show a success message or update the drivers list
-        console.log(data);
+    try{
+      await axios.post('/api/driverRegistration/deleteDriver', {
+        id = driverId,
       })
-      .catch((error) => console.error('Error unregistering driver:', error));
+      .then((res) => {
+        if(res.status == 200)
+        {
+          setMessage({message: res.data.message, className: 'success'});
+        }
+        else{
+          setMessage({message: res.data.message, className: 'error'});
+        }
+      })
+    } catch(error) {
+      //console.log(error);
+      setMessage({message: 'Something went wrong. Try again!', className: 'error'});
+    }
   };
 
   const handleGoBack = () => {
@@ -127,16 +129,20 @@ const Unregister = () => {
       <p className={message.className}>{message.message}</p>
       {filteredDrivers.map((driver) => (
         <div key={driver.id} className="driver-row">
-          <div>
-            <span>{driver.firstName}</span> <span>{driver.lastName}</span>
+          <div className="m-2">
+            <p>Name: {driver.userDetails.firstName} {driver.userDetails.lastName}</p>
+            <p>License Expiry: {moment(driver.license.expiryDate).format('YYYY-MM-DD')}</p>
+            <p>Car Registration Expiry: {moment(driver.carRegistration.expiryDate).format('YYYY-MM-DD')}</p>
+            <p>Approval Status: {driver.approvalStatus}</p>
           </div>
-          <input
+          {/* <input
+            className="m-2"
             type="text"
             placeholder="Reason for Unregistering"
             value={unregisterReasons[driver.id] || ''}
             onChange={(e) => handleReasonChange(driver.id, e.target.value)}
-          />
-          <button onClick={() => handleUnregister(driver.id)}>Unregister</button>
+          /> */}
+          <button className="m-2" onClick={() => handleUnregister(driver._id)}>Unregister</button>
         </div>
       ))}
       <button className="go-back-button" onClick={handleGoBack}>
