@@ -80,7 +80,7 @@ const Listofrides = () => {
       .then((res) => {
         if(res.status == 200)
         {
-          redirect.push('/conmessage')
+          redirect.push('/riderconfirmation')
         }
         else{
           //console.log(res.message);

@@ -42,7 +42,7 @@ const Riderconfirmation = () => {
         <div className="driver-registration">
           <h2>Driver Registration</h2>
           <p>
-            Your request is in progress and will be verified by the Admin. You will be updated via email within 5-6 business days.
+            Your ride has been confirmed. You will receive a confirmation email before your ride.
           </p>
         </div>
       </div>
