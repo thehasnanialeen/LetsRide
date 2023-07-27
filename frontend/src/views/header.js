@@ -14,8 +14,6 @@ const Header = () => {
     try{
       await axios.get('/api/userSession')
       .then((res) => {
-        console.log(res.data.user);
-        console.log(!res.data.user);
         if(res.data.user)
           {
             setUser(res.data.user);
@@ -47,7 +45,7 @@ const Header = () => {
           </a>
         </div>
         {user === null ? '' : user.role === 'rider' ? <>
-          <button className="signup-button" onClick={() => redirectTo('/rating')} > Rate a Ride </button>
+          <button className="signup-button" onClick={() => redirectTo('/recentRidesList')} > Rate a Ride </button>
         </> : ''}
     </header> 
   );

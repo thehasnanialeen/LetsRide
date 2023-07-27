@@ -11,6 +11,8 @@ import '../css/selectride.css';
 const Selectride = () => {
   const redirect = useHistory();
 
+  let loadForm = false;
+
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState({
     message: '',
@@ -24,9 +26,9 @@ const Selectride = () => {
     pickupDate: '',
   });
 
-  const fetchDriverData = async () => {
+  const fetchDriverData = async (id) => {
     try{
-      await axios.get(`/api/driverRegistration/getDriverDetails?userId=${user._id}`)
+      await axios.get(`/api/driverRegistration/getDriverDetails?userId=${id}`)
       .then((res) => {
         //console.log(res.data.user);
         if(res.status == 201)
@@ -40,6 +42,9 @@ const Selectride = () => {
           {
             redirect.push('/driverRegistrationRejected');
           }
+          else{
+            loadForm = true;
+          }
         }
         else if(res.status == 200)
         {
@@ -51,6 +56,7 @@ const Selectride = () => {
         }
       })
     } catch(error) {
+      console.log(error);
       setMessage({message: 'Something went wrong. Try again!', className: 'error'})
     }
   }
@@ -66,14 +72,15 @@ const Selectride = () => {
           }
           else{
             setUser(res.data.user);
-            if(user.role === 'rider')
+            if(res.data.user.role === 'rider')
             {
-              redirect.push('/login');
+              redirect.push('/');
             }
-            fetchDriverData();
+            fetchDriverData(res.data.user._id);
           }
       })
     } catch(error) {
+      console.log(error);
       setMessage({message: 'Something went wrong. Try again!', className: 'error'})
     }
   }
@@ -122,7 +129,7 @@ const Selectride = () => {
 
   return (
     <>
-    {user === null ? '' : <>
+    {user === null || !loadForm ? '' : <>
     <Header> </Header>
     <div className="ride-form-container">
       <div className="left-side">

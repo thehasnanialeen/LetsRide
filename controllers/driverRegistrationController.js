@@ -26,6 +26,8 @@ const driverRegistrationController = {
       // Check if the driver already exists
       const driver = await Driver.findOne({ userID: req.query.userId });
 
+      //console.log(driver);
+      //console.log(!driver);
       if (!driver) {
         return res.status(200).json({ message: 'Driver does not exist' });
       }
@@ -81,6 +83,31 @@ const driverRegistrationController = {
       res.status(200).json({ message: 'Driver status changed successfully' });
     } catch (error) {
       res.status(500).json({ message: 'Error changing driver status' });
+    }
+  },
+
+  getDriversList: async (req, res) => {
+    try {
+      const driverList = await Driver.aggregate([
+        // {
+        //   $match: { approvalStatus: 'waiting' }
+        // },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'userID',
+            foreignField: '_id',
+            as: 'userDetails'
+          }
+        },
+        {
+          $unwind: '$userDetails'
+        }
+      ]);
+
+      res.status(200).json({ message: 'Successfully retrieved driver list', driverList });
+    } catch (error) {
+      res.status(500).json({ message: 'Error getting drivers list' });
     }
   },
 };

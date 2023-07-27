@@ -16,45 +16,48 @@ const RecentRidesList = () => {
     const [user, setUser] = useState(null);
     let [rideDetail, setRideDetail] =  useState([]);
 
+    const getRides = async (id) => {
+      try{
+        await axios.get(`/api/rideDetails/getRidesListByUser?id=${id}`)
+        .then((res) => {
+          if(res.status == 200)
+          {
+            console.log(res.data.rides);
+            setRideDetail(rideDetail = res.data.rides);
+
+            if(res.data.rides.length == 0)
+            {
+              setMessage({message: 'No rides to rate', className: 'error'})
+            }
+            //<Redirect to="/conmessage" />
+          }
+          else{
+            //console.log(res.message);
+            setMessage({message: res.data.message, className: 'error'})
+          }
+        })
+      } catch(error) {
+        console.log(error);
+        setMessage({message: 'Something went wrong. Try again!', className: 'error'})
+      }
+    }
+
     const fetchData = async () => {
         try{
             await axios.get('/api/userSession')
             .then((res) => {
               
-              console.log(res.data);
+              //console.log(res.data);
               if(!res.data.user)
               {
                 redirect.push('/');
               }
               else{
                 setUser(res.data.user);
+                getRides(res.data.user._id);
               }
             })
           } catch(error) {
-            setMessage({message: 'Something went wrong. Try again!', className: 'error'})
-          }
-    
-        try{
-            await axios.get(`/api/rideDetails/getRidesListByUser?id=${user._id}`)
-            .then((res) => {
-              if(res.status == 200)
-              {
-                //console.log(res.data.rides);
-                setRideDetail(rideDetail = res.data.rides);
-    
-                if(rideDetail.length == 0)
-                {
-                  setMessage({message: 'No rides to rate', className: 'error'})
-                }
-                //<Redirect to="/conmessage" />
-              }
-              else{
-                //console.log(res.message);
-                setMessage({message: res.data.message, className: 'error'})
-              }
-            })
-          } catch(error) {
-            //console.log(error);
             setMessage({message: 'Something went wrong. Try again!', className: 'error'})
           }
       };

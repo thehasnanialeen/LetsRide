@@ -1,7 +1,6 @@
 // RideDetails.js
 
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Header from './header';
@@ -12,15 +11,13 @@ import '../css/listofrides.css';
 
 const Listofrides = () => {
   const redirect = useHistory(); 
-
-    const [message, setMessage] = useState({
+  const [message, setMessage] = useState({
       message: '',
       className: '',
       })
-
   let [rideDetail, setRideDetail] =  useState([]);
-  
   const [user, setUser] = useState(null);
+
   const fetchData = async () => {
     try{
         await axios.get('/api/userSession')
@@ -47,7 +44,7 @@ const Listofrides = () => {
             //console.log(res.data.rides);
             setRideDetail(rideDetail = res.data.rides);
 
-            if(rideDetail.length == 0)
+            if(res.data.rides.length == 0)
             {
               setMessage({message: 'No rides available', className: 'error'})
             }

@@ -38,17 +38,17 @@ const Regdriver = () => {
     try{
       await axios.get('/api/userSession')
       .then((res) => {
-        console.log(user);
+        //console.log(user);
         if(!res.data.user)
           {
             redirect.push('/');
           }
           else{
             setUser(res.data.user);
-            console.log(user);
+            //console.log(user);
             if(res.data.user.role === 'rider')
             {
-              redirect.push('/login');
+              redirect.push('/');
             }
           }
       })
