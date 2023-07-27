@@ -40,7 +40,7 @@ const Riderconfirmation = () => {
     <div className="page-container">
       <div className="left-side">
         <div className="driver-registration">
-          <h2>Driver Registration</h2>
+          <h2>Ride Confirmation</h2>
           <p>
             Your ride has been confirmed. You will receive a confirmation email before your ride.
           </p>

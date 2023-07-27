@@ -88,7 +88,7 @@ const Listofrides = () => {
         }
       })
     } catch(error) {
-      //console.log(error);
+      console.log(error);
       setMessage({message: 'Something went wrong. Try again!', className: 'error'})
     }
   }
