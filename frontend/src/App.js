@@ -15,7 +15,6 @@ import Unregister from './views/unregister';
 import Approval from './views/approval';
 import DriverRegistrationRejected from './views/driverRegistrationRejected';
 import RecentRidesList from './views/recentRidesList';
-import riderconfirmation from './views/riderconfirmation';
 import Riderconfirmation from './views/riderconfirmation';
 function App() {
   return (
