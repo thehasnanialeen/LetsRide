@@ -33,7 +33,6 @@ const Selectride = () => {
     try{
       await axios.get(`/api/driverRegistration/getDriverDetails?userId=${id}`)
       .then((res) => {
-        console.log(res.data);
         if(res.status == 201)
         {
           const driver = res.data.driver;
@@ -69,7 +68,6 @@ const Selectride = () => {
     try{
       await axios.get('/api/userSession')
       .then((res) => {
-        //console.log(res.data.user);
         if(!res.data.user)
           {
             redirect.push('/');

@@ -1,5 +1,4 @@
 const Ride = require('../models/rideSchema');
-const mongoose = require('mongoose');
 
 const rideDetailsController = {
   post: async (req, res) => {
@@ -96,7 +95,6 @@ const rideDetailsController = {
             return res.status(400).json({ message: 'Could not find ride' });
         }
 
-        //ride.riderIDs.push(mongoose.Types.ObjectId(req.body.riderIds));
         ride.rideStatus = req.body.rideStatus;
         ride.numberOfPassengers = req.body.numberOfPassengers;
 
@@ -116,7 +114,7 @@ const rideDetailsController = {
             return res.status(400).json({ message: 'Could not find ride' });
         }
 
-        rided = req.body;
+        ride = req.body;
 
         ride.save();
 

@@ -1,5 +1,4 @@
 const Driver = require('../models/driverSchema');
-const User = require('../models/userSchema');
 
 const driverRegistrationController = {
   register: async (req, res) => {
@@ -40,9 +39,6 @@ const driverRegistrationController = {
 
   getApprovalList: async (req, res) => {
     try {
-
-      //const driverList = await Driver.find({ approvalStatus : {$eq : "waiting"} });
-
       const driverList = await Driver.aggregate([
         {
           $match: { approvalStatus: 'waiting' }

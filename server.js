@@ -74,7 +74,6 @@ app.use('/api/uploadFile', uploadFileRoutes);
 
 app.get('/api/userSession', (req, res) => {
   const user = req.session.user; // Retrieve the user's details from the session
-  //console.log({message: 'session', user});
   res.json({message: 'session', user});
 });
 

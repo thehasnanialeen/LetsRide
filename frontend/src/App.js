@@ -5,7 +5,7 @@ import Landing from './views/landing.js';
 import Signup from './views/signup.js'; 
 import Login from './views/login.js'; 
 import Selectride from './views/selectride';
-import regdriver from './views/regdriver';
+import Regdriver from './views/regdriver';
 import regdrivercon from './views/regdrivercon';
 import Listofrides from './views/listofrides';
 import Conmessage from './views/conmessage';
@@ -30,7 +30,7 @@ function App() {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/selectride" component={Selectride} />
-        <Route exact path="/regdriver" component={regdriver} />
+        <Route exact path="/regdriver" component={Regdriver} />
         <Route exact path="/regdrivercon" component={regdrivercon} />
         <Route exact path="/listofrides" component={Listofrides} />
         <Route exact path="/conmessage" component={Conmessage} />

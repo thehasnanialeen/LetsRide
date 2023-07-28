@@ -7,7 +7,6 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/'); // Uploaded files will be saved in the 'uploads' folder
   },
   filename: (req, file, cb) => {
-    //console.log({req, file});
     cb(null, file.originalname); 
   },
 });
@@ -16,14 +15,11 @@ const upload = multer({ storage });
 
 const uploadFileController = (req, res) => {
   try{
-    //console.log({message: "reached", req: req.query});
     upload.array('files', 2)(req, res, (err) => {
-      //console.log(req);
       if (err) {
         return res.status(400).json({ message: 'Error uploading file' });
       }
 
-      //console.log({message: 'stage 1', file : req.file});
       if (!req.files) {
         return res.status(201).json({ message: 'No file uploaded' });
       }

@@ -4,6 +4,7 @@ const Rating = require('../models/ratingSchema');
 const ratingController = {
   post: async (req, res) => {
     try {
+      await Rating.create(req.body);
       const newRating = req.body;
 
       const existingRating = await Rating.findOne({ rideId: newRating.rideId });
@@ -21,7 +22,6 @@ const ratingController = {
 
   getAvgRating: async (req, res) => {
     try {
-
       const avgRating = await Rating.aggregate([
         { $group: { 
           _id: '$reviewForId',
@@ -41,25 +41,7 @@ const ratingController = {
     } catch (error) {
       res.status(500).json({ message: 'Error getting average rating', error });
     }
-  },
-
-//   getRatingList: async (req, res) => {
-//     try {
-
-//         const driver = await Driver.findOne({ userID });
-
-//         if (!driver) {
-//             return res.status(400).json({ message: 'Could not find Driver' });
-//         }
-        
-//         user.approvalStatus = req.body.approvalStatus;
-//         driver.save();
-
-//       res.status(200).json({ dmessage: 'Changed driver status' });
-//     } catch (error) {
-//       res.status(500).json({ message: 'Error changing driver status' });
-//     }
-//   },
+  }
 };
 
 module.exports = ratingController;

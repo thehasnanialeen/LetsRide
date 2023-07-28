@@ -19,7 +19,6 @@ const authenticationController = {
       
       // Save the user to the database
       let user = await User.create(newUser);
-      //console.log(user);
      
       res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
@@ -33,7 +32,6 @@ const authenticationController = {
 
       // Check if the user exists
       const user = await User.findOne({ email });
-      //console.log(user);
 
       if (!user) {
         return res.status(201).json({ message: 'User not found' });
@@ -58,7 +56,6 @@ const authenticationController = {
     try {
       // Check if the user exists
       const user = await User.findById(req.body._id);
-      //console.log(user);
 
       if (!user) {
         return res.status(201).json({ message: 'User not found' });

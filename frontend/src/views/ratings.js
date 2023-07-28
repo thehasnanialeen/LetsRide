@@ -1,5 +1,3 @@
-// Reviews.js
-//import carPhoto1 from '../images/tesla2.jpg'; // Replace with actual car photos
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -85,7 +83,6 @@ const Ratings = () => {
     try{
       await axios.get('/api/userSession')
       .then((res) => {
-        //console.log(res.data.user);
         if(!res.data.user)
           {
             redirect.push('/');

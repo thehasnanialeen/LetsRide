@@ -1,5 +1,3 @@
-// RideDetails.js
-
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
@@ -41,22 +39,18 @@ const Listofrides = () => {
         .then((res) => {
           if(res.status == 200)
           {
-            //console.log(res.data.rides);
             setRideDetail(rideDetail = res.data.rides);
 
             if(res.data.rides.length == 0)
             {
               setMessage({message: 'No rides available', className: 'error'})
             }
-            //<Redirect to="/conmessage" />
           }
           else{
-            //console.log(res.message);
             setMessage({message: res.data.message, className: 'error'})
           }
         })
       } catch(error) {
-        //console.log(error);
         setMessage({message: 'Something went wrong. Try again!', className: 'error'})
       }
   };
@@ -66,7 +60,6 @@ const Listofrides = () => {
   }, []);
 
   const handleConfirmation = async (e) => {
-
     try{
       await axios.post('/api/rideDetails/updateRider', {
         _id: rideDetail[e.target.id]._id,
@@ -80,12 +73,10 @@ const Listofrides = () => {
           redirect.push('/riderconfirmation')
         }
         else{
-          //console.log(res.message);
           setMessage({message: res.data.message, className: 'error'})
         }
       })
     } catch(error) {
-      console.log(error);
       setMessage({message: 'Something went wrong. Try again!', className: 'error'})
     }
   }
@@ -140,7 +131,6 @@ const Listofrides = () => {
                         </div>
                     </div>    
                     <div className="confirm-button">
-                        {/* <button > <a href='/conmessage' className='adbuttonlink'> Confirm </a> </button> */}
                         <button className='adbuttonlink' id={index} onClick={handleConfirmation}>  Confirm  </button>
                         <button className='adbuttonlink' id={index} onClick={removeRide}> Ignore  </button> 
                     </div>

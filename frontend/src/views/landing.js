@@ -8,7 +8,7 @@ import '../css/landing.css';
 import Pic from '../images/LR.png';
 
 
-const Land = () => {
+const Landing = () => {
   const redirect = useHistory(); 
 
   const [user, setUser] = useState(null);
@@ -93,4 +93,4 @@ const Land = () => {
   );
 };
 
-export default Land;
+export default Landing;

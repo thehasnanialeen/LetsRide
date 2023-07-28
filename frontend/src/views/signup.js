@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/signup.css';
 import Header from './header';
 import Footer from './footer';
-//import Photo from '../images/driver1.jpg'; 
+import { UserFactory, DriverFactory, RiderFactory } from "../../../factory/customerFactory";
 
 const Signup = () => {
   const redirect = useHistory(); 
@@ -14,6 +13,10 @@ const Signup = () => {
   const [message, setMessage] = useState({
     message: '',
     className: '',
+  });
+
+  const [photo, setPhoto] = useState({
+    profilePhoto: null,
   })
   
   const [formData, setFormData] = useState({
@@ -30,6 +33,10 @@ const Signup = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleFileChange = (e) => {
+    setPhoto({ ...photo, [e.target.name]: e.target.files[0] });
   };
 
   const handleSubmit = async (e) => {
@@ -70,40 +77,42 @@ const Signup = () => {
       return;
     }
 
-    // Handle form submission logic here
-    try{
-      await axios.post('/api/authentication/signup', {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        DOB: formData.dateOfBirth,
-        email: formData.email,
-        password: formData.password,
-        profilePhoto: 'path',
-        phoneNumber: formData.phoneNumber,
-        role: formData.role,
-      })
-      .then((res) => {
-        if(res.status == 201)
-        { 
-          setMessage({message: res.data.message, className: 'success'})
-          setTimeout(() => {
-            if(formData.role === 'driver')
-            {
-              redirect.push('/regdriver');
-            }
-            else{
-              redirect.push('/login');
-            }
-          }, 2000);
+    if (uploadProfilePhoto())
+    {
+      // Handle form submission logic here
+      try {
+        let userFactory;
+        if (formData.role === 'rider') {
+          userFactory = new RiderFactory();
         }
-        else{
-          setMessage({message: res.data.message, className: 'error'})
+        else if (formData.role === 'driver') {
+          userFactory = new DriverFactory();
         }
-      })
-    } catch(error) {
-        setMessage({message: 'Something went wrong. Try again!', className: 'error'})
+
+        const signUpAPI = userFactory.factoryUserSignUp();
+
+        signUpAPI
+          .then((res) => {
+            if (res.status == 201) {
+              setMessage({ message: res.data.message, className: 'success' })
+              setTimeout(() => {
+                if (formData.role === 'driver') {
+                  redirect.push('/regdriver');
+                }
+                else {
+                  redirect.push('/login');
+                }
+              }, 2000);
+            }
+            else {
+              setMessage({ message: res.data.message, className: 'error' })
+            }
+          })
+      } catch (error) {
+        setMessage({ message: 'Something went wrong. Try again!', className: 'error' })
+      }
     }
-    //console.log(formData);
+    
   };
   const isValidEmail = (email) => {
     // Regular expression for email validation
@@ -127,6 +136,34 @@ const Signup = () => {
     // Regular expression for phone number validation: 10 digits
     const phoneNumberPattern = /^\d{10}$/;
     return phoneNumberPattern.test(phoneNumber);
+  };
+
+  const uploadProfilePhoto = async () => {
+    try {
+
+      const formData = new FormData();
+      formData.append('files', photo.profilePhoto, user._id + "-profile." + photo.profilePhoto.name.substring(photo.profilePhoto.name.lastIndexOf('.') + 1));
+
+      return await axios.post('/api/uploadFile', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+        .then((res) => {
+          if (res.status == 200) {
+            setFormData({ ...formData, "profilePhoto": res.data.filePaths[0] });
+
+            if (formData.profilePhoto !== '') {
+              return true;
+            }
+          }
+          else {
+            setMessage([...message, res.data.message]);
+          }
+        })
+    } catch (error) {
+      setMessage([...message, 'Something went wrong while uploading profile. Try again!']);
+    }
   };
 
 
@@ -166,6 +203,10 @@ const Signup = () => {
           <label>Phone No:</label>
           <input type="tel" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} />
         </div>
+          <div className="form-field">
+            <label>Profile Picture</label>
+            <input type="file" name="profilePhoto" onChange={handleFileChange} accept="image/*" />
+          </div>
         <div className="form-field">
             <label className='role-label'>Role:</label>
             <div className="radio-options">

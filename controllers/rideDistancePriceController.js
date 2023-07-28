@@ -6,18 +6,7 @@ const rideDistancePriceController = async (req, res) => {
       "locations": [
         req.body.pickupLocation,
         req.body.dropLocation,
-    ],
-      // params: {
-      //   key: '3YMqVrChiwCSOjmf8gy7eSqoCXdD1fjR',
-      //   from: "2821 Parliament Ave, Regina, SK S4S2L1",
-      //   to: "4208 Castle Rd, Regina, SK S4S4W1",
-      //   outFormat: json,
-      //   ambiguities: ignore,
-      //   routeType: fastest,
-      //   doReverseGeocode: false,
-      //   enhancedNarrative: false,
-      //   avoidTimedConditions: false
-      // }
+    ]
     })
     .then((response) => {
       response = response.data.route;
