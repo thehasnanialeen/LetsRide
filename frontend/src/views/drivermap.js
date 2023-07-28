@@ -145,13 +145,13 @@ const Drivermap = () => {
                             </div>
                         </div>    
                         <div className="confirm-button">
-                            <button className='adbuttonlink' id={index} onClick={handleConfirmation}>  Confirm  </button>
+                            <button className='adbuttonlink' onClick={handleConfirmation}>  Confirm  </button>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="right-side">
-                <img src={carImage} alt="Car" className="car-image" />
+                <img src={Photo} alt="Car" className="car-image" />
             </div> 
         </div>    
         <Footer></Footer>

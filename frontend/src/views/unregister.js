@@ -81,10 +81,10 @@ const Unregister = () => {
   //   setUnregisterReasons((prevReasons) => ({ ...prevReasons, [driverId]: reason }));
   // };
 
-  const handleUnregister = (driverId) => {
+  const handleUnregister = async (driverId) => {
     try{
       await axios.post('/api/driverRegistration/deleteDriver', {
-        id = driverId,
+        id: driverId,
       })
       .then((res) => {
         if(res.status == 200)
