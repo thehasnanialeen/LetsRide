@@ -1,7 +1,4 @@
 import React from 'react';
-//import './Body.css'; // assuming you have a separate CSS file for styling
-//import logo from './logo.png';
-//import testimonialImage from './testimonial.png';
 import Header from './header';
 import Footer from './footer';
 import Photo from '../images/driver1.jpg'; 
@@ -9,7 +6,7 @@ import '../css/landing.css';
 import Pic from '../images/LR.png';
 
 
-const Land = () => {
+const Landing = () => {
   return (
     <>
       <Header></Header>
@@ -47,4 +44,4 @@ const Land = () => {
   );
 };
 
-export default Land;
+export default Landing;

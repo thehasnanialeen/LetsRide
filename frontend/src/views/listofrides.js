@@ -1,11 +1,7 @@
-// RideDetails.js
-
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-//import backgroundImage from './background-image.jpg'; // Replace with the path to your background image
-import Header from './header';
 import Footer from './footer';
 import Photo from '../images/elantra.jpg'; 
 import '../css/listofrides.css';
@@ -45,22 +41,18 @@ const Listofrides = () => {
         .then((res) => {
           if(res.status == 200)
           {
-            //console.log(res.data.rides);
             setRideDetail(rideDetail = res.data.rides);
 
             if(rideDetail.length == 0)
             {
               setMessage({message: 'No rides available', className: 'error'})
             }
-            //<Redirect to="/conmessage" />
           }
           else{
-            //console.log(res.message);
             setMessage({message: res.data.message, className: 'error'})
           }
         })
       } catch(error) {
-        //console.log(error);
         setMessage({message: 'Something went wrong. Try again!', className: 'error'})
       }
   };
@@ -70,13 +62,6 @@ const Listofrides = () => {
   }, []);
 
   const handleConfirmation = async (e) => {
-    // const ride = {
-    //     //riderIds: user._id,
-    //     rideStatus: 'booked',
-    //     //numberOfPassengers: rideDetail[e.target.index].numOfPassengers + 1,
-    // }
-    //console.log(rideDetail[e.target.id]);
-
     try{
       await axios.post('/api/rideDetails/updateRider', {
         _id: rideDetail[e.target.id]._id,
@@ -87,18 +72,13 @@ const Listofrides = () => {
       .then((res) => {
         if(res.status == 200)
         {
-          //console.log(res.data.rides);
-          //setRideDetail(res.data.rides);
-          //<Redirect to="/conmessage" />
           redirect.push('/conmessage')
         }
         else{
-          //console.log(res.message);
           setMessage({message: res.data.message, className: 'error'})
         }
       })
     } catch(error) {
-      //console.log(error);
       setMessage({message: 'Something went wrong. Try again!', className: 'error'})
     }
   }
@@ -148,7 +128,6 @@ const Listofrides = () => {
                         </div>
                     </div>    
                     <div className="confirm-button">
-                        {/* <button > <a href='/conmessage' className='adbuttonlink'> Confirm </a> </button> */}
                         <button className='adbuttonlink' id={index} onClick={handleConfirmation}>  Confirm  </button>
                         <button> <a href='#' className='adbuttonlink'> Ignore </a>  </button> 
                     </div>

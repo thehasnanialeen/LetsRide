@@ -7,7 +7,7 @@ import Footer from './footer';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-//import Photo from '../images/driver1.jpg'; 
+
 
 const Login = () => {
   const [message, setMessage] = useState({
@@ -62,7 +62,7 @@ const Login = () => {
 // function to redirect to the selectride file 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //console.log("reached");
+
     // Handle form submission logic here
     try{
       await axios.post('/api/authentication/login', {
@@ -98,11 +98,8 @@ const Login = () => {
         }
       })
     } catch(error) {
-      //console.log(error);
       setMessage({message: 'Something went wrong. Try again!', className: 'error'})
     }
-
-    //console.log(formData); 
     
   };
 

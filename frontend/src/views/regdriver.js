@@ -1,9 +1,7 @@
-// DriverRegistration.js
 import '../css/selectride.css'; // assuming you have a separate CSS file for styling
 import Header from './header';
 import Footer from './footer';
 import React, { useState, useEffect } from 'react';
-//import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import carImage from '../images/drivermoney.png';
@@ -38,7 +36,6 @@ const Regdriver = () => {
     try{
       await axios.get('/api/userSession')
       .then((res) => {
-        //console.log(res.data.user);
         if(!res.data.user)
           {
             redirect.push('/');
@@ -67,7 +64,6 @@ const Regdriver = () => {
 
   const handleFileChange = (e) => {
     setPhoto({ ...photo, [e.target.name]: e.target.files[0] });
-    //setFormData({ ...formData, [e.target.name]: e.target.files[0] });
   };
 
   const uploadFormData = async () => {
@@ -130,15 +126,12 @@ const Regdriver = () => {
           {
             uploadFormData();
           }
-          //console.log(res.data.filePaths);
-          //setMessage([...message, 'File uploaded successfully!']);
         }
         else{
           setMessage([...message, res.data.message]);
         }
       })
     } catch(error) {
-        //console.log(error);
         setMessage([...message, 'Something went wrong while uploading License Photo. Try again!']);
       }
   };
@@ -164,38 +157,32 @@ const Regdriver = () => {
       formData.VIN.trim() === ''
     ) {
       valid = false;
-      //setMessage([...message, 'All fields are required']);
       arr.push('All fields are required');
     }
     else{
       if(photo.licensePhoto == null)
       {
         valid = false;
-        //setMessage([...message, 'License Photo not uploaded']);
         arr.push('License Photo not uploaded');
       }
       if(photo.carRegistrationPhoto == null)
       {
         valid = false;
-        //setMessage([...message, 'Car Registration Photo not uploaded']);
         arr.push('Car Registration Photo not uploaded');
       }
       if(formData.licenseExpiration <= today.toLocaleDateString('en-CA'))
       {
         valid = false;
-        //setMessage([...message, 'Expired License is not accepted']);
         arr.push('Expired License is not accepted');
       }
       if(formData.carRegistrationExpiration <= today.toLocaleDateString('en-CA'))
       {
         valid = false;
-        //setMessage([...message, 'Expired Car Registration is not accepted']);
         arr.push('Expired Car Registration is not accepted');
       }
       if(formData.year > today.getFullYear())
       {
         valid = false;
-        //setMessage([...message, 'Invalid Car Year']);
         arr.push('Invalid Car Year');
       }
     }
@@ -204,7 +191,6 @@ const Regdriver = () => {
     {
       setMessage(message = arr);
     }
-    //console.log(message);
 
     if(valid === true)
     {

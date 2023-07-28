@@ -28,7 +28,6 @@ const Selectride = () => {
     try{
       await axios.get(`/api/driverRegistration/getDriverDetails?userId=${user._id}`)
       .then((res) => {
-        //console.log(res.data.user);
         if(res.status == 201)
         {
           const driver = res.data.driver;
@@ -59,7 +58,6 @@ const Selectride = () => {
     try{
       await axios.get('/api/userSession')
       .then((res) => {
-        //console.log(res.data.user);
         if(!res.data.user)
           {
             redirect.push('/');
@@ -90,7 +88,7 @@ const Selectride = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const date = new Date(formData.pickupDate + " " + formData.pickupTime)
-    //console.log(date);
+
     //Handle form submission logic here
     try{
       await axios.post('/api/rideDetails/post', {
@@ -106,7 +104,6 @@ const Selectride = () => {
           setMessage({message: res.data.message, className: 'success'});
           setTimeout(() => {
             window.location.reload();
-            //redirect.push('/selectride');
           }, 1000);
         }
         else{
@@ -114,10 +111,8 @@ const Selectride = () => {
         }
       })
     } catch(error) {
-      //console.log(error);
       setMessage({message: 'Something went wrong. Try again!', className: 'error'});
     }
-    //console.log(formData);
   };
 
   return (

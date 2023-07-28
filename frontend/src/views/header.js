@@ -1,5 +1,4 @@
 import React from 'react';
-//import logo from './logo.png'; // need to add this  
 import '../css/header.css';
 import Photo from '../images/LR.png';
 

@@ -13,7 +13,6 @@ const regdrivercon = () => {
     try{
       await axios.get('/api/userSession')
       .then((res) => {
-        //console.log(res.data.user);
         if(!res.data.user)
           {
             redirect.push('/');
