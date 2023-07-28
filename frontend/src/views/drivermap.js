@@ -1,18 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import Header from './header';
 import Footer from './footer';
 import Photo from '../images/elantra.jpg'; 
 import '../css/drivermap.css';
-
+import L from 'mapquest';
+//import 'mapquest/dist/mapquest.css';
+// import { MapQuest } from 'mapquest-js';
+// import { MapQuestMap, RouteLayer } from 'mapquest-react-components';
+// require("dotenv").config();
 
 const Drivermap = () => {
     const redirect = useHistory(); 
+    console.log("Hello!!!")
+    console.log(L);
 
-    const location = useLocation();
-    const rideData = location.state.data;
+    //const location = useLocation();
+    const {pickupLocation, dropLocation, startTime, numberOfPassengers} = useParams();
+    console.log(pickupLocation + dropLocation + startTime + numberOfPassengers);
+    const rideData = {
+        pickupLocation: pickupLocation,
+        dropLocation: dropLocation, 
+        startTime: startTime, 
+        numberOfPassengers: numberOfPassengers,
+    }
+    //rideData = JSON.parse(rideData);
+    console.log(rideData);
 
     const [message, setMessage] = useState({
         message: '',
@@ -27,18 +42,18 @@ const Drivermap = () => {
             await axios.get('/api/userSession')
             .then((res) => {
                 
-                console.log(res.data);
+                console.log(res.data.user);
                 if(!res.data.user)
                 {
-                redirect.push('/');
+                    //redirect.push('/');
                 }
                 else{
                     setUser(res.data.user);
                 }
             })
-            } catch(error) {
+        } catch(error) {
             setMessage({message: 'Something went wrong. Try again!', className: 'error'})
-            }
+        }
         
         if(rideData)
         {
@@ -50,18 +65,21 @@ const Drivermap = () => {
                 .then((res) => {
                 if(res.status == 201)
                 {
+                    console.log(res.data.data);
+                    const endDate = moment(rideData.startTime).add(res.data.data.durationInSecs, 'seconds')
                     const data = {
                         driverUserID: '',
                         pickupLocation: rideData.pickupLocation,
                         dropLocation: rideData.dropLocation,
                         startTime: rideData.startTime,
-                        endTime: moment(rideData.startTime).add(res.data.durationInSecs, 'seconds'),
-                        distance: res.data.distance,
-                        duration: res.data.duration,
+                        endTime: endDate,
+                        distance: res.data.data.distance,
+                        duration: res.data.data.duration,
                         numberOfPassengers: rideData.numberOfPassengers,
-                        cost: res.data.cost,
+                        cost: res.data.data.cost,
                         rideStatus: 'posted',
                     }
+                    console.log(data);
                     setRideDetail(data);
                 }
                 else{
@@ -72,6 +90,60 @@ const Drivermap = () => {
                 //console.log(error);
                 setMessage({message: 'Something went wrong. Try again!', className: 'error'})
             }
+
+            // const map = new MapQuest({ key: process.env.MAPQUEST_API_Key });
+
+            // // Get the directions
+            // map.directions().route({
+            //   locations: [startLocation, endLocation],
+            //   options: {
+            //     unit: 'k',
+            //     routeType: 'fastest',
+            //   },
+            //   onSuccess: (data) => {
+            //     // Process the directions data, e.g., set it to state
+            //     console.log(data);
+            //   },
+            //   onError: (error) => {
+            //     console.error(error);
+            //   },
+            // });
+            console.log(L.mapquest);
+            L.mapquest.key = '3YMqVrChiwCSOjmf8gy7eSqoCXdD1fjR';
+            
+        var map = L.mapquest.map('map', {
+          center: [40.7128, -74.0059],
+          layers: L.mapquest.tileLayer('map'),
+          zoom: 13
+        });
+
+        L.mapquest.directions().route({
+          start: '350 5th Ave, New York, NY 10118',
+          end: 'One Liberty Plaza, New York, NY 10006'
+        });
+
+    //     var map,
+    //     dir;
+      
+    //   map = L.map('map', {
+    //     layers: MQ.mapLayer(),
+    //     center: [ 38.895345, -77.030101 ],
+    //     zoom: 15
+    //   });
+      
+    //   dir = MQ.routing.directions();
+      
+    //   dir.route({
+    //     locations: [
+    //       '1600 pennsylvania ave, washington dc',
+    //       '935 pennsylvania ave, washington dc'
+    //     ]
+    //   });
+      
+    //   map.addLayer(MQ.routing.routeLayer({
+    //     directions: dir,
+    //     fitBounds: true
+    //   }));
         }
     };
     
@@ -103,7 +175,8 @@ const Drivermap = () => {
 
   return (
     <>
-    {user === null || rideDetail === null ? '' : <>
+    <p>Hello!!</p>
+    {/* {user === null ||*/ rideDetail === null ? '' : <> 
         <Header> </Header>      
         <div className='page-container'> 
             <p id='rideconfirmhead'>Ride Selection</p>
@@ -129,19 +202,19 @@ const Drivermap = () => {
                                 <p className=''>No of Passengers: <span className='answer'> {rideDetail.numberOfPassengers} </span>  </p>
                             </div> 
                             <div className="info-item"> 
-                                <p>Distance: <span className='answer'> {rideDetail.distance} </span></p>
+                                <p>Distance: <span className='answer'> {rideDetail.distance} Km</span></p>
                             </div>
                             <div className="info-item">
                                 <p>Duration: <span className='answer'> {rideDetail.duration} </span></p>
                             </div>
                             <div className="info-item">
-                                <p>Pick Up Time:  <span className='answer'> {rideDetail.startTime} </span></p>
+                                <p>Pick Up Time:  <span className='answer'> {moment(rideDetail.startTime).format('YYYY-MM-DD')} {moment(rideDetail.startTime).format('h:mm a')} </span></p>
                             </div>
                             <div className="info-item">
-                                <p>Drop Off Time:  <span className='answer'> {rideDetail.endTime} </span></p>
+                                <p>Drop Off Time:  <span className='answer'> {moment(rideDetail.endTime).format('YYYY-MM-DD')} {moment(rideDetail.endTime).format('h:mm a')} </span></p>
                             </div>
                             <div className="info-item">
-                                <p>Price: ${(rideDetail.cost / 2) + 50}</p>
+                                <p>You will get: ${((rideDetail.cost / 2) + 50).toFixed(2)}</p>
                             </div>
                         </div>    
                         <div className="confirm-button">
@@ -151,7 +224,10 @@ const Drivermap = () => {
                 </div>
             </div>
             <div className="right-side">
-                <img src={Photo} alt="Car" className="car-image" />
+            {/* <MapQuestMap center={[37.7749, -122.4194]} zoom={12}>
+                <RouteLayer />
+            </MapQuestMap> */}
+            <div id="map" style="width: 100%; height: 530px;"></div>
             </div> 
         </div>    
         <Footer></Footer>

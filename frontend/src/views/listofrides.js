@@ -136,7 +136,7 @@ const Listofrides = () => {
                             <p>Drop Off Time:  <span className='answer'> {rideDetails.endTime} </span></p>
                         </div>
                         <div className="info-item">
-                            <p>Price: ${(rideDetails.cost / 2) + 50}</p>
+                            <p>Price: ${((rideDetail.cost / 2) + 50).toFixed(2)}</p>
                         </div>
                     </div>    
                     <div className="confirm-button">

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
+import moment from 'moment';
 import carImage from '../images/tesla.jpg';
 import Header from './header';
 import Footer from './footer';
@@ -11,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Selectride = () => {
   const redirect = useHistory();
 
-  let loadForm = false;
+  const [loadForm, setLoadForm] = useState(false);
 
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState({
@@ -21,7 +22,7 @@ const Selectride = () => {
   const [formData, setFormData] = useState({
     startLocation: '',
     destination: '',
-    passengerCount: '',
+    passengerCount: '1',
     pickupTime: '',
     pickupDate: '',
   });
@@ -32,7 +33,7 @@ const Selectride = () => {
     try{
       await axios.get(`/api/driverRegistration/getDriverDetails?userId=${id}`)
       .then((res) => {
-        //console.log(res.data.user);
+        console.log(res.data);
         if(res.status == 201)
         {
           const driver = res.data.driver;
@@ -45,7 +46,8 @@ const Selectride = () => {
             redirect.push('/driverRegistrationRejected');
           }
           else{
-            loadForm = true;
+            console.log(loadForm);
+            setLoadForm(true);
           }
         }
         else if(res.status == 200)
@@ -58,7 +60,7 @@ const Selectride = () => {
         }
       })
     } catch(error) {
-      console.log(error);
+        console.log(error);
       setMessage({message: 'Something went wrong. Try again!', className: 'error'})
     }
   }
@@ -96,25 +98,33 @@ const Selectride = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const date = new Date(formData.pickupDate + " " + formData.pickupTime)
-
+    const date = moment(formData.pickupDate, 'YYYY-MM-DD');
+    //date = moment(date, 'YYYY-MM-DD h:mm a');
+    const time = moment(formData.pickupTime, 'h:mm a');
+    const date_time = moment(`${date} ${time}`, 'YYYY-MM-DD h:mm a')
     //form validation
     
     //if form passes validation
     const data = {
       pickupLocation: formData.startLocation,
       dropLocation: formData.destination,
-      startTime: date,
+      startTime: date_time,
       numberOfPassengers: formData.passengerCount,
     }
     setDataToSend(data);
-    if(dataToSend !== null)
-    {
-      document.getElementById('goToMapPage').click();
-    }
   };
+
+  useEffect(() => {
+    if (dataToSend !== null) {
+      //document.getElementById('goToMapPage').click();
+      //redirect.push(`/drivermap?pickupLocation=${dataToSend.pickupLocation}&dropLocation=${dataToSend.dropLocation}&startTime=${dataToSend.startTime}&numberOfPassengers=${dataToSend.numberOfPassengers}`)
+      redirect.push(`/drivermap/${dataToSend.pickupLocation}/${dataToSend.dropLocation}/${dataToSend.startTime}/${dataToSend.numberOfPassengers}`)
+    
+    }
+  }, [dataToSend]); // Add dataToSend as a dependency to the useEffect hook
+
 
   return (
     <>
@@ -161,9 +171,11 @@ const Selectride = () => {
               <button type="submit" id='rideconfirmlink' onClick={handleSubmit}>  Submit </button>
             </div>
           </form>
-          <button className="d-none" id="goToMapPage">
-          <Link to={{ pathname: '/drivermap', state: { data: setDataToSend } }}>Go to Map Page</Link>
-          </button>
+          {/* <button className="d-none" >
+            <Link id="goToMapPage" to={{
+              pathname: '/drivermap',
+              search: `?pickupLocation=${dataToSend.pickupLocation}&dropLocation=${dataToSend.dropLocation}&startTime=${dataToSend.startTime}&numberOfPassengers=${dataToSend.numberOfPassengers}` }}>Go to Map Page</Link>
+          </button> */}
           {/* <div className="register-driver">
             <button> <a href='/regdriver' id='regasdriverlink'>Register as a Driver </a></button>
           </div> */}

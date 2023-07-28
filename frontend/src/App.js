@@ -17,6 +17,11 @@ import DriverRegistrationRejected from './views/driverRegistrationRejected';
 import RecentRidesList from './views/recentRidesList';
 import Riderconfirmation from './views/riderconfirmation';
 import Drivermap from './views/drivermap';
+// import dotenv from 'dotenv';
+
+// // Specify the path to your .env file
+// dotenv.config({ path: '..../.env' });
+
 function App() {
   return (
     <BrowserRouter>
@@ -29,7 +34,8 @@ function App() {
         <Route exact path="/regdrivercon" component={regdrivercon} />
         <Route exact path="/listofrides" component={Listofrides} />
         <Route exact path="/conmessage" component={Conmessage} />
-        <Route exact path="/drivermap" component={Drivermap} />
+        <Route exact path="/drivermap/:pickupLocation/:dropLocation/:startTime/:numberOfPassengers" component={Drivermap} />
+        {/* <Route path="/drivermap" component={Drivermap} /> */}
         <Route exact path="/ratings" component={ratings} />
          <Route exact path="/adminhome" component={AdminHome} />
          <Route exact path="/unregister" component={Unregister} />

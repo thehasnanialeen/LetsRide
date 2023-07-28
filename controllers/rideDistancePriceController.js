@@ -26,7 +26,7 @@ const rideDistancePriceController = async (req, res) => {
       const data = {
         distance: (response.distance * 1.6).toFixed(2),
         cost: (response.distance*1.6*2/9).toFixed(2),
-        duration: durationArray[0] + " hrs " + durationArray[1] + " mins " + durationArray[2] + " secs ",
+        duration: durationArray[0] + "hrs " + durationArray[1] + "mins", //+ durationArray[2] + " secs ",
         durationInSecs: response.time,
       }
       
