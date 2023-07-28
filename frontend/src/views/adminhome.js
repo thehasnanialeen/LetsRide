@@ -51,9 +51,7 @@ const Adminhome = () => {
             <div className='system-admin'> 
                 <p> System Admin Home </p>
             </div>
-          
             <div className="buttons-container">
-            
                 <button className="green-button" onClick={handleApprovalsClick}>
                 Driver Registration Approvals
                 </button>

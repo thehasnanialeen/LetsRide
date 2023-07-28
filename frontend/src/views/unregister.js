@@ -142,7 +142,7 @@ const Unregister = () => {
             value={unregisterReasons[driver.id] || ''}
             onChange={(e) => handleReasonChange(driver.id, e.target.value)}
           /> */}
-          <button className="m-2" onClick={() => handleUnregister(driver._id)}>Unregister</button>
+          <button className="m-2button" onClick={() => handleUnregister(driver._id)}>Unregister</button>
         </div>
       ))}
       <button className="go-back-button" onClick={handleGoBack}>

@@ -116,9 +116,9 @@ const Approval = () => {
       <p className={message.className}>{message.message}</p>
       {drivers.map((driver, index) => (
         <div key={driver._id} className="driver-row"> 
-          <div>
-            <span>{driver.userDetails.firstName}</span> <span>{driver.userDetails.lastName}</span>
-            <span> {driver.user} </span>
+            <div className='table-head'>
+              <span>{driver.userDetails.firstName}</span> <span>{driver.userDetails.lastName}</span>
+              <span> {driver.user} </span>
             </div>
             {/* Additional details table */}
             <table className="additional-details">
@@ -178,14 +178,10 @@ const Approval = () => {
               </tbody>
             </table>
             {/* End of additional details table */}
-            <input
-              type="text"
-              placeholder="Notes (if any)"
-              value={notes[driver.id] || ''}
-              onChange={(e) => handleNotesChange(driver._id, e.target.value)}
-            />
-            <button onClick={() => handleStatus(driver._id, 'approved')}>Approve</button>
-            <button onClick={() => handleStatus(driver._id, 'rejected')}>Decline</button>
+            <div className='buttons-container'> 
+              <button onClick={() => handleStatus(driver._id, 'approved')}>Approve</button>
+              <button onClick={() => handleStatus(driver._id, 'rejected')}>Decline</button>
+            </div>
           </div>
         ))}
         <button className="go-back-button" onClick={handleGoBack}>

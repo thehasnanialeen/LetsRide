@@ -62,3 +62,17 @@
     border-radius: 5px;
     width: 200px;
   }
+
+  .m-2{
+    margin:0.5rem!important;
+    border-radius: 15px;
+    background-color: #ede9e9;
+    padding: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+
+  .m-2button {
+    background-color: green;
+    color: white;
+    /* need to change the color of the button.  */
+  }
