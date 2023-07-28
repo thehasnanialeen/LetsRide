@@ -1,15 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
+import moment from 'moment';
 import carImage from '../images/tesla.jpg';
 import Header from './header';
 import Footer from './footer';
 import '../css/selectride.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Selectride = () => {
   const redirect = useHistory();
+
+  const [loadForm, setLoadForm] = useState(false);
 
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState({
@@ -19,14 +22,16 @@ const Selectride = () => {
   const [formData, setFormData] = useState({
     startLocation: '',
     destination: '',
-    passengerCount: '',
+    passengerCount: '1',
     pickupTime: '',
     pickupDate: '',
   });
 
-  const fetchDriverData = async () => {
+  const [dataToSend, setDataToSend] = useState(null);
+
+  const fetchDriverData = async (id) => {
     try{
-      await axios.get(`/api/driverRegistration/getDriverDetails?userId=${user._id}`)
+      await axios.get(`/api/driverRegistration/getDriverDetails?userId=${id}`)
       .then((res) => {
         if(res.status == 201)
         {
@@ -39,6 +44,10 @@ const Selectride = () => {
           {
             redirect.push('/driverRegistrationRejected');
           }
+          else{
+            console.log(loadForm);
+            setLoadForm(true);
+          }
         }
         else if(res.status == 200)
         {
@@ -50,6 +59,7 @@ const Selectride = () => {
         }
       })
     } catch(error) {
+        console.log(error);
       setMessage({message: 'Something went wrong. Try again!', className: 'error'})
     }
   }
@@ -64,14 +74,15 @@ const Selectride = () => {
           }
           else{
             setUser(res.data.user);
-            if(user.role === 'rider')
+            if(res.data.user.role === 'rider')
             {
-              redirect.push('/login');
+              redirect.push('/');
             }
-            fetchDriverData();
+            fetchDriverData(res.data.user._id);
           }
       })
     } catch(error) {
+      console.log(error);
       setMessage({message: 'Something went wrong. Try again!', className: 'error'})
     }
   }
@@ -87,36 +98,35 @@ const Selectride = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const date = new Date(formData.pickupDate + " " + formData.pickupTime)
-
-    //Handle form submission logic here
-    try{
-      await axios.post('/api/rideDetails/post', {
-        driverUserID: user._id,
-        pickupLocation: formData.startLocation,
-        dropLocation: formData.destination,
-        startTime: date,
-        numberOfPassengers: formData.passengerCount,
-      })
-      .then((res) => {
-        if(res.status == 201)
-        {
-          setMessage({message: res.data.message, className: 'success'});
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
-        }
-        else{
-          setMessage({message: res.data.message, className: 'error'});
-        }
-      })
-    } catch(error) {
-      setMessage({message: 'Something went wrong. Try again!', className: 'error'});
+    const date = moment(formData.pickupDate, 'YYYY-MM-DD');
+    //date = moment(date, 'YYYY-MM-DD h:mm a');
+    const time = moment(formData.pickupTime, 'h:mm a');
+    const date_time = moment(`${date} ${time}`, 'YYYY-MM-DD h:mm a')
+    //form validation
+    
+    //if form passes validation
+    const data = {
+      pickupLocation: formData.startLocation,
+      dropLocation: formData.destination,
+      startTime: date_time,
+      numberOfPassengers: formData.passengerCount,
     }
+    setDataToSend(data);
   };
+
+  useEffect(() => {
+    if (dataToSend !== null) {
+      //document.getElementById('goToMapPage').click();
+      //redirect.push(`/drivermap?pickupLocation=${dataToSend.pickupLocation}&dropLocation=${dataToSend.dropLocation}&startTime=${dataToSend.startTime}&numberOfPassengers=${dataToSend.numberOfPassengers}`)
+      redirect.push(`/drivermap/${dataToSend.pickupLocation}/${dataToSend.dropLocation}/${dataToSend.startTime}/${dataToSend.numberOfPassengers}`)
+    
+    }
+  }, [dataToSend]); // Add dataToSend as a dependency to the useEffect hook
+
 
   return (
     <>
+    {user === null || !loadForm ? '' : <>
     <Header> </Header>
     <div className="ride-form-container">
       <div className="left-side">
@@ -159,9 +169,14 @@ const Selectride = () => {
               <button type="submit" id='rideconfirmlink' onClick={handleSubmit}>  Submit </button>
             </div>
           </form>
-          <div className="register-driver">
+          {/* <button className="d-none" >
+            <Link id="goToMapPage" to={{
+              pathname: '/drivermap',
+              search: `?pickupLocation=${dataToSend.pickupLocation}&dropLocation=${dataToSend.dropLocation}&startTime=${dataToSend.startTime}&numberOfPassengers=${dataToSend.numberOfPassengers}` }}>Go to Map Page</Link>
+          </button> */}
+          {/* <div className="register-driver">
             <button> <a href='/regdriver' id='regasdriverlink'>Register as a Driver </a></button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
@@ -169,6 +184,7 @@ const Selectride = () => {
     <footer>
         <Footer> </Footer>
     </footer>
+    </>}
     </>
   );
 };

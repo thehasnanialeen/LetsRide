@@ -1,9 +1,18 @@
+const mongoose = require('mongoose');
 const Rating = require('../models/ratingSchema');
 
 const ratingController = {
   post: async (req, res) => {
     try {
       await Rating.create(req.body);
+      const newRating = req.body;
+
+      const existingRating = await Rating.findOne({ rideId: newRating.rideId });
+      if (existingRating) {
+        return res.status(200).json({ message: `You have already rated this ride ${existingRating.ratingValue} stars` });
+      }
+
+      await Rating.create(newRating);
 
       res.status(201).json({ message: 'Rating posted successfully' });
     } catch (error) {

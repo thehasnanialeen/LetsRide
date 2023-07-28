@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import axios from 'axios';
 import carPicture from '../images/tesla.jpg'; // Replace with actual car photos
 import '../css/ratings.css'; // Import the combined CSS file
 import Header from './header';
 import Footer from './footer';
 
-import React, { useState } from 'react';
+//import React, { useState } from 'react';
 
 const DriverCard = ({ driverName, carPicture }) => {
   return (
@@ -37,14 +38,46 @@ const StarRating = ({ rating, onRate }) => {
 const Ratings = () => {
   const redirect = useHistory(); 
 
+  const driverName = "Aleen Hasnani";
+  const { ride_id, driver_id } = useParams();
   const [user, setUser] = useState(null);
   const [rating, setRating] = useState(0);
+  const [message, setMessage] = useState({
+    message: '',
+    className: '',
+  })
 
-  const handleRate = (value) => {
+  const handleRate = async (value) => {
     setRating(value);
-  };
 
-  const driverName = 'John Doe'; // Replace with the driver's name
+    try{
+      await axios.post('/api/rating/post', {
+        rideId: ride_id,
+        reviewById: user._id,
+        reviewForId: driver_id,
+        ratingValue: value,
+        reviewByRole: 'rider',
+        reviewForRole: 'driver',
+        reviewText: '',
+      })
+      .then((res) => {
+        //console.log(res.data.user);
+        if(res.status == 201)
+        {
+          setMessage({message: 'You have rated this ride successfully!', className: 'success'})
+
+          setTimeout(() => {
+            redirect.push('/recentRidesList');
+          }, 1000);
+        }
+          else{
+            setMessage({message: res.data.message, className: 'error'})
+          }
+      })
+    } catch(error) {
+      setMessage({message: 'Something went wrong. Try again!', className: 'error'})
+    }
+  };
 
   const fetchData = async () => {
     try{
@@ -59,7 +92,7 @@ const Ratings = () => {
           }
       })
     } catch(error) {
-      setMessage([...message, 'Something went wrong. Try again!'])
+      setMessage({message: 'Something went wrong. Try again!', className: 'error'})
     }
   }
 
@@ -68,10 +101,12 @@ const Ratings = () => {
   }, []);
 
   return (
-    <body>
+    <>
+    {user === null ? '' : <>
       <Header> </Header>
     <div className="rating-page">
       <div className="left-side"> 
+      <p className={message.className}>{message.message}</p>
         <DriverCard driverName={driverName} carPicture={carPicture} />
         <div className='leftrating-side'>
        <StarRating rating={rating} onRate={handleRate} /> 
@@ -84,7 +119,8 @@ const Ratings = () => {
       </div>
     </div> 
     <Footer></Footer>
-    </body>
+    </>}
+    </>
   );
 };
 

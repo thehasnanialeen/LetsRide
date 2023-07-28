@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import carImage from '../images/tesla2.jpg'; // assuming you have a separate CSS file for styling
+import carImage from '../images/drivermoney.png'; // assuming you have a separate CSS file for styling
 import Header from './header';
 import Footer from './footer';
-import '../css/regdrivercon.css';
+import '../css/riderconfirmation.css';
 
-const Conmessage = () => {
+const Riderconfirmation = () => {
   const redirect = useHistory(); 
-
   const [user, setUser] = useState(null);
   let [message, setMessage] = useState([]);
 
@@ -16,6 +15,7 @@ const Conmessage = () => {
     try{
       await axios.get('/api/userSession')
       .then((res) => {
+        //console.log(res.data.user);
         if(!res.data.user)
           {
             redirect.push('/');
@@ -36,13 +36,13 @@ const Conmessage = () => {
   return (
     <>
     {user === null ? '' : <>
-    <Header></Header>
+        <Header></Header>
     <div className="page-container">
       <div className="left-side">
         <div className="driver-registration">
-          <h2>Wohoo! Ride Posted </h2>
+          <h2>Ride Confirmation</h2>
           <p>
-            Your Ride has been posted and should recieve attention as soon as users need a ride. We are hopeful you will Have a pleasent Ride! 
+            Your ride has been confirmed. You will receive a confirmation email before your ride.
           </p>
         </div>
       </div>
@@ -56,4 +56,4 @@ const Conmessage = () => {
   );
 };
 
-export default Conmessage;
+export default Riderconfirmation;

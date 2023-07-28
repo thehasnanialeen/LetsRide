@@ -11,7 +11,7 @@ const rideSchema = new mongoose.Schema({
   duration: { type: String },
   numberOfPassengers: { type: Number, max: 5 },
   cost: { type: Number },
-  rideStatus: { type: String, enum: ['booked', 'posted', 'cancelled'], default: 'posted' },
+  rideStatus: { type: String, enum: ['booked', 'posted', 'cancelled', 'completed'], default: 'posted' },
   postTime: { type: Date, default: Date.now, immutable: true }
 });
 

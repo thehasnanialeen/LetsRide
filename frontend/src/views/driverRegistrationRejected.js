@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import carImage from '../images/drivermoney.png'; // assuming you have a separate CSS file for styling
 import Header from './header';
 import Footer from './footer';
 import '../css/regdrivercon.css';
 
-const driverRegistrationRejected = () => {
+const DriverRegistrationRejected = () => {
   const redirect = useHistory(); 
   const [user, setUser] = useState(null);
+  let [message, setMessage] = useState([]);
 
   const fetchData = async () => {
     try{
@@ -32,7 +34,8 @@ const driverRegistrationRejected = () => {
 
   return (
     <>
-        <Header></Header>
+    {user === null ? '' : <>
+    <Header></Header>
     <div className="page-container">
       <div className="left-side">
         <div className="driver-registration">
@@ -50,8 +53,9 @@ const driverRegistrationRejected = () => {
       </div>
     </div>
     <Footer></Footer>
+    </>}
     </>
   );
 };
 
-export default driverRegistrationRejected;
+export default DriverRegistrationRejected;

@@ -10,19 +10,15 @@ const rideDistancePriceController = async (req, res) => {
     })
     .then((response) => {
       response = response.data.route;
-      console.log(response);
-
       const durationArray = response.formattedTime.split(":");
 
       const data = {
         distance: (response.distance * 1.6).toFixed(2),
         cost: (response.distance*1.6*2/9).toFixed(2),
-        duration: {
-          hrs: durationArray[0],
-          mins: durationArray[1],
-          secs: durationArray[2]
-        },
+        duration: durationArray[0] + "hrs " + durationArray[1] + "mins", //+ durationArray[2] + " secs ",
+        durationInSecs: response.time,
       }
+      
       res.status(201).json({ message: 'Route details retrieved successfully', data });
     }, (error) => {
       res.status(500).json({ message: 'Error getting price and distance', error });

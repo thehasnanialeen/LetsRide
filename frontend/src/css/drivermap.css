@@ -9,6 +9,19 @@
     background-size: cover;
     background-position: center;
   }
+
+  .page-container {
+    display: flex;
+  }
+  
+  .left-side {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .right-side {
+    flex: 1;
+  }
   
   .left-column,
   .right-column {

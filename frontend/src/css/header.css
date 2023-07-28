@@ -3,21 +3,28 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: green;
-	color: white;
+	background-color: whitesmoke;
+	color: black;
 	padding: 10px 20px;
   }
 
   
 .headlogo {
-	height: 50px;
-	width: 75px;
+	/* height: 70px; */
+	width: 100px;
   }
   
   .company-name {
-	font-size: 35px;
-	font-weight: bolder; 
-	color: white;
+	font-size: 30px !important;
+	font-weight: bolder !important; 
+	color: rgb(180, 47, 47) !important;
+	flex: 1;
+    text-align: center;
+  }
+
+  .company-name a{
+	color: rgb(85, 25, 25) !important;
+	text-decoration: none !important;
   }
   
   .signup-button {

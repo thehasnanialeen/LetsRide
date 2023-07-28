@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import Header from './header';
 import Footer from './footer';
 import Photo from '../images/elantra.jpg'; 
 import '../css/listofrides.css';
@@ -9,15 +9,13 @@ import '../css/listofrides.css';
 
 const Listofrides = () => {
   const redirect = useHistory(); 
-
-    const [message, setMessage] = useState({
+  const [message, setMessage] = useState({
       message: '',
       className: '',
       })
-
   let [rideDetail, setRideDetail] =  useState([]);
-  
   const [user, setUser] = useState(null);
+
   const fetchData = async () => {
     try{
         await axios.get('/api/userSession')
@@ -43,7 +41,7 @@ const Listofrides = () => {
           {
             setRideDetail(rideDetail = res.data.rides);
 
-            if(rideDetail.length == 0)
+            if(res.data.rides.length == 0)
             {
               setMessage({message: 'No rides available', className: 'error'})
             }
@@ -65,14 +63,14 @@ const Listofrides = () => {
     try{
       await axios.post('/api/rideDetails/updateRider', {
         _id: rideDetail[e.target.id]._id,
-        riderIds: '5412sghh451',
+        riderIds: user._id,
         rideStatus: 'booked',
         numberOfPassengers: rideDetail[e.target.id].numberOfPassengers + 1,
       })
       .then((res) => {
         if(res.status == 200)
         {
-          redirect.push('/conmessage')
+          redirect.push('/riderconfirmation')
         }
         else{
           setMessage({message: res.data.message, className: 'error'})
@@ -83,8 +81,13 @@ const Listofrides = () => {
     }
   }
 
+  const removeRide = (e) => {
+    rideDetail.splice(e.target.id, 1);
+  }
+
   return (
 <>
+{user === null ? '' : <>
         <Header> </Header>      
         <div> 
             <p id='rideconfirmhead'>
@@ -124,12 +127,12 @@ const Listofrides = () => {
                             <p>Drop Off Time:  <span className='answer'> {rideDetails.endTime} </span></p>
                         </div>
                         <div className="info-item">
-                            <p>Price: {rideDetails.cost}</p>
+                            <p>Price: ${((rideDetail.cost / 2) + 50).toFixed(2)}</p>
                         </div>
                     </div>    
                     <div className="confirm-button">
                         <button className='adbuttonlink' id={index} onClick={handleConfirmation}>  Confirm  </button>
-                        <button> <a href='#' className='adbuttonlink'> Ignore </a>  </button> 
+                        <button className='adbuttonlink' id={index} onClick={removeRide}> Ignore  </button> 
                     </div>
                 </div>
             </div>
@@ -138,7 +141,8 @@ const Listofrides = () => {
            }
         </div>    
 
-    <Footer></Footer> // footer 
+    <Footer></Footer>
+    </>}
 </>   // body close 
   ); // return function 
 }; // rideconfirm function 

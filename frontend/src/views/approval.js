@@ -13,6 +13,7 @@ const Approval = () => {
       message: '',
       className: '',
       })
+  const [user, setUser] = useState(null);
   const [drivers, setDrivers] = useState([]);
   const [notes, setNotes] = useState({});
 
@@ -53,7 +54,7 @@ const Approval = () => {
               setMessage({message: 'No drivers for approval', className: 'error'})
             }
             console.log(driversList);
-              setDrivers(driversList);
+            setDrivers(driversList);
             //<Redirect to="/conmessage" />
           }
           else{
@@ -107,6 +108,7 @@ const Approval = () => {
 
   return ( 
 <>
+{user === null ? '' : <>
 <Header> </Header>
 
     <div className="driver-registration-requests">
@@ -114,9 +116,9 @@ const Approval = () => {
       <p className={message.className}>{message.message}</p>
       {drivers.map((driver, index) => (
         <div key={driver._id} className="driver-row"> 
-          <div>
-            <span>{driver.userDetails.firstName}</span> <span>{driver.userDetails.lastName}</span>
-            <span> {driver.user} </span>
+            <div className='table-head'>
+              <span>{driver.userDetails.firstName}</span> <span>{driver.userDetails.lastName}</span>
+              <span> {driver.user} </span>
             </div>
             {/* Additional details table */}
             <table className="additional-details">
@@ -176,14 +178,10 @@ const Approval = () => {
               </tbody>
             </table>
             {/* End of additional details table */}
-            <input
-              type="text"
-              placeholder="Notes (if any)"
-              value={notes[driver.id] || ''}
-              onChange={(e) => handleNotesChange(driver._id, e.target.value)}
-            />
-            <button onClick={() => handleStatus(driver._id, 'approved')}>Approve</button>
-            <button onClick={() => handleStatus(driver._id, 'rejected')}>Decline</button>
+            <div className='buttons-container'> 
+              <button onClick={() => handleStatus(driver._id, 'approved')}>Approve</button>
+              <button onClick={() => handleStatus(driver._id, 'rejected')}>Decline</button>
+            </div>
           </div>
         ))}
         <button className="go-back-button" onClick={handleGoBack}>
@@ -191,6 +189,7 @@ const Approval = () => {
         </button>
       </div>
       <Footer />
+      </>}
     </>
   );
 };

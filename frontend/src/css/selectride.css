@@ -21,6 +21,8 @@
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
+  border: solid yellowgreen 2px;
+  border-radius: 10px;
 }
 
 .form-container h2,

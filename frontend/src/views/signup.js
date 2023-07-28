@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/signup.css';
 import Header from './header';
 import Footer from './footer';
@@ -207,7 +208,7 @@ const Signup = () => {
             <input type="file" name="profilePhoto" onChange={handleFileChange} accept="image/*" />
           </div>
         <div className="form-field">
-            <label>Role:</label>
+            <label className='role-label'>Role:</label>
             <div className="radio-options">
               <label>
                 <input
