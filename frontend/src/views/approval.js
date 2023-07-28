@@ -16,6 +16,7 @@ const Approval = () => {
   const [user, setUser] = useState(null);
   const [drivers, setDrivers] = useState([]);
   const [notes, setNotes] = useState({});
+  const [emailData, setEmailData] = useState(null);
 
   const fetchData = async () => {
     try{
@@ -72,7 +73,7 @@ const Approval = () => {
     setNotes((prevNotes) => ({ ...prevNotes, [driverId]: note }));
   };
 
-  const handleStatus = async (driverId, status) => {
+  const handleStatus = async (driverId, status, index) => {
     const note = notes[driverId];
 
     try{
@@ -85,9 +86,12 @@ const Approval = () => {
         if(res.status == 200)
         {
           setMessage({message: res.data.message, className: 'success'})
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
+          const data = {
+            driver: drivers[index],
+            status: status,
+            adminFeedback: note,
+          }
+          setEmailData(data);
         }
         else{
           //console.log(res.message);
@@ -100,6 +104,38 @@ const Approval = () => {
     }
    
   };
+
+  useEffect(() => {
+    try{
+      await axios.post('/api/sendEmail', {
+        email: emailData.driver.userDetails.email,
+        subject: 'Driver Registration Status Changed',
+        text: `
+        Dear ${ emailData.driver.userDetails.firstName} ${ emailData.driver.userDetails.lastName},
+        
+        We hope this email finds you well. This is to inform that your driver registration has been ${ emailData.status} by our team.
+        
+        Admin Feedback: ${emailData.adminFeedback}.
+        
+        If your registration was rejected and you would like to register again with new details then please reply back to this email.
+        
+        If you have any questions or need any assistance, feel free to reach out to our support team at letsride.help@outlook.com.
+        
+        Thank you for choosing our service. We hope you have a pleasant ride experience.
+        
+        Best regards,
+        Let's Ride Team.
+        `
+      })
+      .then((res) => {
+        setTimeout(() => {
+          setMessage({message: '', className: 'success'})
+        }, 1000);
+      })
+    } catch(error) {
+      console.log(error);
+    }
+  }, [emailData]);
 
   const handleGoBack = () => {
     // Navigate back to the home page
@@ -179,8 +215,8 @@ const Approval = () => {
             </table>
             {/* End of additional details table */}
             <div className='buttons-container'> 
-              <button onClick={() => handleStatus(driver._id, 'approved')}>Approve</button>
-              <button onClick={() => handleStatus(driver._id, 'rejected')}>Decline</button>
+              <button onClick={() => handleStatus(driver._id, 'approved', index)}>Approve</button>
+              <button onClick={() => handleStatus(driver._id, 'rejected', index)}>Decline</button>
             </div>
           </div>
         ))}

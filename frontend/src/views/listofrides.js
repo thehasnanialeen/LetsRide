@@ -15,6 +15,7 @@ const Listofrides = () => {
       })
   let [rideDetail, setRideDetail] =  useState([]);
   const [user, setUser] = useState(null);
+  const [rideDriver, setRideDriver] = useState(null);
 
   const fetchData = async () => {
     try{
@@ -70,7 +71,9 @@ const Listofrides = () => {
       .then((res) => {
         if(res.status == 200)
         {
-          redirect.push('/riderconfirmation')
+          setMessage({message: res.data.message, className: 'success'})
+          //redirect.push('/riderconfirmation')
+          setRideDriver(res.data.rides);
         }
         else{
           setMessage({message: res.data.message, className: 'error'})
@@ -80,6 +83,82 @@ const Listofrides = () => {
       setMessage({message: 'Something went wrong. Try again!', className: 'error'})
     }
   }
+
+  useEffect(() => {
+    try{
+      await axios.post('/api/sendEmail', {
+        email: rideDriver.driverDetails.email,
+        subject: 'Ride Booking Confirmation',
+        text: `
+        Dear ${rideDriver.driverDetails.firstName} ${rideDriver.driverDetails.lastName},
+        
+        We hope this email finds you well. We are excited to inform you that the ride you posted has been booked!
+        
+        Ride Details:
+        - Start Location: ${rideDriver.pickupLocation}
+        - End Location: ${rideDriver.dropLocation}
+        - Start Time: ${rideDriver.startTime}
+        - Estimated Arrival Time: ${rideDriver.endTime}
+
+        Your Rider Details:
+        - Name: ${user.firstName} ${user.lastName}
+        - Email: ${user.email}
+        - Phone: ${user.phoneNumber}
+        
+        Please contact your rider in advance to the ride to schedule a pickup location.
+        
+        If you have any questions or need any assistance, feel free to reach out to our support team at letsride.help@outlook.com.
+        
+        Thank you for choosing our service. We hope you have a pleasant ride experience.
+        
+        Best regards,
+        Let's Ride Team.
+        `
+      })
+      .then((res) => {
+        redirect.push('/riderconfirmation');
+      })
+    } catch(error) {
+      console.log(error);
+    }
+
+    try{
+      await axios.post('/api/sendEmail', {
+        email: user.email,
+        subject: 'Ride Booking Confirmation',
+        text: `
+        Dear ${user.firstName} ${user.lastName},
+        
+        We hope this email finds you well. We are excited to inform your ride has been booked!
+        
+        Ride Details:
+        - Start Location: ${rideDriver.pickupLocation}
+        - End Location: ${rideDriver.dropLocation}
+        - Start Time: ${rideDriver.startTime}
+        - Estimated Arrival Time: ${rideDriver.endTime}
+
+        Your Driver Details:
+        - Name: ${rideDriver.driverDetails.firstName} ${rideDriver.driverDetails.lastName}
+        - Email: ${rideDriver.driverDetails.email}
+        - Phone: ${rideDriver.driverDetails.phoneNumber}
+        
+        Please contact your driver in advance to the ride to schedule a pickup location.
+        
+        If you have any questions or need any assistance, feel free to reach out to our support team at letsride.help@outlook.com.
+        
+        Thank you for choosing our service. We hope you have a pleasant ride experience.
+        
+        Best regards,
+        Let's Ride Team.
+        `
+      })
+      .then((res) => {
+        redirect.push('/riderconfirmation');
+      })
+    } catch(error) {
+      console.log(error);
+    }
+  }, [rideDriver]);
 
   const removeRide = (e) => {
     rideDetail.splice(e.target.id, 1);

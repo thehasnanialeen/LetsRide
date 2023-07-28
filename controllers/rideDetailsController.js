@@ -77,9 +77,26 @@ const rideDetailsController = {
         ride.duration = req.body.duration;
         ride.cost = req.body.cost;
 
-        ride.save();
+        await ride.save();
 
-      res.status(200).json({ message: 'Updated Ride Details Successfully' });
+        const rides = await Ride.aggregate([
+          {
+            $match: { _id: req.body._id }
+          },
+          {
+            $lookup: {
+              from: 'users',
+              localField: 'driverUserID',
+              foreignField: '_id',
+              as: 'driverDetails'
+            }
+          },
+          {
+            $unwind: '$driverDetails'
+          }
+        ]);
+
+      res.status(200).json({ message: 'Updated Ride Details Successfully', rides });
     } catch (error) {
       res.status(500).json({ message: 'Error updating ride details' });
     }
