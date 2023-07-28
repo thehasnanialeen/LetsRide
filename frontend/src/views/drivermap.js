@@ -6,7 +6,8 @@ import Header from './header';
 import Footer from './footer';
 import Photo from '../images/elantra.jpg'; 
 import '../css/drivermap.css';
-import L from 'mapquest';
+//import MapQuest from 'mapquest-api';
+//import L from 'mapquest';
 //import 'mapquest/dist/mapquest.css';
 // import { MapQuest } from 'mapquest-js';
 // import { MapQuestMap, RouteLayer } from 'mapquest-react-components';
@@ -15,7 +16,6 @@ import L from 'mapquest';
 const Drivermap = () => {
     const redirect = useHistory(); 
     console.log("Hello!!!")
-    console.log(L);
 
     //const location = useLocation();
     const {pickupLocation, dropLocation, startTime, numberOfPassengers} = useParams();
@@ -66,13 +66,13 @@ const Drivermap = () => {
                 if(res.status == 201)
                 {
                     console.log(res.data.data);
-                    const endDate = moment(rideData.startTime).add(res.data.data.durationInSecs, 'seconds')
+                    //const endDate = moment(rideData.startTime).add(res.data.data.durationInSecs, 'seconds')
                     const data = {
                         driverUserID: '',
                         pickupLocation: rideData.pickupLocation,
                         dropLocation: rideData.dropLocation,
                         startTime: rideData.startTime,
-                        endTime: endDate,
+                        endTime: rideData.startTime,
                         distance: res.data.data.distance,
                         duration: res.data.data.duration,
                         numberOfPassengers: rideData.numberOfPassengers,
@@ -108,19 +108,19 @@ const Drivermap = () => {
             //     console.error(error);
             //   },
             // });
-            console.log(L.mapquest);
-            L.mapquest.key = '3YMqVrChiwCSOjmf8gy7eSqoCXdD1fjR';
+        //     console.log(L.mapquest);
+        //     L.mapquest.key = '3YMqVrChiwCSOjmf8gy7eSqoCXdD1fjR';
             
-        var map = L.mapquest.map('map', {
-          center: [40.7128, -74.0059],
-          layers: L.mapquest.tileLayer('map'),
-          zoom: 13
-        });
+        // var map = L.mapquest.map('map', {
+        //   center: [40.7128, -74.0059],
+        //   layers: L.mapquest.tileLayer('map'),
+        //   zoom: 13
+        // });
 
-        L.mapquest.directions().route({
-          start: '350 5th Ave, New York, NY 10118',
-          end: 'One Liberty Plaza, New York, NY 10006'
-        });
+        // L.mapquest.directions().route({
+        //   start: '350 5th Ave, New York, NY 10118',
+        //   end: 'One Liberty Plaza, New York, NY 10006'
+        // });
 
     //     var map,
     //     dir;
@@ -144,6 +144,20 @@ const Drivermap = () => {
     //     directions: dir,
     //     fitBounds: true
     //   }));
+//     const mapQuest = new MapQuest({
+//         key: '3YMqVrChiwCSOjmf8gy7eSqoCXdD1fjR',
+//       });
+  
+//       const map = mapQuest.map('map', {
+//         center: [40.7128, -74.0060],
+//         layers: mapQuest.tileLayer('map'),
+//         zoom: 12,
+//       });
+  
+//       mapQuest.directions().route({
+//         start: 'New York, NY',
+//         end: 'Boston, MA',
+//       });
         }
     };
     
@@ -175,20 +189,19 @@ const Drivermap = () => {
 
   return (
     <>
-    <p>Hello!!</p>
     {/* {user === null ||*/ rideDetail === null ? '' : <> 
         <Header> </Header>      
         <div className='page-container'> 
-            <p id='rideconfirmhead'>Ride Selection</p>
+            <p id='rideconfirmhead'>Ride Details</p>
             <p className={message.className}>{message.message}</p>
             <div className='left-side'>
                 <div className="ride-details-container" key={rideDetail._id}>
                     <div className="left-column">
-                        <h2>Ride Details</h2>
-                        <div className="car-image-container">
+                        {/* <h2>Ride Details</h2> */}
+                        {/* <div className="car-image-container">
                             <img src={Photo} alt="Car" />
-                        </div>
-                            <p id='carname'> Hyundai Elantra </p>
+                        </div> */}
+                            {/* <p id='carname'> Hyundai Elantra </p> */}
                         <div className="info-item"> 
                             <p>Destination: {rideDetail.dropLocation} </p>
                         </div>
@@ -223,12 +236,12 @@ const Drivermap = () => {
                     </div>
                 </div>
             </div>
-            <div className="right-side">
-            {/* <MapQuestMap center={[37.7749, -122.4194]} zoom={12}>
+            {/* <div className="right-side">
+            <MapQuestMap center={[37.7749, -122.4194]} zoom={12}>
                 <RouteLayer />
-            </MapQuestMap> */}
+            </MapQuestMap>
             <div id="map" style="width: 100%; height: 530px;"></div>
-            </div> 
+            </div>  */}
         </div>    
         <Footer></Footer>
     </>}
