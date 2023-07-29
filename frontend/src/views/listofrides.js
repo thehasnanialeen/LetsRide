@@ -84,7 +84,7 @@ const Listofrides = () => {
     }
   }
 
-  useEffect(() => {
+  useEffect( async() => {
     try{
       await axios.post('/api/sendEmail', {
         email: rideDriver.driverDetails.email,

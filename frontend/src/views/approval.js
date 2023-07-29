@@ -105,7 +105,7 @@ const Approval = () => {
    
   };
 
-  useEffect(() => {
+  useEffect( async() => {
     try{
       await axios.post('/api/sendEmail', {
         email: emailData.driver.userDetails.email,
