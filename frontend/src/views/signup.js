@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/signup.css';
 import Header from './header';
 import Footer from './footer';
-import { UserFactory, DriverFactory, RiderFactory } from "../../../factory/customerFactory";
+import { UserFactory, DriverFactory, RiderFactory } from "../factory/customerFactory";
 
 const Signup = () => {
   const redirect = useHistory(); 

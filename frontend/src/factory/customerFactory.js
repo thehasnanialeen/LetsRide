@@ -12,7 +12,9 @@ class UserClass {
         this.role = role;
     }
 
-    userSignUp(role);
+    userSignUp(role) {
+        console.log('User Signup:', role);
+    }
 }
 
 class RiderClass extends UserClass {
@@ -46,7 +48,10 @@ class DriverClass extends UserClass {
 }
 
 export class UserFactory {
-    createUser();  // abstract method
+    // abstract method
+    createUser() {
+        console.log('User Factory creating...');
+    }
     async factoryUserSignUp() {
         const userCreated = this.createUser();
         userCreated.userSignup();
