@@ -27,6 +27,7 @@ const Signup = () => {
     confirmPassword: '',
     dateOfBirth: '',
     phoneNumber: '',
+    profilePhoto: '',
     role: 'rider',
   });
 
@@ -76,12 +77,25 @@ const Signup = () => {
       setMessage({ message: 'Invalid phone number. Please enter a 10-digit number.', className: 'error' });
       return;
     }
-
-    if (uploadProfilePhoto())
+    //let uploadedPhoto = false;
+    let proceed = false;
+    const uploadedPhoto = await uploadProfilePhoto();
+    if (uploadedPhoto.status == 200) {
+      setFormData({ ...formData, "profilePhoto": uploadedPhoto.data.filePaths[0] });
+      setFormData({ ...formData, profilePhoto: uploadedPhoto.data.filePaths[0] });
+      
+      if (formData.profilePhoto !== '') {
+        proceed = true;
+      }
+    }
+    else {
+      setMessage([message, uploadedPhoto.data.message]);
+    }
+    
+    if (proceed)
     {
-      // Handle form submission logic here
-      try {
         let userFactory;
+        //let myUser;
         if (formData.role === 'rider') {
           userFactory = new RiderFactory();
         }
@@ -89,14 +103,24 @@ const Signup = () => {
           userFactory = new DriverFactory();
         }
 
-        const signUpAPI = userFactory.factoryUserSignUp();
-
-        signUpAPI
+      const newUser = userFactory.factoryUserCreate(formData.email, formData.password, formData.firstName, formData.lastName, formData.dateOfBirth, formData.phoneNumber, formData.profilePhoto, formData.role);
+      
+      try {
+        await axios.post('/api/authentication/signup', {
+          firstName: newUser.firstName,
+          lastName: newUser.lastName,
+          DOB: newUser.dateOfBirth,
+          email: newUser.email,
+          password: newUser.password,
+          profilePhoto: newUser.profilePhoto,
+          phoneNumber: newUser.phoneNumber,
+          role: newUser.role,
+        })
           .then((res) => {
             if (res.status == 201) {
               setMessage({ message: res.data.message, className: 'success' })
               setTimeout(() => {
-                if (formData.role === 'driver') {
+                if (newUser.role === 'driver') {
                   redirect.push('/regdriver');
                 }
                 else {
@@ -111,6 +135,39 @@ const Signup = () => {
       } catch (error) {
         setMessage({ message: 'Something went wrong. Try again!', className: 'error' })
       }
+         
+      //userFactory = new DriverFactory(formData.email, formData.password, formData.firstName, formData.lastName, formData.dateOfBirth, formData.phoneNumber, formData.profilePhoto, formData.role);
+      // try {
+       
+      //   await axios.post('/api/authentication/signup', {
+      //     firstName: newUser.firstName,
+      //     lastName: newUser.lastName,
+      //     DOB: mydate,
+      //     email: newUser.email,
+      //     password: newUser.password,
+      //     profilePhoto: newUser.profilePhoto,
+      //     phoneNumber: newUser.phoneNumber,
+      //     role: newUser.role,
+      //   })
+      //     .then((res) => {
+      //       if (res.status == 201) {
+      //         setMessage({ message: res.data.message, className: 'success' })
+      //         setTimeout(() => {
+      //           if (newUser.role === 'driver') {
+      //             redirect.push('/regdriver');
+      //           }
+      //           else {
+      //             redirect.push('/login');
+      //           }
+      //         }, 2000);
+      //       }
+      //       else {
+      //         setMessage({ message: res.data.message, className: 'error' })
+      //       }
+      //     })
+      // } catch (error) {
+      //   setMessage({ message: 'Something went wrong. Try again!', className: 'error' })
+      // }
     }
     
   };
@@ -141,28 +198,30 @@ const Signup = () => {
   const uploadProfilePhoto = async () => {
     try {
 
-      const formData = new FormData();
-      formData.append('files', photo.profilePhoto, "-profile." + photo.profilePhoto.name.substring(photo.profilePhoto.name.lastIndexOf('.') + 1));
+      const photoData = new FormData();
+      photoData.append('files', photo.profilePhoto, "-profile." + photo.profilePhoto.name.substring(photo.profilePhoto.name.lastIndexOf('.') + 1));
 
-      return await axios.post('/api/uploadFile', formData, {
+      return await axios.post('/api/uploadFile', photoData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
-        .then((res) => {
-          if (res.status == 200) {
-            setFormData({ ...formData, "profilePhoto": res.data.filePaths[0] });
-
-            if (formData.profilePhoto !== '') {
-              return true;
-            }
-          }
-          else {
-            setMessage([...message, res.data.message]);
-          }
-        })
+        // .then((res) => {
+        //   if (res.status == 200) {
+        //     //console.log(photoData.profilePhoto);
+        //     setFormData({ ...formData, "profilePhoto": res.data.filePaths[0] });
+        //     setFormData({ ...formData, profilePhoto: res.data.filePaths[0] });
+            
+        //     if (formData.profilePhoto !== '') {
+        //       return true;
+        //     }
+        //   }
+        //   else {
+        //     setMessage([message, res.data.message]);
+        //   }
+        // })
     } catch (error) {
-      setMessage([...message, 'Something went wrong while uploading profile. Try again!']);
+      setMessage([message, 'Something went wrong while uploading profile. Try again!']);
     }
   };
 
