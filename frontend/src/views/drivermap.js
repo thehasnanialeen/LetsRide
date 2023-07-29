@@ -15,11 +15,13 @@ import '../css/drivermap.css';
 
 const Drivermap = () => {
     const redirect = useHistory(); 
-    console.log("Hello!!!")
-
+    //console.log("Hello!!!")
+    const currentDate = new Date();
+    const [momentStart, setMomentStart] = useState('');
+    const [momentEnd, setMomentEnd] = useState('');
     //const location = useLocation();
     const {pickupLocation, dropLocation, startTime, numberOfPassengers} = useParams();
-    console.log(pickupLocation + dropLocation + startTime + numberOfPassengers);
+    //console.log(pickupLocation + dropLocation + startTime + numberOfPassengers);
     const rideData = {
         pickupLocation: pickupLocation,
         dropLocation: dropLocation, 
@@ -27,7 +29,8 @@ const Drivermap = () => {
         numberOfPassengers: numberOfPassengers,
     }
     //rideData = JSON.parse(rideData);
-    console.log(rideData);
+    //console.log(rideData);
+    //rideData.startTime = rideData.startTime.toDate();
 
     const [message, setMessage] = useState({
         message: '',
@@ -45,7 +48,7 @@ const Drivermap = () => {
                 console.log(res.data.user);
                 if(!res.data.user)
                 {
-                    //redirect.push('/');
+                    redirect.push('/');
                 }
                 else{
                     setUser(res.data.user);
@@ -65,14 +68,32 @@ const Drivermap = () => {
                 .then((res) => {
                 if(res.status == 201)
                 {
-                    console.log(res.data.data);
-                    //const endDate = moment(rideData.startTime).add(res.data.data.durationInSecs, 'seconds')
+                    console.log(res.data.data.durationInSecs);
+                    let dateNow = moment(rideData.startTime).toDate();
+                    dateNow.setSeconds(dateNow.getSeconds() + res.data.data.durationInSecs);
+                    //const endDate = moment(dateNow);
+                    const endDate = dateNow;
+
+                    const mmomentStart = moment(rideData.startTime);
+                    const mmomentEnd = moment(endDate);
+
+                    setMomentStart(mmomentStart);
+                    setMomentEnd(mmomentEnd);
+
+                    console.log(mmomentEnd.diff(mmomentStart, 'milliseconds'))
+
+                    console.log()
+                    console.log(momentStart);
+                    console.log(momentEnd);
+                    
+                    console.log(endDate);
+                    console.log(rideData.startTime);
                     const data = {
                         driverUserID: '',
                         pickupLocation: rideData.pickupLocation,
                         dropLocation: rideData.dropLocation,
                         startTime: rideData.startTime,
-                        endTime: rideData.startTime,
+                        endTime: endDate,
                         distance: res.data.data.distance,
                         duration: res.data.data.duration,
                         numberOfPassengers: rideData.numberOfPassengers,
@@ -167,8 +188,11 @@ const Drivermap = () => {
 
     const handleConfirmation = async (e) => {
         setRideDetail( {...rideDetail, driverUserID: user._id})
+        // console.log(momentStart);
+        // console.log(momentEnd);
+        // console.log(momentEnd.diff(momentStart, 'milliseconds'));
         try{
-            await axios.post('/api/rideDetails/post', {rideDetail})
+            await axios.post('/api/rideDetails/post', {rideDetail, timeLeft: (momentEnd.diff(momentStart, 'milliseconds')) })
             .then((res) => {
                 if(res.status == 201)
                 {

@@ -5,6 +5,7 @@ const authenticationController = {
   signup: async (req, res) => {
     try {
       const newUser = req.body;
+      newUser.email = newUser.email.toLowerCase();
 
       // Check if the user already exists
       const existingUser = await User.findOne({ email: newUser.email });

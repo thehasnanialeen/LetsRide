@@ -98,17 +98,19 @@ const Selectride = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const date = moment(formData.pickupDate, 'YYYY-MM-DD');
-    //date = moment(date, 'YYYY-MM-DD h:mm a');
-    const time = moment(formData.pickupTime, 'h:mm a');
-    const date_time = moment(`${date} ${time}`, 'YYYY-MM-DD h:mm a')
+    // const date = moment(formData.pickupDate, 'YYYY-MM-DD');
+    // //date = moment(date, 'YYYY-MM-DD h:mm a');
+    // const time = moment(formData.pickupTime, 'h:mm a');
+    // const date_time = moment(`${date} ${time}`, 'YYYY-MM-DD h:mm a')
     //form validation
+    console.log(formData.pickupDate);
+    console.log(formData.pickupTime);
     
     //if form passes validation
     const data = {
       pickupLocation: formData.startLocation,
       dropLocation: formData.destination,
-      startTime: date_time,
+      startTime: formData.pickupDate + 'T' + formData.pickupTime,
       numberOfPassengers: formData.passengerCount,
     }
     setDataToSend(data);

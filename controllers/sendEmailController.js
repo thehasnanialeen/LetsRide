@@ -18,7 +18,7 @@ const sendEmailController = async (req, res) => {
     from: 'letsride.help@outlook.com',
     to: email,
     subject,
-    text,
+    html: text,
   };
 
   // Send the email
