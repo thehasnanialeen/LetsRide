@@ -181,7 +181,7 @@ const Regdriver = () => {
       if(formData.carRegistrationExpiration <= today.toLocaleDateString('en-CA'))
       {
         valid = false;
-        arr.push('Expired Car Registration is not accepted');
+        arr.push('Expired Car Registration is not accepted'); 
       }
       if(formData.year > today.getFullYear())
       {
@@ -250,7 +250,7 @@ const Regdriver = () => {
             </div>
             <div className="form-field">
               <label>Year:</label>
-              <input type="number" name="year" value={formData.year} onChange={handleChange}/>
+              <input type="number" name="year" min={1980} max={2024}  value={formData.year} onChange={handleChange}/>
             </div>
             <div className="form-field">
               <label>VIN:</label>
@@ -278,7 +278,7 @@ const Regdriver = () => {
             <div className="form-submit">
               {/* <button type="submit"> <a href='/regdrivercon' id='regdriverconlink'>Submit</a></button> */}
               <button type="submit" id='regdriverconlink'>Submit</button>
-            </div>
+            </div> 
           </form>
         </div>
       </div>
