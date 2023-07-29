@@ -250,7 +250,7 @@ const Regdriver = () => {
             </div>
             <div className="form-field">
               <label>Year:</label>
-              <input type="text" name="year" value={formData.year} onChange={handleChange}/>
+              <input type="number" name="year" value={formData.year} onChange={handleChange}/>
             </div>
             <div className="form-field">
               <label>VIN:</label>

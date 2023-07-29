@@ -3,7 +3,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: whitesmoke;
+	background-color: green;
 	color: black;
 	padding: 10px 20px;
   }
@@ -23,7 +23,7 @@
   }
 
   .company-name a{
-	color: rgb(85, 25, 25) !important;
+	color: white !important;
 	text-decoration: none !important;
   }
   
