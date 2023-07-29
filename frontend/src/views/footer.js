@@ -25,7 +25,7 @@ const Footer = () => {
           </div>
           <div className="social-icons">
             <a
-              href="https://github.com/noahstaz/AgTech2023.git"
+              href="https://github.com/thehasnanialeen/LetsRide"
               target="_blank"
               className="icon-link"
             >

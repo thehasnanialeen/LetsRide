@@ -198,7 +198,7 @@ const Drivermap = () => {
                 {
                     setMessage({message: res.data.message, className: 'success'});
                     setTimeout(() => {
-                        redirect.push('/selectride');
+                        redirect.push('/conmessage');
                     }, 1000);
                 }
                 else{
