@@ -14,13 +14,13 @@ class UserClass {
         this.role = role;
     }
 
-    userSignUp(role) {
-        console.log('User Signup:', role);
+    userSignUp() {
+        console.log('User Signup:', this.role);
     }
 }
 
 class RiderClass extends UserClass {
-    async userSignUp(role) {
+    async userSignUp() {
         await axios.post('/api/authentication/signup', {
             firstName: this.firstName,
             lastName: this.lastName,
@@ -29,13 +29,13 @@ class RiderClass extends UserClass {
             password: this.password,
             profilePhoto: this.profilePhoto,
             phoneNumber: this.phoneNumber,
-            role,
+            role: 'rider',
         })
     }
 }
 
 class DriverClass extends UserClass {
-    async userSignUp(role) {
+    async userSignUp() {
         await axios.post('/api/authentication/signup', {
             firstName: this.firstName,
             lastName: this.lastName,
@@ -44,7 +44,7 @@ class DriverClass extends UserClass {
             password: this.password,
             profilePhoto: this.profilePhoto,
             phoneNumber: this.phoneNumber,
-            role,
+            role: 'driver',
         })
     }
 }
