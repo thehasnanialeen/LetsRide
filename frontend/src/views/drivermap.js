@@ -200,7 +200,7 @@ const Drivermap = () => {
                         {/* <h2>Ride Details</h2> */}
                         {/* <div className="car-image-container">
                             <img src={Photo} alt="Car" />
-                        </div> */}
+                        </div> */} 
                             {/* <p id='carname'> Hyundai Elantra </p> */}
                         <div className="info-item"> 
                             <p>Destination: {rideDetail.dropLocation} </p>
@@ -208,15 +208,16 @@ const Drivermap = () => {
                         <div className="info-item"> 
                             <p>Pick Up Location:  {rideDetail.pickupLocation}  </p>
                         </div>
+                        <div className="info-item"> 
+                            <p className=''>No of Passengers: <span className='answer'> {rideDetail.numberOfPassengers} </span>  </p>
+                        </div> 
+                        <div className="info-item"> 
+                            <p>Distance: <span className='answer'> {rideDetail.distance} Km</span></p>
+                        </div>
                     </div> 
                     <div className="right-column">  
                         <div className='userdetails'> 
-                            <div className="info-item"> 
-                                <p className=''>No of Passengers: <span className='answer'> {rideDetail.numberOfPassengers} </span>  </p>
-                            </div> 
-                            <div className="info-item"> 
-                                <p>Distance: <span className='answer'> {rideDetail.distance} Km</span></p>
-                            </div>
+                            
                             <div className="info-item">
                                 <p>Duration: <span className='answer'> {rideDetail.duration} </span></p>
                             </div>

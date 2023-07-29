@@ -19,10 +19,11 @@
 
 .form-container {
   max-width: 400px;
-  margin: 0 auto;
   padding: 20px;
   border: solid yellowgreen 2px;
   border-radius: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .form-container h2,

@@ -1,4 +1,4 @@
-import '../css/selectride.css'; // assuming you have a separate CSS file for styling
+import '../css/regdriver.css'; // assuming you have a separate CSS file for styling
 import Header from './header';
 import Footer from './footer';
 import React, { useState, useEffect } from 'react';
@@ -207,9 +207,9 @@ const Regdriver = () => {
   <>
   {user === null ? '' : <>
    <Header> </Header>
-    <div className="page-container">
+    <div className="total">
       <div className="left-side">
-        <div className="form-container">
+        <div className="dabba">
           <h2>Driver Registration</h2>
           {message.map((error, index) => (
             <p className="error" key={index}>{error}</p>
