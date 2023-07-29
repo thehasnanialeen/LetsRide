@@ -25,7 +25,17 @@ const Selectride = () => {
     passengerCount: '1',
     pickupTime: '',
     pickupDate: '',
+  })
+
+  const [formErrors, setFormErrors] = useState({
+    startLocation: '',
+    destination: '',
+    passengerCount: '',
+    pickupTime: '',
+    pickupDate: '',
   });
+
+  
 
   const [dataToSend, setDataToSend] = useState(null);
 
@@ -96,8 +106,65 @@ const Selectride = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  // const handleBlur = (e) => {
+  //   const { name, value } = e.target;
+  //     console.log(value.trim()+" " + !value.trim())
+  //   if (!value.trim()) {
+  //     setFormErrors({ ...formErrors, [name]: 'This field is required' });
+  //   } 
+    
+  // };
+
+  // const isFormValidd = () => {
+  //   return Object.values(formErrors).every((error) => error === '');
+  // };
+
+  const handleSubmit =  (e) => {
     e.preventDefault();
+    //const today = new Date()
+    // // let isFormValid = true;
+    // if (!isFormValidd()) {
+    //   setMessage({ message: 'Please fill in all the fields.', className: 'error' });
+    //   // isFormValid = false;
+    // }
+    // else if (formData.pickupDate <= today.toLocaleDateString('en-CA'))
+    // {
+    //   setMessage({ message: 'Travel date not accepted', className: 'error' });
+    //   // isFormValid = false;
+    //   setFormErrors({ ...formErrors, [name]: 'This field is required' });
+    // }
+
+    let arr = [];
+    let valid = true;
+    const today = new Date();
+
+    if (
+      formData.startLocation.trim() === '' ||
+      formData.destination.trim() === '' ||
+      formData.passengerCount.trim() === '' ||
+      formData.pickupTime.trim() === '' ||
+      formData.pickupDate.trim() === ''
+    ) {
+      valid = false;
+      arr.push('Please fill in all the fields.');
+    }
+    else{
+      if(formData.pickupDate <= today.toLocaleDateString('en-CA'))
+      {
+        valid = false;
+        arr.push('Travel date not accepted');
+      }
+    }
+
+    if(arr.length != 0)
+    {
+      setMessage({ message: arr[0], className: 'error' });
+    }
+
+    if(valid === true)
+    {
+    // if (isFormValid === true){
+
     // const date = moment(formData.pickupDate, 'YYYY-MM-DD');
     // //date = moment(date, 'YYYY-MM-DD h:mm a');
     // const time = moment(formData.pickupTime, 'h:mm a');
@@ -114,6 +181,7 @@ const Selectride = () => {
       numberOfPassengers: formData.passengerCount,
     }
     setDataToSend(data);
+   }
   };
 
   useEffect(() => {
@@ -142,29 +210,34 @@ const Selectride = () => {
           <form>
             <div className="form-field">
               <label>Start location:</label>
-              <input type="text" name="startLocation" placeholder='Street, City, Province, Postal code ' value={formData.startLocation} onChange={handleChange}/>
+              <input type="text" name="startLocation" placeholder='Street, City, Province, Postal code ' value={formData.startLocation} onChange={handleChange} />
+              {formErrors.startLocation && <span className="error-message">{formErrors.startLocation}</span>}
             </div>
             <div className="form-field">
               <label>Destination:</label>
-              <input type="text" name="destination"  placeholder='Street, City, Province, Postal code ' value={formData.destination} onChange={handleChange}/>
+              <input type="text" name="destination"  placeholder='Street, City, Province, Postal code ' value={formData.destination} onChange={handleChange} />
+              {formErrors.destination && <span className="error-message">{formErrors.destination}</span>}
             </div>
             <div className="form-field">
               <label>Number of Passengers:</label>
-              <select name="passengerCount" value={formData.passengerCount} onChange={handleChange}>
+              <select name="passengerCount" value={formData.passengerCount} onChange={handleChange} >
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
               </select>
+              {formErrors.passengerCount && <span className="error-message">{formErrors.passengerCount}</span>}
             </div>
             <div className="form-field">
               <label>Start time:</label>
-              <input type="time" name="pickupTime" value={formData.pickupTime} onChange={handleChange}/>
+              <input type="time" name="pickupTime" value={formData.pickupTime} onChange={handleChange} />
+              {formErrors.pickupTime && <span className="error-message">{formErrors.pickupTime}</span>}
             </div>
             <div className="form-field">
               <label>Start date:</label>
-              <input type="date" name="pickupDate" value={formData.pickupDate} onChange={handleChange}/>
+              <input type="date" name="pickupDate" value={formData.pickupDate} onChange={handleChange} />
+              {formErrors.pickupDate && <span className="error-message">{formErrors.pickupDate}</span>}
             </div>
             <div className="form-submit">
               {/* <button type="submit"> <a href='/conmessage' id='rideconfirmlink'> Submit </a></button> */}

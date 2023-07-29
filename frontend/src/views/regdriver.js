@@ -1,4 +1,4 @@
-import '../css/selectride.css'; // assuming you have a separate CSS file for styling
+import '../css/regdriver.css'; // assuming you have a separate CSS file for styling
 import Header from './header';
 import Footer from './footer';
 import React, { useState, useEffect } from 'react';
@@ -181,7 +181,7 @@ const Regdriver = () => {
       if(formData.carRegistrationExpiration <= today.toLocaleDateString('en-CA'))
       {
         valid = false;
-        arr.push('Expired Car Registration is not accepted');
+        arr.push('Expired Car Registration is not accepted'); 
       }
       if(formData.year > today.getFullYear())
       {
@@ -207,9 +207,9 @@ const Regdriver = () => {
   <>
   {user === null ? '' : <>
    <Header> </Header>
-    <div className="page-container">
+    <div className="total">
       <div className="left-side">
-        <div className="form-container">
+        <div className="dabba">
           <h2>Driver Registration</h2>
           {message.map((error, index) => (
             <p className="error" key={index}>{error}</p>
@@ -250,7 +250,7 @@ const Regdriver = () => {
             </div>
             <div className="form-field">
               <label>Year:</label>
-              <input type="text" name="year" value={formData.year} onChange={handleChange}/>
+              <input type="number" name="year" min={1980} max={2024}  value={formData.year} onChange={handleChange}/>
             </div>
             <div className="form-field">
               <label>VIN:</label>
@@ -278,7 +278,7 @@ const Regdriver = () => {
             <div className="form-submit">
               {/* <button type="submit"> <a href='/regdrivercon' id='regdriverconlink'>Submit</a></button> */}
               <button type="submit" id='regdriverconlink'>Submit</button>
-            </div>
+            </div> 
           </form>
         </div>
       </div>
