@@ -142,7 +142,7 @@ const Signup = () => {
     try {
 
       const formData = new FormData();
-      formData.append('files', photo.profilePhoto, user._id + "-profile." + photo.profilePhoto.name.substring(photo.profilePhoto.name.lastIndexOf('.') + 1));
+      formData.append('files', photo.profilePhoto, "-profile." + photo.profilePhoto.name.substring(photo.profilePhoto.name.lastIndexOf('.') + 1));
 
       return await axios.post('/api/uploadFile', formData, {
         headers: {

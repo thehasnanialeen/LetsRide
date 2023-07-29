@@ -1,5 +1,7 @@
+import axios from 'axios';
+
 class UserClass {
-    constructor(email, password, firstName, lastName, dateOfBirth, phoneNumber, role) {
+    constructor(email, password, firstName, lastName, dateOfBirth, phoneNumber, profilePhoto, role) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
